@@ -32,6 +32,7 @@ private:
 	float _width = 30, _height = 30; // 웜즈 충돌 범위
 	float _speed; // 웜즈의 이동 속도
 	float _x, _y; // 웜즈의 중점
+	int _offsetClimb; // 오를 수 있는 픽셀 차
 	float _gravity; // 현재 받고 있는 중력
 	RECT _rc; // 충돌 범위
 

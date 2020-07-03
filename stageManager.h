@@ -22,7 +22,6 @@ private:
 	int _offsetBG; // 배경 이미지 LOOP 이동 변수
 	float _zoom; // 카메라 배율
 	HDC _stageDC; // 스테이지 이미지, 폭파 등 이미지 변경이 이루어질 수 있기에 따로 저장
-	HDC _seaDC; // 바다 이미지, 바다가 출렁출렁하게끔...
 
 	// **** 디버깅용 변수들
 	HDC _tempDC;

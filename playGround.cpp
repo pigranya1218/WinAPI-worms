@@ -37,7 +37,7 @@ HRESULT playGround::init()
 
 	// 씬 추가
 	SCENE_MANAGER->addScene("StageScene", new stageScene);
-	dynamic_cast<stageScene*>(SCENE_MANAGER->findScene("StageScene"))->init(2, 8, 60); // 개발용...
+	dynamic_cast<stageScene*>(SCENE_MANAGER->findScene("StageScene"))->init(1, 1, 60); // 개발용...
 	SCENE_MANAGER->changeScene("StageScene");
 
 	return S_OK;

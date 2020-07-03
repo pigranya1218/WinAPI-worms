@@ -48,14 +48,16 @@ void stageManager::update()
 
 void stageManager::render()
 {
+	int width = IMAGE_MANAGER->findImage("STAGE")->getWidth();
+	int height = IMAGE_MANAGER->findImage("STAGE")->getHeight();
+
 	// 배경 그리기
-	RECT backRect = { 0, 0, IMAGE_MANAGER->findImage("BACKGROUND")->getWidth(), IMAGE_MANAGER->findImage("BACKGROUND")->getHeight()};
-	CAMERA_MANAGER->loopRender(getMemDC(), IMAGE_MANAGER->findImage("BACKGROUND"), backRect, _offsetBG, 0);
+	RECT bgRect = { 0, 0, width, height};
+	CAMERA_MANAGER->loopRender(getMemDC(), IMAGE_MANAGER->findImage("BACKGROUND"), bgRect, _offsetBG, 0);
 
 	// 땅 그리기
-	CAMERA_MANAGER->render(getMemDC(), _stageDC, 0, 0, IMAGE_MANAGER->findImage("STAGE")->getWidth(), IMAGE_MANAGER->findImage("STAGE")->getHeight(), true, RGB(255, 0, 255));
+	CAMERA_MANAGER->render(getMemDC(), _stageDC, 0, 0, width, height, true, RGB(255, 0, 255));
 	
-	CAMERA_MANAGER->zoom(getMemDC(), _zoom);
 	// CAMERA_MANAGER->render(getMemDC(), _tempDC, 0, 0, IMAGE_MANAGER->findImage("STAGE")->getWidth(), IMAGE_MANAGER->findImage("STAGE")->getHeight());
 }
 
@@ -76,20 +78,11 @@ void stageManager::makeWorld() // 맵 복사
 	int width = IMAGE_MANAGER->findImage("STAGE")->getWidth();
 	int height = IMAGE_MANAGER->findImage("STAGE")->getHeight();
 	_stageDC = CreateCompatibleDC(getMemDC());
-	HBITMAP originBitMap = static_cast<HBITMAP>(SelectObject(_stageDC, (HBITMAP)CreateCompatibleBitmap(getMemDC(), 
-		width, height - 167)));
+	HBITMAP originBitMap = static_cast<HBITMAP>(SelectObject(_stageDC, (HBITMAP)CreateCompatibleBitmap(getMemDC(), width, height)));
 	
-	BitBlt(_stageDC, 0, 0, width, height - 167,
+	BitBlt(_stageDC, 0, 0, width, height,
 		IMAGE_MANAGER->findImage("STAGE")->getMemDC(), 0, 0, SRCCOPY);
 
-	// 바다 이미지
-	_seaDC = CreateCompatibleDC(getMemDC());
-	HBITMAP originBitMap = static_cast<HBITMAP>(SelectObject(_stageDC, (HBITMAP)CreateCompatibleBitmap(getMemDC(),
-		IMAGE_MANAGER->findImage("STAGE")->getWidth(), 167)));
-
-	BitBlt(_stageDC, 0, height - 167, width, 167,
-		IMAGE_MANAGER->findImage("STAGE")->getMemDC(), 0, 0, SRCCOPY);
-	
 	DeleteObject(originBitMap);
 }
 

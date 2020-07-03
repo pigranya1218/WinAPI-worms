@@ -1,4 +1,2 @@
-﻿  moveState.cpp
-c:\users\kga_18\desktop\winapi-worms\movestate.cpp(53): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kga_18\desktop\winapi-worms\movestate.cpp(56): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+﻿  playGround.cpp
   windowsAPI.vcxproj -> C:\Users\KGA_18\Desktop\WinAPI-worms\x64\Debug\windowsAPI.exe
