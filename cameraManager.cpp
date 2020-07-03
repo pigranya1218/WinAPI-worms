@@ -25,17 +25,17 @@ void cameraManager::setConfig(float L, float T, float width, float height, float
 	_T = T;
 	_width = width;
 	_height = height;
-	_minL = minL;
-	_minT = minT;
-	_maxL = maxL;
-	_maxT = maxT;
+	_originMinL = _minL = minL;
+	_originMinT = _minT = minT;
+	_originMaxL = _maxL = maxL;
+	_originMaxT = _maxT = maxT;
 
 	_x = _L + (_width / 2);
 	_y = _T + (_height / 2);
-	_minX = _minL + (_width / 2);
-	_minY = _minT + (_height / 2);
-	_maxX = _maxL + (_width / 2);
-	_maxY = _maxT + (_height / 2);
+	_originMinX = _minX = _minL + (_width / 2);
+	_originMinY = _minY = _minT + (_height / 2);
+	_originMaxX = _maxX = _maxL + (_width / 2);
+	_originMaxY = _maxY = _maxT + (_height / 2);
 }
 
 void cameraManager::setConfigCenter(float x, float y, float width, float height, float minX, float minY, float maxX, float maxY)
@@ -44,17 +44,17 @@ void cameraManager::setConfigCenter(float x, float y, float width, float height,
 	_y = y;
 	_width = width;
 	_height = height;
-	_minX = minX;
-	_minY = minY;
-	_maxX = maxX;
-	_maxY = maxY;
+	_originMinX = _minX = minX;
+	_originMinY = _minY = minY;
+	_originMaxX =_maxX = maxX;
+	_originMaxY = _maxY = maxY;
 
 	_L = _x - (width / 2);
 	_T = _y - (height / 2);
-	_minL = _minX - (width / 2);
-	_minT = _minY - (height / 2);
-	_maxL = _maxX - (width / 2);
-	_maxT = _minY - (height / 2);
+	_originMinL = _minL = _minX - (width / 2);
+	_originMinT = _minT = _minY - (height / 2);
+	_originMaxL = _maxL = _maxX - (width / 2);
+	_originMaxT = _maxT = _minY - (height / 2);
 }
 
 float cameraManager::getL()
@@ -127,10 +127,23 @@ float cameraManager::getRelativeL(float left)
 	return newL;
 }
 
+LONG cameraManager::getRelativeL(LONG left)
+{
+	LONG newL = left - _L;
+	return newL;
+}
+
+
 // 카메라의 TOP을 기준으로 상대좌표 top값을 구함
 float cameraManager::getRelativeT(float top)
 {
 	float newT = top - _T;
+	return  newT;
+}
+
+LONG cameraManager::getRelativeT(LONG top)
+{
+	LONG newT = top - _T;
 	return  newT;
 }
 
@@ -141,6 +154,12 @@ void cameraManager::rectangle(HDC hdc, TTYONE_UTIL::MYRECT mrec)
 	Rectangle(hdc, rect);
 }
 
+void cameraManager::rectangle(HDC hdc, RECT rec)
+{
+	RECT rect = { getRelativeL(rec.left), getRelativeT(rec.top), getRelativeL(rec.right), getRelativeT(rec.bottom) };
+	Rectangle(hdc, rect);
+}
+
 // 동그라미 그리기 MYRECT 사용
 void cameraManager::ellipse(HDC hdc, TTYONE_UTIL::MYRECT mrec)
 {
@@ -148,10 +167,16 @@ void cameraManager::ellipse(HDC hdc, TTYONE_UTIL::MYRECT mrec)
 	Ellipse(hdc, rect);
 }
 
+void cameraManager::ellipse(HDC hdc, RECT rec)
+{
+	RECT rect = { getRelativeL(rec.left), getRelativeT(rec.top), getRelativeL(rec.right), getRelativeT(rec.bottom) };
+	Ellipse(hdc, rect);
+}
+
 void cameraManager::render(HDC hdc, image * img)
 {
-	float newL = getRelativeL(0);
-	float newT = getRelativeT(0);
+	float newL = getRelativeL(static_cast<float>(0));
+	float newT = getRelativeT(static_cast<float>(0));
 	if (img) img->render(hdc, newL, newT);
 }
 
@@ -169,11 +194,24 @@ void cameraManager::render(HDC hdc, image * img, float destX, float destY, float
 	if (img) img->render(hdc, newL, newT, sourX, sourY, sourWidth, sourHeight);
 }
 
-void cameraManager::render(HDC hdc, HDC originDC, float destX, float destY, float width, float height)
+void cameraManager::render(HDC hdc, HDC originDC, float destX, float destY, float width, float height, bool trans, COLORREF rgb)
 {
 	float newL = getRelativeL(destX);
 	float newT = getRelativeT(destY);
-	BitBlt(hdc, newL, newT, width, height, originDC, 0, 0, SRCCOPY);
+	if (trans)
+	{
+		TransparentBlt(hdc, newL, newT, width, height, originDC, 0, 0, width, height, rgb);
+	}
+	else
+	{
+		BitBlt(hdc, newL, newT, width, height, originDC, 0, 0, SRCCOPY);
+	}
+}
+
+void cameraManager::loopRender(HDC hdc, image* img, RECT drawArea, int offSetX, int offSetY)
+{
+	RECT newRECT = { getRelativeL(drawArea.left), getRelativeT(drawArea.top), getRelativeL(drawArea.right) , getRelativeT(drawArea.bottom) };
+	img->loopRender(hdc, newRECT, offSetX, offSetY);
 }
 
 void cameraManager::frameRender(HDC hdc, image * img, float destX, float destY)
@@ -190,6 +228,14 @@ void cameraManager::frameRender(HDC hdc, image * img, float destX, float destY, 
 	if (img) img->frameRender(hdc, newL, newT, frameX, frameY);
 }
 
+void cameraManager::aniRender(HDC hdc, image * img, int destX, int destY, animation * ani, bool leftRightInverse)
+{
+	float newL = getRelativeL(static_cast<float>(destX));
+	float newT = getRelativeT(static_cast<float>(destY));
+
+	img->render(hdc, newL, newT, ani->getFramePos().x, ani->getFramePos().y, ani->getFrameWidth(), ani->getFrameHeight(), leftRightInverse);
+}
+
 void cameraManager::zoom(HDC hdc, float ratio)
 {
 	if (ratio == 1) return;
@@ -197,12 +243,24 @@ void cameraManager::zoom(HDC hdc, float ratio)
 	float newWidth = (float)_width / ratio;
 	float newHeight = (float)_height / ratio;
 
+	float widthDistance = (_width - newWidth) / 2;
+	float heightDistance = (_height - newHeight) / 2;
+
+	_minL = _originMinL - widthDistance;
+	_maxL = _originMaxL + widthDistance;
+	_minT = _originMinT - heightDistance;
+	_maxT = _originMaxT + heightDistance;
+
+	_minX = _originMinX - widthDistance;
+	_maxX = _originMaxX + widthDistance;
+	_minY = _originMinY - heightDistance;
+	_maxY = _originMaxY + heightDistance;
+
 	float zoomL = WINSIZEX / 2 - (newWidth / 2);
 	float zoomT = WINSIZEY / 2 - (newHeight / 2);
 
 	StretchBlt(hdc, 0, 0, _width, _height,
 		hdc, zoomL, zoomT, newWidth, newHeight,
 		SRCCOPY);
-
 	// 위 과정을 통한 Zoom 구현
 }

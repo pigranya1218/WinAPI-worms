@@ -17,12 +17,27 @@ HRESULT playGround::init()
 	gameNode::init(true);
 
 	// 모든 이미지, 애니메이션, 음악 추가
+	// * 스테이지 관련
 	IMAGE_MANAGER->addImage("BACKGROUND", "resources/images/background.bmp", 2000, 1125, false, NULL);
 	IMAGE_MANAGER->addImage("STAGE", "resources/images/bigMap.bmp", 2000, 1125, true, RGB(255, 0, 255));
+	// * 웜즈 애니메이션 관련
+	// ** IDLE
+	// *** BIG HEAD
+	IMAGE_MANAGER->addFrameImage("IDLE_BIGHEAD_NORMAL", "resources/images/wbghead.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("IDLE_BIGHEAD_DOWN", "resources/images/wbgheadd.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("IDLE_BIGHEAD_UP", "resources/images/wbgheadu.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
+	
+	// ** MOVE
+	IMAGE_MANAGER->addFrameImage("MOVE_NORMAL", "resources/images/wwalk.bmp", 60, 900, 1, 15, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("MOVE_DOWN", "resources/images/wwalkd.bmp", 60, 900, 1, 15, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("MOVE_UP", "resources/images/wwalku.bmp", 60, 900, 1, 15, true, RGB(128, 128, 192));
+
+	
+	// ** ATTACK
 
 	// 씬 추가
 	SCENE_MANAGER->addScene("StageScene", new stageScene);
-	dynamic_cast<stageScene*>(SCENE_MANAGER->findScene("StageScene"))->init(2, 1, 60); // 개발용...
+	dynamic_cast<stageScene*>(SCENE_MANAGER->findScene("StageScene"))->init(2, 8, 60); // 개발용...
 	SCENE_MANAGER->changeScene("StageScene");
 
 	return S_OK;

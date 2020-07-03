@@ -36,9 +36,9 @@ void wormManager::setStageManager(stageManager * stageManager)
 	_stageManager = stageManager;
 }
 
-void wormManager::addWorms(float x, float y)
+void wormManager::addWorms(int index, float x, float y)
 {
 	worm* newWorm = new worm;
-	newWorm->init(x, y);
+	newWorm->init(_stageManager, index, x, y);
 	_worms.push_back(newWorm);
 }

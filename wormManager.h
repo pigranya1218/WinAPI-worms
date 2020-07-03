@@ -20,6 +20,6 @@ public:
 	virtual void render();
 
 	void setStageManager(stageManager* stageManager);
-	void addWorms(float x, float y);
+	void addWorms(int index, float x, float y);
 };
 

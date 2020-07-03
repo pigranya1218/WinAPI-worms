@@ -3,6 +3,8 @@
 class idleState : public state
 {
 private:
+	image* _img;
+	animation* _ani;
 
 public:
 	idleState() {}

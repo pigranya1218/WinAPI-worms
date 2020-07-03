@@ -93,14 +93,17 @@ public:
 
 	//·»´õÇÔ¼ö(»Ñ·ÁÁúDC, ±×·ÁÁú ÁÂÇ¥X(left), ±×·ÁÁú ÁÂÇ¥Y(top), °¡Á®¿ÃÁÂÇ¥X, °¡Á®¿ÃÁÂÇ¥Y, °¡Á®¿Ã °¡·ÎÅ©±â, °¡Á®¿Ã ¼¼·ÎÅ©±â)
 	void render(HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight);
+	void render(HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight, bool leftRightInverse);
 	
 	//ÀÌ¹ÌÁö ÇÁ·¹ÀÓ ·»´õ(»Ñ·ÁÁúDC, ±×·ÁÁú ÁÂÇ¥(left), ±×·ÁÁú ÁÂÇ¥(top))
 	void frameRender(HDC hdc, int destX, int destY);
 
 	//ÀÌ¹ÌÁö ÇÁ·¹ÀÓ ·»´õ(»Ñ·ÁÁúDC, ±×·ÁÁú ÁÂÇ¥(left), ±×·ÁÁú ÁÂÇ¥(top), ÇöÀç ÇÁ·¹ÀÓ °¡·Î¹øÈ£, ÇöÀç ÇÁ·¹ÀÓ ¼¼·Î¹øÈ£)
 	void frameRender(HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY);
+	void frameRender(HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY, bool leftRightInverse);
 
 	void loopRender(HDC hdc, const LPRECT drawArea, int offSetX, int offSetY);
+	void loopRender(HDC hdc, RECT drawArea, int offSetX, int offSetY);
 
 	//¾ËÆÄ·»´õ (»Ñ·ÁÁúDC, ¾ËÆÄ°ª(0 ~ 255))
 	void alphaRender(HDC hdc, BYTE alpha);

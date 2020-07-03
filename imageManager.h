@@ -29,6 +29,7 @@ public:
 	//이미지 찾는 함수 (중요)
 	image* findImage(string strKey);
 
+
 	BOOL deleteImage(string strKey);
 	
 	BOOL deleteAll();

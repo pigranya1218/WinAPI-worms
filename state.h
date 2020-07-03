@@ -1,11 +1,17 @@
 #pragma once
+#include "gameNode.h"
+
 
 class worm;
+enum class SLOPE;
 
-class state
+class state : public gameNode
 {
-private:
+protected:
+	string getImageKey(string key, SLOPE slope);
 
+private:
+	
 
 public:
 	state() {}

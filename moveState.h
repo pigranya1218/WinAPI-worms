@@ -4,6 +4,8 @@
 class moveState : public state
 {
 private:
+	image* _img;
+	animation* _ani;
 
 public:
 	moveState() {}

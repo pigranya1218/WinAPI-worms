@@ -3,7 +3,9 @@
 
 HRESULT stageScene::init(int playerNum, int wormsPerPlayer, int turnTime)
 {
-	CAMERA_MANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 2000 - WINSIZEX, 1125 - WINSIZEY);
+	CAMERA_MANAGER->setConfig(20, 20, WINSIZEX, WINSIZEY, 20, 20, (2000 - 20) - WINSIZEX, (1125 - 20) - WINSIZEY);
+
+	_zoom = 1;
 
 	_stageManager = new stageManager;
 	_stageManager->init(playerNum, wormsPerPlayer, turnTime);
@@ -39,6 +41,18 @@ void stageScene::update()
 	_wormManager->update();
 	_projectileManager->update();
 	_itemManager->update();
+
+	if (KEY_MANAGER->isStayKeyDown('Z'))
+	{
+		_zoom = min(2, _zoom + 0.01);
+	}
+	if (KEY_MANAGER->isStayKeyDown('X'))
+	{
+		_zoom = max(1, _zoom - 0.01);
+	}
+
+	CAMERA_MANAGER->setX(CAMERA_MANAGER->getX());
+	CAMERA_MANAGER->setY(CAMERA_MANAGER->getY());
 }
 
 void stageScene::render()
@@ -47,4 +61,5 @@ void stageScene::render()
 	_wormManager->render();
 	_projectileManager->render();
 	_itemManager->render();
+	CAMERA_MANAGER->zoom(getMemDC(), _zoom);
 }

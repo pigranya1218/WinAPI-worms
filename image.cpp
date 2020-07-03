@@ -330,6 +330,83 @@ void image::render(HDC hdc, int destX, int destY, int sourX, int sourY, int sour
 	}
 }
 
+void image::render(HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight, bool leftRightInverse)
+{
+	if (_trans)
+	{
+		if (leftRightInverse)
+		{
+			HDC tempDc = CreateCompatibleDC(_imageInfo->hMemDC);
+			HBITMAP tempBitMap = CreateCompatibleBitmap(_imageInfo->hMemDC, sourWidth, sourHeight);
+			HBITMAP origin = static_cast<HBITMAP>(SelectObject(tempDc, tempBitMap));
+			
+			StretchBlt(
+				tempDc,					//복사될 영역 DC
+				sourWidth,					//복사될 좌표 X
+				0,					//복사될 좌표 Y
+				-sourWidth - 1,				//복사될 크기 (가로)
+				sourHeight,				//복사될 크기 (세로)
+				_imageInfo->hMemDC,		//복사해올 DC
+				sourX, sourY,			//복사해올 좌표 X,Y
+				sourWidth,				//복사할 가로크기
+				sourHeight,				//복사할 세로크기
+				SRCCOPY);			//복사할때 제외할 픽셀값
+
+			GdiTransparentBlt(hdc, destX, destY, sourWidth, sourHeight,
+				tempDc, 0, 0, sourWidth, sourHeight, 
+				_transColor);
+
+			DeleteObject(tempBitMap);
+			DeleteObject(tempDc);
+			DeleteObject(origin);
+		}
+		else
+		{
+			GdiTransparentBlt(
+				hdc,					//복사될 영역 DC
+				destX,					//복사될 좌표 X
+				destY,					//복사될 좌표 Y
+				sourWidth,				//복사될 크기 (가로)
+				sourHeight,				//복사될 크기 (세로)
+				_imageInfo->hMemDC,		//복사해올 DC
+				sourX, sourY,			//복사해올 좌표 X,Y
+				sourWidth,				//복사할 가로크기
+				sourHeight,				//복사할 세로크기
+				_transColor);			//복사할때 제외할 픽셀값
+		}
+	}
+	else
+	{
+		if (leftRightInverse)
+		{
+			StretchBlt(hdc,							//복사할 DC
+				destX + sourWidth,							//복사할 X좌표(left)
+				destY,							//복사할 Y좌표(top)
+				-sourWidth,			//복사할 크기
+				sourHeight,		//복사할 크기
+				_imageInfo->hMemDC,				//복사될 DC
+				sourX,
+				sourY,		//복사될 X,Y(left, top)
+				sourWidth,								//복사할 가로크기
+				sourHeight,							// 복사할 세로 크기
+				SRCCOPY);				//변형없이 복사하겠다
+		}
+		else
+		{
+			//DC영역 간의 고속복사를 해주는 함수 BitBlt
+			BitBlt(hdc,					//복사할 DC
+				destX,					//복사할 X좌표(left)
+				destY,					//복사할 Y좌표(top)
+				sourWidth,				//복사할 크기
+				sourHeight,				//복사할 크기
+				_imageInfo->hMemDC,		//복사될 DC
+				sourX, sourY,			//복사될 X,Y(left, top)
+				SRCCOPY);				//변형없이 복사하겠다
+		}
+	}
+
+}
+
 void image::frameRender(HDC hdc, int destX, int destY)
 {
 	if (_trans)
@@ -397,6 +474,76 @@ void image::frameRender(HDC hdc, int destX, int destY, int currentFrameX, int cu
 	}
 }
 
+void image::frameRender(HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY, bool leftRightInverse)
+{
+	_imageInfo->currentFrameX = currentFrameX;
+	_imageInfo->currentFrameY = currentFrameY;
+
+	if (_trans)
+	{
+		if (leftRightInverse) // 좌우 반전으로 그리기
+		{
+			GdiTransparentBlt(
+				hdc,					//복사될 영역 DC
+				destX + _imageInfo->frameWidth,					//복사될 좌표 X
+				destY,					//복사될 좌표 Y
+				-_imageInfo->frameWidth,	//복사될 크기 (가로)
+				_imageInfo->frameHeight,//복사될 크기 (세로)
+				_imageInfo->hMemDC,		//복사해올 DC
+				_imageInfo->currentFrameX * _imageInfo->frameWidth,
+				_imageInfo->currentFrameY * _imageInfo->frameHeight,			//복사해올 좌표 X,Y
+				_imageInfo->frameWidth,								//복사할 가로크기
+				_imageInfo->frameHeight,							//복사할 세로크기
+				_transColor);			//복사할때 제외할 픽셀값
+		}
+		else
+		{
+			GdiTransparentBlt(
+				hdc,					//복사될 영역 DC
+				destX,					//복사될 좌표 X
+				destY,					//복사될 좌표 Y
+				_imageInfo->frameWidth,	//복사될 크기 (가로)
+				_imageInfo->frameHeight,//복사될 크기 (세로)
+				_imageInfo->hMemDC,		//복사해올 DC
+				_imageInfo->currentFrameX * _imageInfo->frameWidth,
+				_imageInfo->currentFrameY * _imageInfo->frameHeight,			//복사해올 좌표 X,Y
+				_imageInfo->frameWidth,								//복사할 가로크기
+				_imageInfo->frameHeight,							//복사할 세로크기
+				_transColor);			//복사할때 제외할 픽셀값
+		}
+	}
+	else
+	{
+		if (leftRightInverse)
+		{
+			StretchBlt(hdc,							//복사할 DC
+				destX + _imageInfo->frameWidth,							//복사할 X좌표(left)
+				destY,							//복사할 Y좌표(top)
+				-_imageInfo->frameWidth,			//복사할 크기
+				_imageInfo->frameHeight,		//복사할 크기
+				_imageInfo->hMemDC,				//복사될 DC
+				_imageInfo->currentFrameX * _imageInfo->frameWidth,
+				_imageInfo->currentFrameY * _imageInfo->frameHeight,		//복사될 X,Y(left, top)
+				_imageInfo->frameWidth,								//복사할 가로크기
+				_imageInfo->frameHeight,							// 복사할 세로 크기
+				SRCCOPY);				//변형없이 복사하겠다
+		}
+		else
+		{
+			//DC영역 간의 고속복사를 해주는 함수 BitBlt
+			BitBlt(hdc,							//복사할 DC
+				destX,							//복사할 X좌표(left)
+				destY,							//복사할 Y좌표(top)
+				_imageInfo->frameWidth,			//복사할 크기
+				_imageInfo->frameHeight,		//복사할 크기
+				_imageInfo->hMemDC,				//복사될 DC
+				_imageInfo->currentFrameX * _imageInfo->frameWidth,
+				_imageInfo->currentFrameY * _imageInfo->frameHeight,			//복사될 X,Y(left, top)
+				SRCCOPY);				//변형없이 복사하겠다
+		}
+	}
+}
+
 void image::loopRender(HDC hdc, const LPRECT drawArea, int offSetX, int offSetY)
 {
 	//정밀한 예외처리를 할땐 나머지 연산자를 꼭 이용합시다
@@ -413,6 +560,71 @@ void image::loopRender(HDC hdc, const LPRECT drawArea, int offSetX, int offSetY)
 	int drawAreaY = drawArea->top;					//그려질 영역 top
 	int drawAreaW = drawArea->right - drawAreaX;	//그려질 영역 width
 	int drawAreaH = drawArea->bottom - drawAreaY;	//그려질 영역 height
+
+	//세로부터
+	for (int y = 0; y < drawAreaH; y += sourHeight)
+	{
+		rcSour.top = (y + offSetY) % _imageInfo->height;
+		rcSour.bottom = _imageInfo->height;
+
+		sourHeight = rcSour.bottom - rcSour.top;
+
+		//화면 밖 나간 영역 확보
+		if (y + sourHeight > drawAreaH)
+		{
+			rcSour.bottom -= (y + sourHeight) - drawAreaH;
+			sourHeight = rcSour.bottom - rcSour.top;
+		}
+
+
+		//화면밖으로 나간영역만큼을 산정한다
+		rcDest.top = y + drawAreaY;
+		rcDest.bottom = rcDest.top + sourHeight;
+
+		for (int x = 0; x < drawAreaW; x += sourWidth)
+		{
+			rcSour.left = (x + offSetX) % _imageInfo->width;
+			rcSour.right = _imageInfo->width;
+
+			sourWidth = rcSour.right - rcSour.left;
+
+			if (x + sourWidth > drawAreaW)
+			{
+				rcSour.right -= (x + sourWidth) - drawAreaW;
+				sourWidth = rcSour.right - rcSour.left;
+			}
+
+			rcDest.left = x + drawAreaX;
+			rcDest.right = rcDest.left + sourWidth;
+
+			render(hdc, rcDest.left, rcDest.top,
+				rcSour.left, rcSour.top,
+				rcSour.right - rcSour.left,
+				rcSour.bottom - rcSour.top);
+		}
+
+
+	}
+
+
+}
+
+void image::loopRender(HDC hdc, RECT drawArea, int offSetX, int offSetY)
+{
+	//정밀한 예외처리를 할땐 나머지 연산자를 꼭 이용합시다
+	if (offSetX < 0) offSetX = _imageInfo->width + (offSetX % _imageInfo->width);
+	if (offSetY < 0) offSetY = _imageInfo->height + (offSetY % _imageInfo->height);
+
+	int sourWidth;
+	int sourHeight;
+
+	RECT rcDest;
+	RECT rcSour;
+
+	int drawAreaX = drawArea.left;					//그려질 영역 left
+	int drawAreaY = drawArea.top;					//그려질 영역 top
+	int drawAreaW = drawArea.right - drawAreaX;	//그려질 영역 width
+	int drawAreaH = drawArea.bottom - drawAreaY;	//그려질 영역 height
 
 	//세로부터
 	for (int y = 0; y < drawAreaH; y += sourHeight)
