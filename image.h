@@ -109,6 +109,7 @@ public:
 	void alphaRender(HDC hdc, BYTE alpha);
 	//알파렌더 (뿌려질DC, 뿌릴위치X, 뿌릴위치Y, 알파값(0 ~ 255))
 	void alphaRender(HDC hdc, int destX, int destY, BYTE alpha);
+	void alphaRedRender(HDC hdc, BYTE alpha);
 
 	//애니메이션 렌더링용
 	void aniRender(HDC hdc, int destX, int destY, animation* ani);

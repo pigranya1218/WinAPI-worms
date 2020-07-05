@@ -342,9 +342,9 @@ void image::render(HDC hdc, int destX, int destY, int sourX, int sourY, int sour
 			
 			StretchBlt(
 				tempDc,					//복사될 영역 DC
-				sourWidth,					//복사될 좌표 X
+				sourWidth - 1,					//복사될 좌표 X
 				0,					//복사될 좌표 Y
-				-sourWidth - 1,				//복사될 크기 (가로)
+				-sourWidth,				//복사될 크기 (가로)
 				sourHeight,				//복사될 크기 (세로)
 				_imageInfo->hMemDC,		//복사해올 DC
 				sourX, sourY,			//복사해올 좌표 X,Y
@@ -680,9 +680,11 @@ void image::alphaRender(HDC hdc, BYTE alpha)
 
 	if (_trans)
 	{
+		// 1. 기존 hdc 그림 복사 -> blendImage
 		BitBlt(_blendImage->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height,
 			hdc, 0, 0, SRCCOPY);
 
+		// 2. hMemDC에 이미지 그리기(배경색 처리)
 		GdiTransparentBlt(_blendImage->hMemDC, 0, 0,
 			_imageInfo->width,
 			_imageInfo->height,
@@ -692,6 +694,7 @@ void image::alphaRender(HDC hdc, BYTE alpha)
 			_imageInfo->height,
 			_transColor);
 
+		// 3. 알파 렌더링 처리해서 이미지 hdc에 그리기 (hMemDC의 blt가 transparent 따라가서 이미지만 그려진다)
 		AlphaBlend(hdc, _imageInfo->x, _imageInfo->y,
 			_imageInfo->width, _imageInfo->height,
 			_blendImage->hMemDC, 0, 0, _imageInfo->width,
@@ -705,6 +708,59 @@ void image::alphaRender(HDC hdc, BYTE alpha)
 			_imageInfo->hMemDC, 0, 0, _imageInfo->width,
 			_imageInfo->height, _blendFunc);
 	}
+}
+
+void image::alphaRedRender(HDC hdc, BYTE alpha)
+{
+	_blendFunc.SourceConstantAlpha = alpha;
+	HDC tempDC = CreateCompatibleDC(_imageInfo->hMemDC);
+	HBITMAP tempBitMap = CreateCompatibleBitmap(_imageInfo->hMemDC, _imageInfo->width, _imageInfo->height);
+	HBITMAP tempOrigin = static_cast<HBITMAP>(SelectObject(tempDC, tempBitMap));
+
+	HDC redDC = CreateCompatibleDC(_imageInfo->hMemDC);
+	HBITMAP redBitMap = CreateCompatibleBitmap(_imageInfo->hMemDC, _imageInfo->width, _imageInfo->height);
+	HBITMAP redOrigin = static_cast<HBITMAP>(SelectObject(redDC, redBitMap));
+
+	if (_trans)
+	{
+		// 1. redDC에 빨간색 DC 복사 (bitblt : IMAGE_MANAGER(origin redDC) -> redDC)
+		// 2. tempDC에 빨간색 DC 복사 (bitblt : redDC -> tempDC)
+		// 3. tempDC에 캐릭터 그리기(transparent(RGB(255, 0, 255)) : imageDC -> tempDC)
+		// 4. redDC에 alpharender로 그리기 (alphaBlend : tempDC -> redDC) 
+		// 5. 원래 그리려던 DC에 이미지 그리기(transparent(255, 0, 0) : redDC -> hdc)
+		
+		BitBlt(redDC, 0, 0, _imageInfo->width, _imageInfo->height,
+			IMAGE_MANAGER->findImage("redDC")->getMemDC(), 0, 0, SRCCOPY);
+
+		BitBlt(tempDC, 0, 0, _imageInfo->width, _imageInfo->height,
+			redDC, 0, 0, SRCCOPY);
+
+		GdiTransparentBlt(tempDC, 0, 0, _imageInfo->width, _imageInfo->height, 
+			_imageInfo->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, _transColor);
+
+		AlphaBlend(redDC, 0, 0,
+			_imageInfo->width, _imageInfo->height,
+			tempDC, 0, 0, _imageInfo->width,
+			_imageInfo->height, _blendFunc);
+
+		GdiTransparentBlt(hdc, 0, 0, _imageInfo->width, _imageInfo->height,
+			redDC, 0, 0, _imageInfo->width, _imageInfo->height, RGB(255, 0, 0));
+	}
+	else // 여기는 구현 안했습니다.
+	{
+		AlphaBlend(hdc, _imageInfo->x, _imageInfo->y,
+			_imageInfo->width, _imageInfo->height,
+			_imageInfo->hMemDC, 0, 0, _imageInfo->width,
+			_imageInfo->height, _blendFunc);
+	}
+
+	DeleteObject(tempDC);
+	DeleteObject(tempBitMap);
+	DeleteObject(tempOrigin);
+
+	DeleteObject(redDC);
+	DeleteObject(redBitMap);
+	DeleteObject(redOrigin);
 }
 
 void image::alphaRender(HDC hdc, int destX, int destY, BYTE alpha)

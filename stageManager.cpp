@@ -24,7 +24,7 @@ void stageManager::release()
 
 void stageManager::update()
 {
-	_offsetBG += 1; // 배경 이동
+	_offsetBG += 1; // 배경 및 바다 이동
 
 	if (KEY_MANAGER->isStayKeyDown('A'))
 	{
@@ -42,7 +42,6 @@ void stageManager::update()
 	{
 		CAMERA_MANAGER->setY(CAMERA_MANAGER->getY() + 5);
 	}
-	
 
 }
 
@@ -58,6 +57,11 @@ void stageManager::render()
 	// 땅 그리기
 	CAMERA_MANAGER->render(getMemDC(), _stageDC, 0, 0, width, height, true, RGB(255, 0, 255));
 	
+	// 바다 그리기
+	bgRect = { 0, height - IMAGE_MANAGER->findImage("SEA")->getHeight(), width, height};
+	CAMERA_MANAGER->loopRender(getMemDC(), IMAGE_MANAGER->findImage("SEA"), bgRect, _offsetBG, 0);
+	// IMAGE_MANAGER->findImage("redTest")->alphaRedRender(getMemDC(), 122);
+
 	// CAMERA_MANAGER->render(getMemDC(), _tempDC, 0, 0, IMAGE_MANAGER->findImage("STAGE")->getWidth(), IMAGE_MANAGER->findImage("STAGE")->getHeight());
 }
 
@@ -121,18 +125,12 @@ void stageManager::makeWorms() // 맵 곳곳에 웜즈 만들기
 			for (int y = 0; y < stageHeight - 190; y++) // 소환될 Y 위치 결정 과정
 			{
 				COLORREF sourceRGB = GetPixel(stageDC, randomX, y);
-				COLORREF upperRGB = GetPixel(stageDC, randomX, y - 1);
 
 				int R = GetRValue(sourceRGB);
 				int G = GetGValue(sourceRGB);
 				int B = GetBValue(sourceRGB);
 
-				int upperR = GetRValue(upperRGB);
-				int upperG = GetGValue(upperRGB);
-				int upperB = GetBValue(upperRGB);
-
-				if ((!(R == 255 && G == 0 && B == 255)) &&
-					(upperR == 255 && upperG == 0 && upperB == 255))
+				if (!(R == 255 && G == 0 && B == 255))
 				{
 					posX = randomX;
 					posY = y;

@@ -17,9 +17,13 @@ HRESULT playGround::init()
 	gameNode::init(true);
 
 	// 모든 이미지, 애니메이션, 음악 추가
-	// * 스테이지 관련
+	// * 스테이지
+	// ** 스테이지 이미지 관련
 	IMAGE_MANAGER->addImage("BACKGROUND", "resources/images/background.bmp", 2000, 1125, false, NULL);
 	IMAGE_MANAGER->addImage("STAGE", "resources/images/bigMap.bmp", 2000, 1125, true, RGB(255, 0, 255));
+	IMAGE_MANAGER->addImage("SEA", "resources/images/sea.bmp", 2000, 170, true, RGB(255, 0, 255));
+	
+	
 	// * 웜즈 애니메이션 관련
 	// ** IDLE
 	// *** BIG HEAD
@@ -34,6 +38,17 @@ HRESULT playGround::init()
 
 	
 	// ** ATTACK
+
+	// ** FALLEN
+	IMAGE_MANAGER->addFrameImage("FALLEN", "resources/images/wfall.bmp", 60, 120, 1, 2, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("FALLEN_TWANG_NORMAL", "resources/images/wtwang.bmp", 60, 2940, 1, 49, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("FALLEN_TWANG_DOWN", "resources/images/wtwangd.bmp", 60, 2940, 1, 49, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("FALLEN_TWANG_UP", "resources/images/wtwangu.bmp", 60, 2940, 1, 49, true, RGB(128, 128, 192));
+
+	// ** etc
+	IMAGE_MANAGER->addImage("redDC", "resources/images/redDC.bmp", 500, 500, false, NULL);
+	IMAGE_MANAGER->addImage("redTest", "resources/images/redtest.bmp", 27, 24, true, RGB(255, 0, 255));
+
 
 	// 씬 추가
 	SCENE_MANAGER->addScene("StageScene", new stageScene);

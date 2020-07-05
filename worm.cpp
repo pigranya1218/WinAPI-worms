@@ -1,30 +1,72 @@
 #include "stdafx.h"
 #include "worm.h"
 #include "allState.h"
-#include "stageManager.h"
 #include "wormManager.h"
 #include <cmath>
 
-HRESULT worm::init(stageManager* stageManager, int index, float x, float y) // x 좌표와 바닥 높이
+bool worm::checkMoveAvail(int x, int y)
 {
-	_stageManager = stageManager;
+	for (int checkY = y - _height; checkY < y; checkY++) // 앞이 막혀있는지 체크
+	{
+		COLORREF checkRGB = _wormManager->getPixel(x, checkY);
+
+		int checkR = GetRValue(checkRGB);
+		int checkG = GetGValue(checkRGB);
+		int checkB = GetBValue(checkRGB);
+
+		if (!(checkR == 255 && checkG == 0 && checkB == 255)) // 마젠타가 아니라면 앞이 막혀있다는 것
+		{
+			return false; 
+		}
+	}
+
+	return true;
+}
+
+int worm::checkGroundAvail(int x, int y)
+{
+	for (int bot = y - _offsetClimb; bot <= y + _offsetClimb; bot++) // 위에서부터 땅이 있는지 체크
+	{
+		if (checkPixelAvail(x, bot))
+		{
+			return bot;
+		}
+	}
+
+	return -1; // 밟을 발판이 없음
+}
+
+bool worm::checkPixelAvail(int x, int y)
+{
+	COLORREF rgb = _wormManager->getPixel(x, y);
+
+	int r = GetRValue(rgb);
+	int g = GetGValue(rgb);
+	int b = GetBValue(rgb);
+
+	if (!(r == 255 && g == 0 && b == 255)) // 밟을 수 있음
+	{
+		return true;
+	}
+
+	return false;
+}
+
+HRESULT worm::init(wormManager* wormManager, int index, float x, float y) // x 좌표와 바닥 높이
+{
+	_wormManager = wormManager;
 
 	_index = index;
 	_x = x;
 	_y = y - (_height / 2);
 	_rc = RectMakeCenter(_x, _y, _width, _height);
 	
-	_offsetClimb = 4;
-
 	int random = RND->getInt(2);
 	_dir = (random == 0) ? DIRECTION::RIGHT : DIRECTION::LEFT;
 	updateSlope();
 
 	_state = new idleState();
 	_state->enter(*this);
-	
-	_speed = 15;
-	
 
 	return S_OK;
 }
@@ -49,137 +91,121 @@ void worm::update()
 void worm::render()
 {
 	_state->render(*this);
+
+
+	// DEBUG CODE
+	/* 
+	CAMERA_MANAGER->rectangle(getMemDC(), _rc);
+	char _buffer[50];
+	sprintf_s(_buffer, "SLOPE : %s", ((_slope == SLOPE::UP) ? "UP" : ((_slope == SLOPE::NORMAL) ? "NORMAL" : "DOWN")));
+	TextOut(getMemDC(), 0, 0, _buffer, strlen(_buffer));
+	sprintf_s(_buffer, "xPos : %f", _x);
+	TextOut(getMemDC(), 0, 20, _buffer, strlen(_buffer));
+	*/
 }
 
-// 중심점을 기준으로 왼쪽, 오른쪽을 봐서 각도 변화가 있는지 파악함
+// 중심점을 기준으로 보고 있는 방향 봐서 각도 변화가 있는지 파악함
 void worm::updateSlope()
 {
-	vector<int> yPos;
-	COLORREF upperRGB;
-	COLORREF RGB;
 	int bottom = _rc.bottom;
-	int tempX;
-	for (int x = _x - 1; x <= _x + 1; x += 2)
+	int xPos = (_dir == DIRECTION::LEFT)?(_x - 2):(_x + 2);
+	int yPos = -1;
+
+	for (int y = bottom - 15; y <= bottom + 15; y++)
 	{
-		upperRGB = _stageManager->getPixel(x, bottom - 5);
+		COLORREF rgb = _wormManager->getPixel(xPos, y);
 
-		for (int y = bottom - 4; y <= bottom + 4; y++)
+		int r = GetRValue(rgb);
+		int g = GetGValue(rgb);
+		int b = GetBValue(rgb);
+
+		if (!(r == 255 && g == 0 && b == 255))
 		{
-			COLORREF rgb = _stageManager->getPixel(x, y);
-
-			int r = GetRValue(rgb);
-			int g = GetGValue(rgb);
-			int b = GetBValue(rgb);
-
-			int upperR = GetRValue(upperRGB);
-			int upperG = GetGValue(upperRGB);
-			int upperB = GetBValue(upperRGB);
-
-			if ((upperR == 255 && upperG == 0 && upperB == 255) &&
-				!(r == 255 && g == 0 && b == 255))
-			{
-				yPos.push_back(y);
-				tempX = x;
-				break;
-			}
-
-			upperRGB = rgb;
-
+			yPos = y;
+			break;
 		}
 	}
 
-	_slope = SLOPE::NORMAL;
-
-	if (yPos.size() == 1) // 픽셀 두칸뿐인 경우
+	if (yPos != -1) // 바라보는 방향에 픽셀 있는 경우
 	{
-		if (tempX == _x - 1) // 왼쪽 픽셀이 남은 경우
+		if (yPos <= bottom - _offsetSlope) // 바라보는 픽셀이 더 높은 위치에 있는 경우
 		{
-			if (yPos[0] <= bottom - _offsetClimb) // 왼쪽 픽셀이 더 높은 위치에 있는 경우
-			{
-				_slope = (_dir == DIRECTION::LEFT) ? SLOPE::UP : SLOPE::DOWN;
-			}
-			else if (yPos[0] >= bottom + _offsetClimb) // 왼쪽 픽셀이 더 낮은 위치에 있는 경우
-			{
-				_slope = (_dir == DIRECTION::LEFT) ? SLOPE::DOWN : SLOPE::UP;
-			}
+			_slope = SLOPE::UP;
 		}
-		else // 오른쪽 픽셀이 남은 경우
+		else if (yPos >= bottom + _offsetSlope) // 바라보는 픽셀이 더 낮은 위치에 있는 경우
 		{
-			if (yPos[0] <= bottom - _offsetClimb) // 오른쪽 픽셀이 더 높은 위치에 있는 경우
-			{
-				_slope = (_dir == DIRECTION::LEFT) ? SLOPE::DOWN : SLOPE::UP;
-			}
-			else if (yPos[0] >= bottom + _offsetClimb) // 오른쪽 픽셀이 더 낮은 위치에 있는 경우
-			{
-				_slope = (_dir == DIRECTION::LEFT) ? SLOPE::UP : SLOPE::DOWN;
-			}
+			_slope = SLOPE::DOWN;
 		}
-	}
-	else if (yPos.size() == 2)// 픽셀 세칸인 경우
-	{
-		if (yPos[0] <= bottom - _offsetClimb && yPos[1] >= bottom + _offsetClimb) //  \ 대각선인 경우
+		else
 		{
-			_slope = (_dir == DIRECTION::LEFT) ? SLOPE::UP : SLOPE::DOWN;
-		}
-		else if (yPos[1] <= bottom - _offsetClimb && yPos[0] >= bottom + _offsetClimb) // / 대각선인 경우
-		{
-			_slope = (_dir == DIRECTION::LEFT) ? SLOPE::DOWN : SLOPE::UP;
+			_slope = SLOPE::NORMAL;
 		}
 	}
 }
 
-void worm::move()
+void worm::reverseSlope()
+{
+	if (_slope == SLOPE::UP)
+	{
+		_slope == SLOPE::DOWN;
+	}
+	else if (_slope == SLOPE::DOWN)
+	{
+		_slope == SLOPE::UP;
+	}
+}
+
+bool worm::move()
 {
 	float deltaTime = TIME_MANAGER->getElapsedTime();
-	float deltaMove = deltaTime * _speed;
-	bool isStop = false;
+	float deltaMove = deltaTime * _speed * ((_dir == DIRECTION::LEFT)? -1 : 1);
 	float newX = _x;
 	float newBottom = _rc.bottom;
-
-	if (static_cast<int>(_x) == static_cast<int>(deltaMove + _x)) // 움직임 변화 없는 경우
-	{
-		_x = _x + deltaMove;
-		return;
-	}
 
 	switch (_dir)
 	{
 	case DIRECTION::LEFT:
 	{
-		for (int x = static_cast<int>(_x) - 1; x >= _x - deltaMove; x--)
+		if (ceil(_x) == ceil(_x + deltaMove)) // 움직임 변화 없는 경우
 		{
-			COLORREF upperRGB = _stageManager->getPixel(x, newBottom - _offsetClimb - 1);
-			bool isGroundExist = false;
-			for (int bot = newBottom - _offsetClimb; bot <= newBottom + _offsetClimb; bot++) // 위에서부터 발판이 있는지 체크
+			_x += deltaMove;
+			return true;
+		}
+		for (int x = ceil(_x) - 1 ; x >= _x + deltaMove; x--) // 움직임 변화 있는 경우
+		{
+			bool isMoveAvail = false;
+			int newGround = checkGroundAvail(x, newBottom); //  이동 후 밟을 땅이 있는지 검사
+
+			if (newGround == -1) // 밟을 땅이 없음
 			{
-				COLORREF rgb = _stageManager->getPixel(x, bot);
-
-				int r = GetRValue(rgb);
-				int g = GetGValue(rgb);
-				int b = GetBValue(rgb);
-
-				int upperR = GetRValue(upperRGB);
-				int upperG = GetGValue(upperRGB);
-				int upperB = GetBValue(upperRGB);
-
-				if (!(r == 255 && g == 0 && b == 255) &&
-					(upperR == 255 && upperG == 0 && upperB == 255))
-				{
-					newBottom = bot;
-					isGroundExist = true;
-					newX = x;
-					break;
-				}
-
-				upperRGB = rgb;
+				isMoveAvail = checkMoveAvail(x, newBottom); // 이동이 가능한지 검사
+			}
+			else // 밟을 땅이 있음
+			{
+				isMoveAvail = checkMoveAvail(x, newGround); // 이동이 가능한지 검사
 			}
 
-			if (!isGroundExist) // 발판이 없다면 떨어진다
+			if (isMoveAvail) // 이동이 가능한 경우
 			{
+				if (newGround != -1) // 발판이 있는 경우
+				{
+					newX = x;
+					newBottom = newGround;
+				}
+				else // 발판이 없는 경우 -> 떨어져야 함 (FALLEN STATE)
+				{
+					_x = x;
+					_y = newBottom - (_height / 2);
+					_rc = RectMakeCenter(_x, _y, _width, _height);
+					return false;
+				}
+			}
+			else // 이동이 불가능한 경우
+			{
+				newX = x + 1;
 				break;
 			}
-
-			if (static_cast<int>(x) == static_cast<int>(x + deltaMove)) // 이동 가능 범위 끝까지 이동한 경우
+			if (x == ceil(x + deltaMove)) // 이동 가능 범위 끝까지 이동한 경우
 			{
 				newX = x + deltaMove;
 			}
@@ -188,40 +214,46 @@ void worm::move()
 	break;
 	case DIRECTION::RIGHT:
 	{
-		for (int x = static_cast<int>(_x) + 1; x <= _x + deltaMove; x++)
+		if (floor(_x) == floor(_x + deltaMove)) // 움직임 변화 없는 경우
 		{
-			COLORREF upperRGB = _stageManager->getPixel(x, newBottom - _offsetClimb - 1);
-			bool isGroundExist = false;
-			for (int bot = newBottom - _offsetClimb; bot <= newBottom + _offsetClimb; bot++) // 위에서부터 발판이 있는지 체크
+			_x += deltaMove;
+			return true;
+		}
+		for (int x = floor(_x) + 1; x <= _x + deltaMove; x++) // 움직임 체크
+		{
+			bool isMoveAvail = false;
+			int newGround = checkGroundAvail(x, newBottom); //  이동 후 밟을 땅이 있는지 검사
+
+			if (newGround == -1) // 밟을 땅이 없음
 			{
-				COLORREF rgb = _stageManager->getPixel(x, bot);
-
-				int r = GetRValue(rgb);
-				int g = GetGValue(rgb);
-				int b = GetBValue(rgb);
-
-				int upperR = GetRValue(upperRGB);
-				int upperG = GetGValue(upperRGB);
-				int upperB = GetBValue(upperRGB);
-
-				if (!(r == 255 && g == 0 && b == 255) &&
-					(upperR == 255 && upperG == 0 && upperB == 255))
-				{
-					newBottom = bot;
-					isGroundExist = true;
-					newX = x;
-					break;
-				}
-
-				upperRGB = rgb;
+				isMoveAvail = checkMoveAvail(x, newBottom); // 이동이 가능한지 검사
 			}
-
-			if (!isGroundExist) // 발판이 없다면 떨어진다
+			else // 밟을 땅이 있음
 			{
+				isMoveAvail = checkMoveAvail(x, newGround); // 이동이 가능한지 검사
+			}
+			
+			if (isMoveAvail) // 이동이 가능한 경우
+			{
+				if (newGround != -1) // 발판이 있는 경우
+				{
+					newX = x;
+					newBottom = newGround;
+				}
+				else // 발판이 없는 경우 -> 떨어져야 함 (FALLEN STATE)
+				{
+					_x = x;
+					_y = newBottom - (_height / 2);
+					_rc = RectMakeCenter(_x, _y, _width, _height);
+					return false;
+				}
+			}
+			else // 이동이 불가능한 경우
+			{
+				newX = x - 1;
 				break;
 			}
-
-			if (x == static_cast<int>(x + deltaMove)) // 이동 가능 범위 끝까지 이동한 경우
+			if (x == floor(x + deltaMove)) // 이동 가능 범위 끝까지 이동한 경우
 			{
 				newX = x + deltaMove;
 			}
@@ -233,11 +265,47 @@ void worm::move()
 	_x = newX;
 	_y = newBottom - (_height / 2);
 	_rc = RectMakeCenter(_x, _y, _width, _height);
-
 	updateSlope();
+	return true;
+}
+
+bool worm::gravityMove()
+{
+	_gravity += 9.8 * TIME_MANAGER->getElapsedTime(); // 중력 더해주기
+	int newBottom = _rc.bottom;
+	if (floor(_rc.bottom) == floor(_rc.bottom + _gravity))
+	{
+		_rc.bottom += _gravity;
+		return false;
+	}
+
+	for (int y = floor(_rc.bottom) + 1; y < _rc.bottom + _gravity; y++)
+	{
+		bool isGround = checkPixelAvail(_x, y); //  떨어진 후 밟을 픽셀이 있는지 검사
+
+		if (isGround) // 발판이 있는 경우
+		{
+			_y = y - (_height / 2);
+			_rc = RectMakeCenter(_x, _y, _width, _height);
+			return true;
+		}
+		else // 발판이 없는 경우
+		{
+			newBottom = y;
+		}
+		
+		if (y == floor(_rc.bottom + _gravity)) // 이동 가능 범위 끝까지 이동한 경우
+		{
+			newBottom = _rc.bottom + _gravity;
+		}
+	}
+
+	_y = newBottom - (_height / 2);
+	_rc = RectMakeCenter(_x, _y, _width, _height);
+	return false;
 }
 
 bool worm::isTurn()
 {
-	return (_stageManager->getCurrentTurnIndex() == _index);
+	return (_wormManager->getCurrentTurnIndex() == _index);
 }

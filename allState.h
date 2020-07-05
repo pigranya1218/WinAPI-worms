@@ -5,3 +5,4 @@
 #include "jumpState.h"
 #include "longJumpState.h"
 #include "deadState.h"
+#include "fallenState.h"

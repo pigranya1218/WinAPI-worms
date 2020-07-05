@@ -39,6 +39,16 @@ void wormManager::setStageManager(stageManager * stageManager)
 void wormManager::addWorms(int index, float x, float y)
 {
 	worm* newWorm = new worm;
-	newWorm->init(_stageManager, index, x, y);
+	newWorm->init(this, index, x, y);
 	_worms.push_back(newWorm);
+}
+
+COLORREF wormManager::getPixel(int x, int y)
+{
+	return _stageManager->getPixel(x, y);
+}
+
+int wormManager::getCurrentTurnIndex()
+{
+	return _stageManager->getCurrentTurnIndex();
 }

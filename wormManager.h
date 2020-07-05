@@ -21,5 +21,7 @@ public:
 
 	void setStageManager(stageManager* stageManager);
 	void addWorms(int index, float x, float y);
+	COLORREF getPixel(int x, int y);
+	int	getCurrentTurnIndex();
 };
 

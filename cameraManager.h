@@ -45,6 +45,11 @@ public:
 	float getRelativeT(float top);
 	LONG getRelativeT(LONG top);
 
+	float getAbsoluteL(float left);
+	LONG getAbsoluteL(LONG left);
+	float getAbsoluteT(float top);
+	LONG getAbsoluteT(LONG top);
+
 	void rectangle(HDC hdc, TTYONE_UTIL::MYRECT rect);
 	void rectangle(HDC hdc, RECT rect);
 	void ellipse(HDC hdc, TTYONE_UTIL::MYRECT rect);

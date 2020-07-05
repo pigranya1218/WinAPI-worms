@@ -21,14 +21,27 @@ state * idleState::update(worm & player)
 {
 	if (player.isTurn())
 	{
+		if (KEY_MANAGER->isOnceKeyDown(VK_LBUTTON))
+		{
+			player.setPlayerPos(CAMERA_MANAGER->getAbsoluteL(_ptMouse.x), CAMERA_MANAGER->getAbsoluteT(_ptMouse.y));
+			return nullptr;
+		} 
 		if (KEY_MANAGER->isOnceKeyDown(VK_LEFT)) // 왼쪽으로 움직이기
 		{
-			player.setDirection(DIRECTION::LEFT);
+			if (player.getDirection() == DIRECTION::RIGHT)
+			{
+				player.setDirection(DIRECTION::LEFT);
+				player.reverseSlope();
+			}
 			return new moveState;
 		}
 		else if (KEY_MANAGER->isOnceKeyDown(VK_RIGHT)) // 오른쪽으로 움직이기
 		{
-			player.setDirection(DIRECTION::RIGHT);
+			if (player.getDirection() == DIRECTION::LEFT)
+			{
+				player.setDirection(DIRECTION::RIGHT);
+				player.reverseSlope();
+			}
 			return new moveState;
 		}
 		else if (KEY_MANAGER->isOnceKeyDown(VK_SPACE)) // 점프하기
@@ -51,9 +64,7 @@ void idleState::render(worm & player)
 
 	float x = (rc.left + rc.right) / 2, y = (rc.top + rc.bottom) / 2;
 	POINT pos = _ani->getFramePos();
-	
-	// 디버깅용
-	// CAMERA_MANAGER->rectangle(getMemDC(), rc);
 
-	CAMERA_MANAGER->aniRender(getMemDC(), _img, x - 30, y - 28, _ani, ( (player.getDirection() == DIRECTION::RIGHT)? true : false) );
+	_img = IMAGE_MANAGER->findImage(getImageKey("IDLE_BIGHEAD", player.getSlope()));
+	CAMERA_MANAGER->aniRender(getMemDC(), _img, x - 30, y - 30, _ani, ( (player.getDirection() == DIRECTION::RIGHT)? true : false) );
 }

@@ -192,6 +192,9 @@
     <ClInclude Include="cameraManager.h">
       <Filter>2DGameFramework\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="fallenState.h">
+      <Filter>playGround\stageScene\worm\state</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -298,6 +301,9 @@
     </ClCompile>
     <ClCompile Include="cameraManager.cpp">
       <Filter>2DGameFramework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="fallenState.cpp">
+      <Filter>playGround\stageScene\worm\state</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -147,6 +147,30 @@ LONG cameraManager::getRelativeT(LONG top)
 	return  newT;
 }
 
+float cameraManager::getAbsoluteL(float left)
+{
+	float newL = _L + left;
+	return newL;
+}
+
+LONG cameraManager::getAbsoluteL(LONG left)
+{
+	LONG newL = _L + left;
+	return newL;
+}
+
+float cameraManager::getAbsoluteT(float top)
+{
+	float newT = _T + top;
+	return newT;
+}
+
+LONG cameraManager::getAbsoluteT(LONG top)
+{
+	LONG newT = _T + top;
+	return newT;
+}
+
 // 사각형 그리기 MYRECT 사용
 void cameraManager::rectangle(HDC hdc, TTYONE_UTIL::MYRECT mrec)
 {
@@ -262,5 +286,4 @@ void cameraManager::zoom(HDC hdc, float ratio)
 	StretchBlt(hdc, 0, 0, _width, _height,
 		hdc, zoomL, zoomT, newWidth, newHeight,
 		SRCCOPY);
-	// 위 과정을 통한 Zoom 구현
 }
