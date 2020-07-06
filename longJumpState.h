@@ -4,6 +4,8 @@
 class longJumpState : public state
 {
 private:
+	image* _img;
+	animation* _ani;
 
 public:
 	longJumpState() {}

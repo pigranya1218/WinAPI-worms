@@ -24,6 +24,10 @@ state * moveState::update(worm & player)
 		return new idleState;
 	}
 
+	if (KEY_MANAGER->isOnceKeyDown(VK_SPACE)) // 점프 버튼 입력
+	{
+		return new jumpState;
+	}
 	if (KEY_MANAGER->isStayKeyDown(VK_LEFT)) // 왼쪽으로 지속해서 이동
 	{
 		if (player.getDirection() == DIRECTION::RIGHT)
@@ -40,10 +44,6 @@ state * moveState::update(worm & player)
 			player.reverseSlope();
 		}
 	}
-	else if (KEY_MANAGER->isOnceKeyDown(VK_SPACE)) // 점프 버튼 입력
-	{
-		return new jumpState;
-	}
 	else // 움직임을 멈춤
 	{
 		player.updateSlope();
@@ -53,6 +53,9 @@ state * moveState::update(worm & player)
 	bool isNotFallen = player.move();
 	if (!isNotFallen) // 움직이다 떨어지는 경우
 	{
+		player.setAngle(0);
+		player.setGravity(0);
+		player.setPower(0);
 		return new fallenState;
 	}
 	_ani->frameUpdate(TIME_MANAGER->getElapsedTime()); // 상태가 바뀌지 않은 경우 프레임 업데이트

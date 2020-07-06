@@ -8,6 +8,7 @@ private:
 	animation* _ani;
 	bool _isGround;
 	float _gravity;
+	float _startX, _startY;
 
 public:
 	fallenState() {}

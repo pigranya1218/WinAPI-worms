@@ -111,7 +111,7 @@ void worm::updateSlope()
 	int xPos = (_dir == DIRECTION::LEFT)?(_x - 2):(_x + 2);
 	int yPos = -1;
 
-	for (int y = bottom - 15; y <= bottom + 15; y++)
+	for (int y = bottom - 6; y <= bottom + 6; y++)
 	{
 		COLORREF rgb = _wormManager->getPixel(xPos, y);
 
@@ -155,10 +155,9 @@ void worm::reverseSlope()
 	}
 }
 
-bool worm::move()
+bool worm::move() // true : 땅이 있음, false : 땅이 없어서 추락할 예정
 {
-	float deltaTime = TIME_MANAGER->getElapsedTime();
-	float deltaMove = deltaTime * _speed * ((_dir == DIRECTION::LEFT)? -1 : 1);
+	float deltaX = _speed * ((_dir == DIRECTION::LEFT)? -1 : 1);
 	float newX = _x;
 	float newBottom = _rc.bottom;
 
@@ -166,12 +165,12 @@ bool worm::move()
 	{
 	case DIRECTION::LEFT:
 	{
-		if (ceil(_x) == ceil(_x + deltaMove)) // 움직임 변화 없는 경우
+		if (ceil(_x) == ceil(_x + deltaX)) // 움직임 변화 없는 경우
 		{
-			_x += deltaMove;
+			_x += deltaX;
 			return true;
 		}
-		for (int x = ceil(_x) - 1 ; x >= _x + deltaMove; x--) // 움직임 변화 있는 경우
+		for (int x = ceil(_x) - 1 ; x >= _x + deltaX; x--) // 움직임 변화 있는 경우
 		{
 			bool isMoveAvail = false;
 			int newGround = checkGroundAvail(x, newBottom); //  이동 후 밟을 땅이 있는지 검사
@@ -205,21 +204,21 @@ bool worm::move()
 				newX = x + 1;
 				break;
 			}
-			if (x == ceil(x + deltaMove)) // 이동 가능 범위 끝까지 이동한 경우
+			if (x == ceil(x + deltaX)) // 이동 가능 범위 끝까지 이동한 경우
 			{
-				newX = x + deltaMove;
+				newX = x + deltaX;
 			}
 		}
 	}
 	break;
 	case DIRECTION::RIGHT:
 	{
-		if (floor(_x) == floor(_x + deltaMove)) // 움직임 변화 없는 경우
+		if (floor(_x) == floor(_x + deltaX)) // 움직임 변화 없는 경우
 		{
-			_x += deltaMove;
+			_x += deltaX;
 			return true;
 		}
-		for (int x = floor(_x) + 1; x <= _x + deltaMove; x++) // 움직임 체크
+		for (int x = floor(_x) + 1; x <= _x + deltaX; x++) // 움직임 체크
 		{
 			bool isMoveAvail = false;
 			int newGround = checkGroundAvail(x, newBottom); //  이동 후 밟을 땅이 있는지 검사
@@ -253,9 +252,9 @@ bool worm::move()
 				newX = x - 1;
 				break;
 			}
-			if (x == floor(x + deltaMove)) // 이동 가능 범위 끝까지 이동한 경우
+			if (x == floor(x + deltaX)) // 이동 가능 범위 끝까지 이동한 경우
 			{
-				newX = x + deltaMove;
+				newX = x + deltaX;
 			}
 		}
 	}
@@ -269,37 +268,212 @@ bool worm::move()
 	return true;
 }
 
-bool worm::gravityMove()
+bool worm::gravityMove(float startX, float startY) // false : 아직 떨어지는 중 , true : 착지함
 {
-	_gravity += 9.8 * TIME_MANAGER->getElapsedTime(); // 중력 더해주기
-	int newBottom = _rc.bottom;
-	if (floor(_rc.bottom) == floor(_rc.bottom + _gravity))
+	_gravity += 0.1; // 중력 업데이트
+	float deltaX = cosf(_angle) * _power; // X축 이동값
+	float deltaY = -sinf(_angle) * _power + _gravity; // Y축 이동값
+	float deltaDistance = sqrt(pow(deltaX, 2) + pow(deltaY, 2)); // 현재 이동하는 거리
+	float angle = atan2f(deltaX, deltaY); // 현재 이동하는 각도
+
+	assert(deltaY != 0); // 혹시 모를 예외 체크
+	float ratio = abs(deltaX / deltaY); // y축 변화에 대한 x축 변화의 비율
+	
+	float newX = _x;
+	float newBottom = _rc.bottom;
+
+	// 1. 이동이 가능한지 체크
+	// 2. 이동이 가능할 때 발판이 있는지 체크
+	
+	float yMove = newBottom + deltaY;
+
+	if (deltaY >= 0) // deltaY가 양수일 때 (아래로 떨어질 때 or 떨어지지 않을 때)
 	{
-		_rc.bottom += _gravity;
-		return false;
+		for (int bot = floor(newBottom); bot <= floor(yMove); bot++)
+		{
+			bool isMoveAvail = false; // 움직일 수 있는지 검사
+			bool isPixelAvail = false; // 앉을 땅이 있는지 검사
+			
+			float xMove = newX;
+
+			if (deltaX >= 0) // deltaX가 양수일 때 (오른쪽으로 이동할 때, 이동하지 않을 때)
+			{
+				if (bot != floor(newBottom))
+				{
+					xMove += ratio; // y 이동값에 대한 x 이동값
+				}
+				for (int x = floor(newX) ; x <= floor(xMove); x++)
+				{
+					if (bot == floor(newBottom) && x == floor(newX)) continue;
+
+					isMoveAvail = checkMoveAvail(x, bot); // 이동 가능한지 체크
+
+					if (!isMoveAvail)
+					{
+						newX = x - 1;
+						break;
+					}
+					
+					isPixelAvail = checkPixelAvail(x, bot); // 밟을 땅이 있는지 체크
+
+					if (isPixelAvail) // 시작 지점 땅은 무시
+					{
+						newX = x;
+						break;
+					}
+
+					if (x == floor(xMove)) // 이동할 수 있는 만큼 다 이동한 경우
+					{
+						newX = xMove;
+					}
+				}
+			}
+			else // deltaX가 음수일 때 (왼쪽으로 이동할 때)
+			{
+				if (bot != floor(newBottom))
+				{
+					xMove -= ratio; // y 이동값에 대한 x 이동값
+				}
+				for (int x = ceil(newX); x >= ceil(xMove); x--)
+				{
+					if (bot == floor(newBottom) && x == ceil(newX)) continue;
+
+					isMoveAvail = checkMoveAvail(x, bot);
+
+					if (!isMoveAvail)
+					{
+						newX = x + 1;
+						break;
+					}
+
+					isPixelAvail = checkPixelAvail(x, bot); // 밟을 땅이 있는지 체크
+
+					if (isPixelAvail && !(x == startX && bot == startY)) // 시작 지점 땅은 무시
+					{
+						newX = x;
+						break;
+					}
+
+					if (x == ceil(xMove)) // 이동할 수 있는 만큼 다 이동한 경우
+					{
+						newX = xMove;
+					}
+				}
+			}
+
+			if (isPixelAvail) // x축 이동 계산 중 착지한 경우
+			{
+				_x = newX;
+				_y = bot - (_height / 2);
+				_rc = RectMakeCenter(_x, _y, _width, _height);
+				return true;
+			}
+
+			if (bot == floor(yMove)) // 이동할 수 있는 만큼 다 이동한 경우
+			{
+				newBottom = yMove;
+				if (deltaX >= 0)
+				{
+					newX += ratio * abs(yMove - floor(yMove));
+				}
+				else
+				{
+					newX -= ratio * abs(yMove - floor(yMove));
+				}
+
+			}
+
+		}
+	}
+	else // deltaY가 음수일 때 (위로 이동할 때)
+	{
+		for (int bot = ceil(newBottom); bot >= ceil(yMove); bot--)
+		{
+			bool isMoveAvailY = true; // Y 축 이동이 가능한지 검사하는 불 변수
+			bool isMoveAvailX = false; // X 축 이동이 가능한지 검사하는 불 변수
+			
+			float xMove = newX;
+
+			if (deltaX >= 0) // deltaX가 양수일 때 (오른쪽으로 이동할 때, 이동하지 않을 때)
+			{
+				if (bot != ceil(newBottom))
+				{
+					xMove += ratio; // y 이동값에 대한 x 이동값
+				}
+
+				for (int x = floor(newX); x <= floor(xMove); x++)
+				{
+					isMoveAvailX = checkMoveAvail(x, bot);
+
+					if (!isMoveAvailX) // x축 이동이 불가능할 때
+					{
+						if (x != floor(newX)) // x 축 이동이 하나도 안될 때
+						{
+							newX = x - 1;
+						}
+						isMoveAvailY = false; // y 축 이동도 불가능하다
+						break;
+					}
+
+					if (x == floor(xMove)) // 이동할 수 있는 만큼 다 이동한 경우
+					{
+						newX = xMove;
+					}
+				}
+			}
+			else // deltaX가 음수일 때 (왼쪽으로 이동할 때)
+			{
+				if (bot != ceil(newBottom))
+				{
+					xMove -= ratio; // y 이동값에 대한 x 이동값
+				}
+
+				for (int x = ceil(newX); x >= ceil(xMove); x--)
+				{
+					isMoveAvailX = checkMoveAvail(x, bot);
+
+					if (!isMoveAvailX) // X 축 이동이 안될 때
+					{
+						if (x != ceil(newX)) // X 축 이동이 하나도 안된 경우
+						{
+							newX = x + 1;
+						}
+						isMoveAvailY = false; // Y 축 이동도 불가능함
+						break;
+					}
+
+					if (x == ceil(xMove)) // 이동할 수 있는 만큼 다 이동한 경우
+					{
+						newX = xMove;
+					}
+				}
+			}
+
+			if (!isMoveAvailY) // y축으로 더 이상 이동할 수 없는 경우
+			{
+				if (bot != ceil(newBottom))
+				{
+					newBottom = bot + 1;
+				}
+				break;
+			}
+
+			if (bot == ceil(yMove)) // 이동할 수 있는 만큼 다 이동한 경우
+			{
+				newBottom = yMove;
+				if (deltaX >= 0)
+				{
+					newX += ratio * abs(yMove - ceil(yMove));
+				}
+				else
+				{
+					newX -= ratio * abs(yMove - ceil(yMove));
+				}
+			}
+		}
 	}
 
-	for (int y = floor(_rc.bottom) + 1; y < _rc.bottom + _gravity; y++)
-	{
-		bool isGround = checkPixelAvail(_x, y); //  떨어진 후 밟을 픽셀이 있는지 검사
-
-		if (isGround) // 발판이 있는 경우
-		{
-			_y = y - (_height / 2);
-			_rc = RectMakeCenter(_x, _y, _width, _height);
-			return true;
-		}
-		else // 발판이 없는 경우
-		{
-			newBottom = y;
-		}
-		
-		if (y == floor(_rc.bottom + _gravity)) // 이동 가능 범위 끝까지 이동한 경우
-		{
-			newBottom = _rc.bottom + _gravity;
-		}
-	}
-
+	_x = newX;
 	_y = newBottom - (_height / 2);
 	_rc = RectMakeCenter(_x, _y, _width, _height);
 	return false;

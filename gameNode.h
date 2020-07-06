@@ -1,5 +1,7 @@
 #pragma once
 #include "image.h"
+#include <cassert>
+#include <vector>
 
 static image* _backBuffer = IMAGE_MANAGER->addImage("backBuffer", WINSIZEX, WINSIZEY);
 

@@ -30,10 +30,12 @@ private:
 	SLOPE	_slope; // 현재 서있는 각도
 
 	float _width = 20, _height = 20; // 웜즈 충돌 범위
-	float _speed = 15; // 웜즈의 초당 이동 픽셀
+	float _speed = 0.4; // 웜즈의 프레임당 이동 픽셀
 	float _x, _y; // 웜즈의 중점
 	int _offsetClimb = 6; // 오를 수 있는 픽셀 차
 	int _offsetSlope = 1; // 기울어짐 표현하는 픽셀차
+	float _angle;
+	float _power;
 	float _gravity; // 현재 받고 있는 중력
 	RECT _rc; // 충돌 범위
 
@@ -63,11 +65,15 @@ public:
 	void reverseSlope(); // 기울기를 반대로 설정해주는 메서드, 좌우 방향이 바뀔 때 사용
 	
 	bool move(); // 웜즈를 바라보고 있는 방향으로 이동시킴, false라면 fallen 상태로 돌리기
-	bool gravityMove(); // 중력 계산이 필요한 이동, true라면 땅에 부딪혔다는 뜻
+	bool gravityMove(float startX, float startY); // 중력 계산이 필요한 이동, true라면 땅에 부딪혔다는 뜻
 	bool isTurn();
 
-	void setGravity(float gravity) { _gravity = gravity; }
 	float getGravity() { return _gravity; }
+	float getAngle() { return _angle; }
+	float getPower() { return _power; }
+	void setGravity(float gravity) { _gravity = gravity; }
+	void setAngle(float angle) { _angle = angle; }
+	void setPower(float power) { _power = power; }
 
 
 
