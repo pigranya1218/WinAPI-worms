@@ -65,7 +65,7 @@ public:
 	void reverseSlope(); // 기울기를 반대로 설정해주는 메서드, 좌우 방향이 바뀔 때 사용
 	
 	bool move(); // 웜즈를 바라보고 있는 방향으로 이동시킴, false라면 fallen 상태로 돌리기
-	bool gravityMove(float startX, float startY); // 중력 계산이 필요한 이동, true라면 땅에 부딪혔다는 뜻
+	bool gravityMove(float xPower); // 중력 계산이 필요한 이동, true라면 땅에 부딪혔다는 뜻
 	bool isTurn();
 
 	float getGravity() { return _gravity; }

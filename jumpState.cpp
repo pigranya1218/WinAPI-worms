@@ -11,28 +11,38 @@ void jumpState::enter(worm & player)
 	_ani->setFPS(20);
 	_ani->start();
 
-	_startX = player.getX();
-	_startY = player.getY();
-
 	_isGround = false;
-
 	_ready = true;
+	_transToLong = false;
 }
 
 void jumpState::exit(worm & player)
 {
-	SAFE_DELETE(_ani);
+	if (!_transToLong)
+	{
+		SAFE_DELETE(_ani);
+	}
 }
 
 state * jumpState::update(worm & player)
 {
+	// DEBUG
+	if (KEY_MANAGER->isOnceKeyDown(VK_LBUTTON))
+	{
+		player.setPlayerPos(CAMERA_MANAGER->getAbsoluteL(_ptMouse.x), CAMERA_MANAGER->getAbsoluteT(_ptMouse.y));
+		return new idleState;
+	}
+
 	if (player.isTurn())
 	{
 		if (_ready) // 아직 준비단계일 때
 		{
 			if (KEY_MANAGER->isOnceKeyDown(VK_SPACE)) // 롱 점프로 전환
 			{
-				return new longJumpState;
+				_transToLong = true;
+				longJumpState* newState = new longJumpState;
+				newState->setCurrentAni(_ani);
+				return newState;
 			}
 		}
 	}
@@ -54,11 +64,11 @@ state * jumpState::update(worm & player)
 
 	if (!_ready && !_isGround) // 점프한 상태인 경우
 	{
-		bool isLanded = player.gravityMove(_startX, _startY); // 점프 계산 이동
+		bool isLanded = player.gravityMove(0); // 점프 계산 이동
 		if(isLanded)
 		{
 			_isGround = true;
-			if (player.getGravity() >= 6) // 땅에 쎄게 부딪힌 경우
+			if (player.getGravity() >= 8) // 땅에 쎄게 부딪힌 경우
 			{
 				player.updateSlope(); // 땅에 박힐 당시의 기울기 계산
 				_img = IMAGE_MANAGER->findImage(getImageKey("FALLEN_TWANG", player.getSlope()));

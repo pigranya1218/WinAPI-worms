@@ -12,8 +12,6 @@ void fallenState::enter(worm& player)
 	_ani->start();
 	_isGround = false;
 
-	_startX = player.getX();
-	_startY = player.getY();
 }
 
 void fallenState::exit(worm& player)
@@ -26,11 +24,11 @@ state* fallenState::update(worm& player)
 	// 땅에 닿을 때까지 떨어지기
 	if (!_isGround)
 	{
-		_isGround = player.gravityMove(_startX, _startY);
+		_isGround = player.gravityMove(0);
 		if (_isGround)
 		{
 			_gravity = player.getGravity(); // 착지할 당시의 중력값 저장
-			if (_gravity >= 6) // 20 이상의 중력값에선 땅에 박혀야 함
+			if (_gravity >= 8) // 20 이상의 중력값에선 땅에 박혀야 함
 			{
 				player.updateSlope(); // 땅에 박힐 당시의 기울기 계산
 				_img = IMAGE_MANAGER->findImage(getImageKey("FALLEN_TWANG", player.getSlope()));
