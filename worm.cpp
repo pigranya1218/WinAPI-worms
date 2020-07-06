@@ -288,14 +288,14 @@ bool worm::gravityMove(float xPower) // false : 아직 떨어지는 중 , true : 착지함
 					{
 						xMove -= ratio; // y 이동값에 대한 x 이동값
 					}
-					for (int x = ceil(newX); x >= ceil(xMove); x--)
+					for (int x = floor(newX); x >= floor(xMove); x--)
 					{
-						if (bot == floor(newBottom) && x == ceil(newX)) continue;
+						if (bot == floor(newBottom) && x == floor(newX)) continue;
 						isMoveAvailX = checkMoveAvail(x, bot);
 
 						if (!isMoveAvailX) // 이동이 불가능하다면
 						{
-							if (x == ceil(newX))
+							if (x == floor(newX))
 							{
 								isMoveAvailY = false;
 							}
@@ -316,7 +316,7 @@ bool worm::gravityMove(float xPower) // false : 아직 떨어지는 중 , true : 착지함
 							break;
 						}
 
-						if (x == ceil(xMove)) // 이동할 수 있는 만큼 다 이동한 경우
+						if (x == floor(xMove)) // 이동할 수 있는 만큼 다 이동한 경우
 						{
 							newX = xMove;
 						}
@@ -328,6 +328,7 @@ bool worm::gravityMove(float xPower) // false : 아직 떨어지는 중 , true : 착지함
 					newBottom = bot;
 					break;
 				}
+
 				if (isPixelAvail) // x축 이동 계산 중 착지한 경우
 				{
 					_x = newX;
@@ -394,13 +395,13 @@ bool worm::gravityMove(float xPower) // false : 아직 떨어지는 중 , true : 착지함
 			}
 			else // deltaX가 음수일 때 (왼쪽으로 이동할 때)
 			{
-				for (int x = ceil(newX); x >= ceil(xMove); x--)
+				for (int x = floor(newX); x >= floor(xMove); x--)
 				{
 					isMoveAvail = checkMoveAvail(x, bot);
 
 					if (!isMoveAvail) // 이동이 불가능하다면
 					{
-						if (x == ceil(newX))
+						if (x == floor(newX))
 						{
 							newBottom -= 1;
 						}
@@ -421,7 +422,7 @@ bool worm::gravityMove(float xPower) // false : 아직 떨어지는 중 , true : 착지함
 						break;
 					}
 
-					if (x == ceil(xMove)) // 이동할 수 있는 만큼 다 이동한 경우
+					if (x == floor(xMove)) // 이동할 수 있는 만큼 다 이동한 경우
 					{
 						newX = xMove;
 					}
@@ -444,9 +445,9 @@ bool worm::gravityMove(float xPower) // false : 아직 떨어지는 중 , true : 착지함
 	}
 	else // deltaY가 음수일 때 (위로 이동할 때), 위로 이동할 때는 착지 체크 안함
 	{
-		if (ceil(newBottom) != ceil(yMove)) // ratio 비율대로 계산할 때
+		if (floor(newBottom) != floor(yMove)) // ratio 비율대로 계산할 때
 		{
-			for (int bot = ceil(newBottom); bot >= ceil(yMove); bot--)
+			for (int bot = floor(newBottom); bot >= floor(yMove); bot--)
 			{
 				bool isMoveAvailY = true; // Y 축 이동이 가능한지 검사하는 불 변수
 				bool isMoveAvailX = false; // X 축 이동이 가능한지 검사하는 불 변수
@@ -455,13 +456,15 @@ bool worm::gravityMove(float xPower) // false : 아직 떨어지는 중 , true : 착지함
 
 				if (deltaX >= 0) // deltaX가 양수일 때 (오른쪽으로 이동할 때, 이동하지 않을 때)
 				{
-					if (bot != ceil(newBottom)) // 첫 실행이 아닌 경우 ratio만큼 더해줌
+					if (bot != floor(newBottom)) // 첫 실행이 아닌 경우 ratio만큼 더해줌
 					{
 						xMove += ratio; // y 이동값에 대한 x 이동값
 					}
 
 					for (int x = floor(newX); x <= floor(xMove); x++)
 					{
+						if (bot == floor(newBottom) && x == floor(newX)) continue;
+
 						isMoveAvailX = checkMoveAvail(x, bot); // x축 이동이 가능한지 검사
 
 						if (!isMoveAvailX) // x축 이동이 불가능할 때
@@ -469,6 +472,10 @@ bool worm::gravityMove(float xPower) // false : 아직 떨어지는 중 , true : 착지함
 							if(x != floor(newX))
 							{
 								newX = x - 1;
+							}
+							else
+							{
+								newBottom = bot - 1;
 							}
 							_angle = PI - _angle;
 							_power *= 0.8; 
@@ -479,25 +486,32 @@ bool worm::gravityMove(float xPower) // false : 아직 떨어지는 중 , true : 착지함
 						if (x == floor(xMove)) // 이동할 수 있는 만큼 다 이동한 경우
 						{
 							newX = xMove;
+							newBottom = bot;
 						}
 					}
 				}
 				else // deltaX가 음수일 때 (왼쪽으로 이동할 때)
 				{
-					if (bot != ceil(newBottom))
+					if (bot != floor(newBottom))
 					{
 						xMove -= ratio; // y 이동값에 대한 x 이동값
 					}
 
-					for (int x = ceil(newX); x >= ceil(xMove); x--)
+					for (int x = floor(newX); x >= floor(xMove); x--)
 					{
+						if (bot == floor(newBottom) && x == floor(newX)) continue;
+
 						isMoveAvailX = checkMoveAvail(x, bot);
 
 						if (!isMoveAvailX) // X 축 이동이 안될 때
 						{
-							if (x != ceil(newX))
+							if (x != floor(newX))
 							{
 								newX = x + 1;
+							}
+							else
+							{
+								newBottom = bot + 1;
 							}
 							_angle = PI - _angle;
 							_power *= 0.8;
@@ -505,9 +519,10 @@ bool worm::gravityMove(float xPower) // false : 아직 떨어지는 중 , true : 착지함
 							break;
 						}
 
-						if (x == ceil(xMove)) // 이동할 수 있는 만큼 다 이동한 경우
+						if (x == floor(xMove)) // 이동할 수 있는 만큼 다 이동한 경우
 						{
 							newX = xMove;
+							newBottom = bot;
 						}
 					}
 				}
@@ -521,16 +536,16 @@ bool worm::gravityMove(float xPower) // false : 아직 떨어지는 중 , true : 착지함
 					break;
 				}
 
-				if (bot == ceil(yMove)) // 이동할 수 있는 만큼 다 이동한 경우
+				if (bot == floor(yMove)) // 이동할 수 있는 만큼 다 이동한 경우
 				{
 					newBottom = yMove;
 					if (deltaX >= 0)
 					{
-						newX += ratio * abs(yMove - ceil(yMove));
+						newX += ratio * (yMove - floor(yMove));
 					}
 					else
 					{
-						newX -= ratio * abs(yMove - ceil(yMove));
+						newX -= ratio * (yMove - floor(yMove));
 					}
 				}
 			}
@@ -541,7 +556,7 @@ bool worm::gravityMove(float xPower) // false : 아직 떨어지는 중 , true : 착지함
 			bool isMoveAvailX = true;
 			if (deltaX >= 0) // deltaX가 양수일 때 (오른쪽으로 이동할 때, 이동하지 않을 때)
 			{
-				for (int x = floor(newX) + 1; x <= floor(xMove); x++)
+				for (int x = floor(newX); x <= floor(xMove); x++)
 				{
 					isMoveAvailX = checkMoveAvail(x, newBottom); // x축 이동이 가능한지 검사
 
@@ -560,7 +575,7 @@ bool worm::gravityMove(float xPower) // false : 아직 떨어지는 중 , true : 착지함
 			}
 			else // deltaX가 음수일 때 (왼쪽으로 이동할 때)
 			{
-				for (int x = ceil(newX) - 1; x >= ceil(xMove); x--)
+				for (int x = floor(newX); x >= floor(xMove); x--)
 				{
 					isMoveAvailX = checkMoveAvail(x, newBottom);
 
@@ -572,7 +587,7 @@ bool worm::gravityMove(float xPower) // false : 아직 떨어지는 중 , true : 착지함
 						break;
 					}
 
-					if (x == ceil(xMove)) // 이동할 수 있는 만큼 다 이동한 경우
+					if (x == floor(xMove)) // 이동할 수 있는 만큼 다 이동한 경우
 					{
 						newX = xMove;
 					}
