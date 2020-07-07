@@ -5,6 +5,7 @@ class attackState : public state
 {
 private:
 
+
 public:
 	attackState() {}
 	~attackState() {}

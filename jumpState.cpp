@@ -37,7 +37,7 @@ state * jumpState::update(worm & player)
 	{
 		if (_ready) // 아직 준비단계일 때
 		{
-			if (KEY_MANAGER->isOnceKeyDown(VK_SPACE)) // 롱 점프로 전환
+			if (KEY_MANAGER->isOnceKeyDown(VK_LCONTROL)) // 롱 점프로 전환
 			{
 				_transToLong = true;
 				longJumpState* newState = new longJumpState;

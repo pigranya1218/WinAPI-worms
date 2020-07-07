@@ -162,12 +162,6 @@
     <ClInclude Include="projectileManager.h">
       <Filter>playGround\stageScene\projectile</Filter>
     </ClInclude>
-    <ClInclude Include="item.h">
-      <Filter>playGround\stageScene\item</Filter>
-    </ClInclude>
-    <ClInclude Include="itemManager.h">
-      <Filter>playGround\stageScene\item</Filter>
-    </ClInclude>
     <ClInclude Include="idleState.h">
       <Filter>playGround\stageScene\worm\state</Filter>
     </ClInclude>
@@ -194,6 +188,18 @@
     </ClInclude>
     <ClInclude Include="fallenState.h">
       <Filter>playGround\stageScene\worm\state</Filter>
+    </ClInclude>
+    <ClInclude Include="allWeapon.h">
+      <Filter>playGround\stageScene\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="bazukaWeapon.h">
+      <Filter>playGround\stageScene\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="object.h">
+      <Filter>playGround\stageScene\item</Filter>
+    </ClInclude>
+    <ClInclude Include="objectManager.h">
+      <Filter>playGround\stageScene\item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -275,12 +281,6 @@
     <ClCompile Include="projectileManager.cpp">
       <Filter>playGround\stageScene\projectile</Filter>
     </ClCompile>
-    <ClCompile Include="item.cpp">
-      <Filter>playGround\stageScene\item</Filter>
-    </ClCompile>
-    <ClCompile Include="itemManager.cpp">
-      <Filter>playGround\stageScene\item</Filter>
-    </ClCompile>
     <ClCompile Include="idleState.cpp">
       <Filter>playGround\stageScene\worm\state</Filter>
     </ClCompile>
@@ -304,6 +304,15 @@
     </ClCompile>
     <ClCompile Include="fallenState.cpp">
       <Filter>playGround\stageScene\worm\state</Filter>
+    </ClCompile>
+    <ClCompile Include="bazukaWeapon.cpp">
+      <Filter>playGround\stageScene\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="object.cpp">
+      <Filter>playGround\stageScene\item</Filter>
+    </ClCompile>
+    <ClCompile Include="objectManager.cpp">
+      <Filter>playGround\stageScene\item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

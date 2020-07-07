@@ -44,9 +44,13 @@ state * idleState::update(worm & player)
 			}
 			return new moveState;
 		}
-		else if (KEY_MANAGER->isOnceKeyDown(VK_SPACE)) // 점프하기
+		else if (KEY_MANAGER->isOnceKeyDown(VK_LCONTROL)) // 점프하기
 		{
 			return new jumpState;
+		}
+		else if (KEY_MANAGER->isOnceKeyDown(VK_UP) || KEY_MANAGER->isOnceKeyDown(VK_DOWN) || KEY_MANAGER->isOnceKeyDown(VK_SPACE))
+		{
+			return new attackState;
 		}
 	}
 	else // 랜덤으로 IDLE 애니메이션 재생

@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="allState.h" />
+    <ClInclude Include="allWeapon.h" />
     <ClInclude Include="animation.h" />
     <ClInclude Include="attackState.h" />
     <ClInclude Include="cameraManager.h" />
@@ -161,8 +162,8 @@
     <ClInclude Include="idleState.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="imageManager.h" />
-    <ClInclude Include="item.h" />
-    <ClInclude Include="itemManager.h" />
+    <ClInclude Include="object.h" />
+    <ClInclude Include="objectManager.h" />
     <ClInclude Include="jumpState.h" />
     <ClInclude Include="keyManager.h" />
     <ClInclude Include="longJumpState.h" />
@@ -186,6 +187,7 @@
     <ClInclude Include="txtData.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="weapon.h" />
+    <ClInclude Include="bazukaWeapon.h" />
     <ClInclude Include="windowsAPI.h" />
     <ClInclude Include="worm.h" />
     <ClInclude Include="wormManager.h" />
@@ -203,8 +205,8 @@
     <ClCompile Include="idleState.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="imageManager.cpp" />
-    <ClCompile Include="item.cpp" />
-    <ClCompile Include="itemManager.cpp" />
+    <ClCompile Include="object.cpp" />
+    <ClCompile Include="objectManager.cpp" />
     <ClCompile Include="jumpState.cpp" />
     <ClCompile Include="keyManager.cpp" />
     <ClCompile Include="longJumpState.cpp" />
@@ -229,6 +231,7 @@
     <ClCompile Include="txtData.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="weapon.cpp" />
+    <ClCompile Include="bazukaWeapon.cpp" />
     <ClCompile Include="windowsAPI.cpp" />
     <ClCompile Include="worm.cpp" />
     <ClCompile Include="wormManager.cpp" />

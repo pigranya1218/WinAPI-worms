@@ -16,8 +16,8 @@ HRESULT stageScene::init(int playerNum, int wormsPerPlayer, int turnTime)
 	_projectileManager = new projectileManager;
 	_projectileManager->init();
 
-	_itemManager = new itemManager;
-	_itemManager->init();
+	_objectManager = new objectManager;
+	_objectManager->init();
 
 	_stageManager->setWormManager(_wormManager);
 	_wormManager->setStageManager(_stageManager);
@@ -32,7 +32,7 @@ void stageScene::release()
 	_stageManager->release();
 	_wormManager->release();
 	_projectileManager->release();
-	_itemManager->release();
+	_objectManager->release();
 }
 
 void stageScene::update()
@@ -40,7 +40,7 @@ void stageScene::update()
 	_stageManager->update();
 	_wormManager->update();
 	_projectileManager->update();
-	_itemManager->update();
+	_objectManager->update();
 
 	if (KEY_MANAGER->isStayKeyDown('Z'))
 	{
@@ -60,6 +60,6 @@ void stageScene::render()
 	_stageManager->render();
 	_wormManager->render();
 	_projectileManager->render();
-	_itemManager->render();
+	_objectManager->render();
 	CAMERA_MANAGER->zoom(getMemDC(), _zoom);
 }

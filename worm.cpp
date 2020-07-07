@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "worm.h"
 #include "allState.h"
+#include "allWeapon.h"
 #include "wormManager.h"
 #include <cmath>
 
@@ -65,8 +66,11 @@ HRESULT worm::init(wormManager* wormManager, int index, float x, float y) // x �
 	_dir = (random == 0) ? DIRECTION::RIGHT : DIRECTION::LEFT;
 	updateSlope();
 
-	_state = new idleState();
+	_state = new idleState;
 	_state->enter(*this);
+
+	_weapon = new bazukaWeapon;
+	_weapon->enter(*this);
 
 	return S_OK;
 }
@@ -217,7 +221,8 @@ bool worm::move() // true : 땅이 있음, false : 땅이 없어서 추락할 예정
 	return true;
 }
 
-bool worm::gravityMove(float xPower) // false : 아직 떨어지는 중 , true : 착지함
+// false : 아직 떨어지는 중 , true : 착지함
+bool worm::gravityMove(float xPower) // xPower = x축 움직임 더하기
 {
 	_gravity += 0.08; // 중력 업데이트
 	float deltaX = cosf(_angle) * _power + xPower; // X축 이동값

@@ -252,6 +252,13 @@ void cameraManager::frameRender(HDC hdc, image * img, float destX, float destY, 
 	if (img) img->frameRender(hdc, newL, newT, frameX, frameY);
 }
 
+void cameraManager::frameRender(HDC hdc, image* img, float destX, float destY, int frameX, int frameY, bool leftRightInverse)
+{
+	float newL = getRelativeL(destX);
+	float newT = getRelativeT(destY);
+	if (img) img->frameRender(hdc, newL, newT, frameX, frameY, leftRightInverse);
+}
+
 void cameraManager::aniRender(HDC hdc, image * img, int destX, int destY, animation * ani, bool leftRightInverse)
 {
 	float newL = getRelativeL(static_cast<float>(destX));

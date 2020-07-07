@@ -2,7 +2,7 @@
 #include "state.h"
 #include "worm.h"
 
-string state::getImageKey(string key, SLOPE slope)
+string getImageKey(string key, SLOPE slope)
 {
 	string buffer;
 	switch (slope)

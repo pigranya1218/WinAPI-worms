@@ -24,7 +24,7 @@ state* longJumpState::update(worm& player)
 		return new idleState;
 	}
 
-	float xMove = (player.getDirection() == DIRECTION::LEFT)? 0.2 : -0.2;
+	float xMove = (player.getDirection() == DIRECTION::LEFT)? _xMove : -_xMove;
 
 	if (player.isTurn())
 	{

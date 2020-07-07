@@ -63,6 +63,8 @@ public:
 
 	void frameRender(HDC hdc, image* img, float destX, float destY);
 	void frameRender(HDC hdc, image* img, float destX, float destY, int frameX, int frameY);
+	void frameRender(HDC hdc, image* img, float destX, float destY, int frameX, int frameY, bool leftRightInverse);
+
 
 	void aniRender(HDC hdc, image* img, int destX, int destY, animation* ani, bool leftRightInverse);
 

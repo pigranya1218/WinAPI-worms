@@ -34,8 +34,10 @@ private:
 	float _x, _y; // 웜즈의 중점
 	int _offsetClimb = 6; // 오를 수 있는 픽셀 차
 	int _offsetSlope = 1; // 기울어짐 표현하는 픽셀차
-	float _angle;
-	float _power;
+	int _maxHp = 100; // 최대 HP
+	int _currHp = 100; // 현재 HP
+	float _angle; // 현재 움직이는 각도
+	float _power; // 현재 움직이는 파워
 	float _gravity; // 현재 받고 있는 중력
 	RECT _rc; // 충돌 범위
 
@@ -52,6 +54,7 @@ public:
 	virtual void update();
 	virtual void render();
 
+	void setWeapon(weapon* weapon) { _weapon = weapon; }
 	weapon* getWeapon() { return _weapon; }
 	float getX() { return _x; }
 	float getY() { return _y; }

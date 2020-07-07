@@ -5,10 +5,10 @@
 class worm;
 enum class SLOPE;
 
+string getImageKey(string key, SLOPE slope);
+
 class state : public gameNode
 {
-protected:
-	string getImageKey(string key, SLOPE slope);
 
 private:
 	

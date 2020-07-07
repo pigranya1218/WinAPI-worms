@@ -46,6 +46,20 @@ HRESULT playGround::init()
 
 
 	// ** ATTACK
+	// *** AIM
+	IMAGE_MANAGER->addFrameImage("WEAPON_AIM", "resources/images/weapon/aim/aim.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BLOB", "resources/images/weapon/aim/blob.bmp", 64, 1024, 1, 16, true, RGB(128, 128, 192));
+
+	// *** BAZUKA
+	IMAGE_MANAGER->addFrameImage("WEAPON_BAZUKA_NORMAL", "resources/images/weapon/bazuka/wbaz.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BAZUKA_DOWN", "resources/images/weapon/bazuka/wbazd.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BAZUKA_UP", "resources/images/weapon/bazuka/wbazu.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BAZUKA_BACK_NORMAL", "resources/images/weapon/bazuka/wbazbak.bmp", 60, 420, 1, 7, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BAZUKA_BACK_DOWN", "resources/images/weapon/bazuka/wbazbak.bmp", 60, 420, 1, 7, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BAZUKA_BACK_UP", "resources/images/weapon/bazuka/wbazbak.bmp", 60, 420, 1, 7, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BAZUKA_LINK_NORMAL", "resources/images/weapon/bazuka/wbazbak.bmp", 60, 420, 1, 7, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BAZUKA_LINK_DOWN", "resources/images/weapon/bazuka/wbazbak.bmp", 60, 420, 1, 7, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BAZUKA_LINK_UP", "resources/images/weapon/bazuka/wbazbak.bmp", 60, 420, 1, 7, true, RGB(128, 128, 192));
 
 	// ** FALLEN
 	IMAGE_MANAGER->addFrameImage("FALLEN", "resources/images/wfall.bmp", 60, 120, 1, 2, true, RGB(128, 128, 192));

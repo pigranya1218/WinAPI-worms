@@ -24,11 +24,15 @@ state * moveState::update(worm & player)
 		return new idleState;
 	}
 
-	if (KEY_MANAGER->isOnceKeyDown(VK_SPACE)) // 점프 버튼 입력
+	if (KEY_MANAGER->isOnceKeyDown(VK_UP) || KEY_MANAGER->isOnceKeyDown(VK_DOWN)) // 공격
+	{
+		return new attackState;
+	}
+	else if (KEY_MANAGER->isOnceKeyDown(VK_LCONTROL)) // 점프 버튼 입력
 	{
 		return new jumpState;
 	}
-	if (KEY_MANAGER->isStayKeyDown(VK_LEFT)) // 왼쪽으로 지속해서 이동
+	else if (KEY_MANAGER->isStayKeyDown(VK_LEFT)) // 왼쪽으로 지속해서 이동
 	{
 		if (player.getDirection() == DIRECTION::RIGHT)
 		{

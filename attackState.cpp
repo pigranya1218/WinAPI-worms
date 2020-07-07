@@ -15,12 +15,19 @@ void attackState::exit(worm& player)
 
 state* attackState::update(worm& player)
 {
-	bool isFinish = player.getWeapon()->update(player);
-	if (isFinish)
+	WEAPON_FINISH_TYPE isFinish = player.getWeapon()->update(player); // 무기의 사용이 끝났는가
+	switch (isFinish)
 	{
-		return new idleState();
-	} 
-	return nullptr;
+	case WEAPON_FINISH_TYPE::ATTACK: 
+		return nullptr;
+	case WEAPON_FINISH_TYPE::MOVING:
+	case WEAPON_FINISH_TYPE::FINISH_BUT_MOVE:
+		return new moveState;
+	case WEAPON_FINISH_TYPE::JUMPING:
+		return new jumpState;
+	case WEAPON_FINISH_TYPE::FINISH:
+		return new idleState;
+	}
 }
 
 void attackState::render(worm& player)

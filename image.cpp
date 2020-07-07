@@ -478,70 +478,12 @@ void image::frameRender(HDC hdc, int destX, int destY, int currentFrameX, int cu
 {
 	_imageInfo->currentFrameX = currentFrameX;
 	_imageInfo->currentFrameY = currentFrameY;
+	float sourWidth = _imageInfo->frameWidth;
+	float sourHeight = _imageInfo->frameHeight;
+	float sourX = _imageInfo->currentFrameX * _imageInfo->frameWidth;
+	float sourY = _imageInfo->currentFrameY * _imageInfo->frameHeight;
 
-	if (_trans)
-	{
-		if (leftRightInverse) // 좌우 반전으로 그리기
-		{
-			GdiTransparentBlt(
-				hdc,					//복사될 영역 DC
-				destX + _imageInfo->frameWidth,					//복사될 좌표 X
-				destY,					//복사될 좌표 Y
-				-_imageInfo->frameWidth,	//복사될 크기 (가로)
-				_imageInfo->frameHeight,//복사될 크기 (세로)
-				_imageInfo->hMemDC,		//복사해올 DC
-				_imageInfo->currentFrameX * _imageInfo->frameWidth,
-				_imageInfo->currentFrameY * _imageInfo->frameHeight,			//복사해올 좌표 X,Y
-				_imageInfo->frameWidth,								//복사할 가로크기
-				_imageInfo->frameHeight,							//복사할 세로크기
-				_transColor);			//복사할때 제외할 픽셀값
-		}
-		else
-		{
-			GdiTransparentBlt(
-				hdc,					//복사될 영역 DC
-				destX,					//복사될 좌표 X
-				destY,					//복사될 좌표 Y
-				_imageInfo->frameWidth,	//복사될 크기 (가로)
-				_imageInfo->frameHeight,//복사될 크기 (세로)
-				_imageInfo->hMemDC,		//복사해올 DC
-				_imageInfo->currentFrameX * _imageInfo->frameWidth,
-				_imageInfo->currentFrameY * _imageInfo->frameHeight,			//복사해올 좌표 X,Y
-				_imageInfo->frameWidth,								//복사할 가로크기
-				_imageInfo->frameHeight,							//복사할 세로크기
-				_transColor);			//복사할때 제외할 픽셀값
-		}
-	}
-	else
-	{
-		if (leftRightInverse)
-		{
-			StretchBlt(hdc,							//복사할 DC
-				destX + _imageInfo->frameWidth,							//복사할 X좌표(left)
-				destY,							//복사할 Y좌표(top)
-				-_imageInfo->frameWidth,			//복사할 크기
-				_imageInfo->frameHeight,		//복사할 크기
-				_imageInfo->hMemDC,				//복사될 DC
-				_imageInfo->currentFrameX * _imageInfo->frameWidth,
-				_imageInfo->currentFrameY * _imageInfo->frameHeight,		//복사될 X,Y(left, top)
-				_imageInfo->frameWidth,								//복사할 가로크기
-				_imageInfo->frameHeight,							// 복사할 세로 크기
-				SRCCOPY);				//변형없이 복사하겠다
-		}
-		else
-		{
-			//DC영역 간의 고속복사를 해주는 함수 BitBlt
-			BitBlt(hdc,							//복사할 DC
-				destX,							//복사할 X좌표(left)
-				destY,							//복사할 Y좌표(top)
-				_imageInfo->frameWidth,			//복사할 크기
-				_imageInfo->frameHeight,		//복사할 크기
-				_imageInfo->hMemDC,				//복사될 DC
-				_imageInfo->currentFrameX * _imageInfo->frameWidth,
-				_imageInfo->currentFrameY * _imageInfo->frameHeight,			//복사될 X,Y(left, top)
-				SRCCOPY);				//변형없이 복사하겠다
-		}
-	}
+	render(hdc, destX, destY, sourX, sourY, sourWidth, sourHeight, leftRightInverse);
 }
 
 void image::loopRender(HDC hdc, const LPRECT drawArea, int offSetX, int offSetY)
