@@ -24,21 +24,10 @@ state* longJumpState::update(worm& player)
 		return new idleState;
 	}
 
-	float xMove = 0;
+	float xMove = (player.getDirection() == DIRECTION::LEFT)? 0.2 : -0.2;
 
 	if (player.isTurn())
 	{
-		if (!_ready) // 아직 준비단계일 때
-		{
-			if (KEY_MANAGER->isStayKeyDown(VK_LEFT)) // 왼쪽으로 이동
-			{
-				xMove = -0.3;
-			}
-			else if (KEY_MANAGER->isStayKeyDown(VK_RIGHT)) // 오른쪽으로 이동
-			{
-				xMove = 0.3;
-			}
-		}
 	}
 
 	if (!_ani->isPlay() && _ready) // 점프 상태로 전환

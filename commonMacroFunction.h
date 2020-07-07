@@ -35,7 +35,6 @@ inline RECT RectMakeCenter(int x, int y, int width, int height)
 }
 
 
-
 //================= 사각형 관련 함수 ==================
 
 inline void Rectangle(HDC hdc, RECT& rc)
