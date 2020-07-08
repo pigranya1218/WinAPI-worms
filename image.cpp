@@ -330,6 +330,37 @@ void image::render(HDC hdc, int destX, int destY, int sourX, int sourY, int sour
 	}
 }
 
+void image::render(HDC hdc, int destX, int destY, int destWidth, int destHeight, int sourX, int sourY, int sourWidth, int sourHeight)
+{
+	if (_trans)
+	{
+		GdiTransparentBlt(
+			hdc,					//복사될 영역 DC
+			destX,					//복사될 좌표 X
+			destY,					//복사될 좌표 Y
+			destWidth,				//복사될 크기 (가로)
+			destHeight,				//복사될 크기 (세로)
+			_imageInfo->hMemDC,		//복사해올 DC
+			sourX, sourY,			//복사해올 좌표 X,Y
+			sourWidth,				//복사할 가로크기
+			sourHeight,				//복사할 세로크기
+			_transColor);			//복사할때 제외할 픽셀값
+	}
+	else
+	{
+		StretchBlt(hdc,					//복사할 DC
+			destX,					//복사할 X좌표(left)
+			destY,					//복사할 Y좌표(top)
+			destWidth,				//복사할 크기
+			destHeight,				//복사할 크기
+			_imageInfo->hMemDC,		//복사될 DC
+			sourX, sourY,
+			sourWidth,
+			sourHeight,
+			SRCCOPY);				//변형없이 복사하겠다
+	}
+}
+
 void image::render(HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight, bool leftRightInverse)
 {
 	if (_trans)

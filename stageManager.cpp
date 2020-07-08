@@ -15,6 +15,9 @@ HRESULT stageManager::init(int playerNum, int wormsPerPlayer, int turnTime)
 	_turnTime = turnTime;
 	_zoom = 1;
 
+	_magentaBrush = CreateSolidBrush(RGB(255, 0, 255));
+	_magentaPen = CreatePen(BS_SOLID, 1, RGB(255, 0, 255));
+
 	return S_OK;
 }
 
@@ -55,6 +58,8 @@ void stageManager::render()
 	CAMERA_MANAGER->loopRender(getMemDC(), IMAGE_MANAGER->findImage("BACKGROUND"), bgRect, _offsetBG, 0);
 
 	// ¶¥ ±×¸®±â
+	CAMERA_MANAGER->render(getMemDC(), _stageShadowDC, 0, 0, width, height, true, RGB(255, 0, 255));
+	CAMERA_MANAGER->render(getMemDC(), _stageBackDC, 0, 0, width, height, true, RGB(255, 0, 255));
 	CAMERA_MANAGER->render(getMemDC(), _stageDC, 0, 0, width, height, true, RGB(255, 0, 255));
 	
 	// ¹Ù´Ù ±×¸®±â
@@ -70,6 +75,26 @@ void stageManager::setWormManager(wormManager * wormManager)
 	_wormManager = wormManager;
 }
 
+void stageManager::bomb(float x, float y, float damage, float width) // ÇÈ¼¿ ÆøÆÄ½ÃÅ°±â
+{
+	SelectObject(_stageDC, _magentaBrush);
+	SelectObject(_stageDC, _magentaPen);
+	SelectObject(_stageBackDC, _magentaBrush);
+	SelectObject(_stageBackDC, _magentaPen);
+	SelectObject(_stageShadowDC, _magentaBrush);
+	SelectObject(_stageShadowDC, _magentaPen);
+
+	float radius = width / 2;
+	RECT bombCircle = {x - radius, y - radius, x + radius, y + radius};
+	Ellipse(_stageDC, bombCircle);
+	float radiusMiddle = radius * 0.9;
+	RECT backBombCircle = { x - radiusMiddle, y - radiusMiddle, x + radiusMiddle, y + radiusMiddle };
+	Ellipse(_stageBackDC, backBombCircle);
+	float radiusSmall = radius * 0.7;
+	RECT shadowBombCircle = { x - radiusSmall, y - radiusSmall, x + radiusSmall, y + radiusSmall };
+	Ellipse(_stageShadowDC, shadowBombCircle);
+}
+
 void stageManager::makeStage()
 {
 	makeWorld();
@@ -82,12 +107,45 @@ void stageManager::makeWorld() // ¸Ê º¹»ç
 	int width = IMAGE_MANAGER->findImage("STAGE")->getWidth();
 	int height = IMAGE_MANAGER->findImage("STAGE")->getHeight();
 	_stageDC = CreateCompatibleDC(getMemDC());
-	HBITMAP originBitMap = static_cast<HBITMAP>(SelectObject(_stageDC, (HBITMAP)CreateCompatibleBitmap(getMemDC(), width, height)));
+	HBITMAP originBitMap1 = static_cast<HBITMAP>(SelectObject(_stageDC, (HBITMAP)CreateCompatibleBitmap(getMemDC(), width, height)));
 	
 	BitBlt(_stageDC, 0, 0, width, height,
 		IMAGE_MANAGER->findImage("STAGE")->getMemDC(), 0, 0, SRCCOPY);
 
-	DeleteObject(originBitMap);
+	_stageBackDC = CreateCompatibleDC(getMemDC());
+	HBITMAP originBitMap2 = static_cast<HBITMAP>(SelectObject(_stageBackDC, (HBITMAP)CreateCompatibleBitmap(getMemDC(), width, height)));
+	BitBlt(_stageBackDC, 0, 0, width, height,
+		IMAGE_MANAGER->findImage("STAGE_BACK")->getMemDC(), 0, 0, SRCCOPY);
+
+	_stageShadowDC = CreateCompatibleDC(getMemDC());
+	HBITMAP originBitMap3 = static_cast<HBITMAP>(SelectObject(_stageShadowDC, (HBITMAP)CreateCompatibleBitmap(getMemDC(), width, height)));
+	BitBlt(_stageShadowDC, 0, 0, width, height,
+		IMAGE_MANAGER->findImage("STAGE_SHADOW")->getMemDC(), 0, 0, SRCCOPY);
+
+	/*for (int x = 0; x < IMAGE_MANAGER->findImage("STAGE")->getWidth(); x++)
+	{
+		for (int y = 0; y < IMAGE_MANAGER->findImage("STAGE")->getHeight(); y++)
+		{
+			COLORREF stageRGB = GetPixel(_stageDC, x, y);
+
+			int r = GetRValue(stageRGB);
+			int g = GetGValue(stageRGB);
+			int b = GetBValue(stageRGB);
+
+			if (r == 255 && g == 0 && b == 255)
+			{
+				SetPixel(_stageBackDC, x, y, RGB(255, 0, 255));
+			}
+			else
+			{
+				SetPixel(_stageBackDC, x, y, RGB(0, 0, 0));
+			}
+		}
+	}*/
+
+	DeleteObject(originBitMap1);
+	DeleteObject(originBitMap2);
+	DeleteObject(originBitMap3);
 }
 
 void stageManager::makeWorms() // ¸Ê °÷°÷¿¡ ¿úÁî ¸¸µé±â

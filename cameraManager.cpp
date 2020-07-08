@@ -218,6 +218,13 @@ void cameraManager::render(HDC hdc, image * img, float destX, float destY, float
 	if (img) img->render(hdc, newL, newT, sourX, sourY, sourWidth, sourHeight);
 }
 
+void cameraManager::render(HDC hdc, image* img, float destX, float destY, float destWidth, float destHeight, float sourX, float sourY, float sourWidth, float sourHeight)
+{
+	float newL = getRelativeL(destX);
+	float newT = getRelativeT(destY);
+	if (img) img->render(hdc, newL, newT, destWidth, destHeight, sourX, sourY, sourWidth, sourHeight);
+}
+
 void cameraManager::render(HDC hdc, HDC originDC, float destX, float destY, float width, float height, bool trans, COLORREF rgb)
 {
 	float newL = getRelativeL(destX);

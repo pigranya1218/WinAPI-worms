@@ -22,6 +22,10 @@ private:
 	int _offsetBG; // 배경 이미지 LOOP 이동 변수
 	float _zoom; // 카메라 배율
 	HDC _stageDC; // 스테이지 이미지, 폭파 등 이미지 변경이 이루어질 수 있기에 따로 저장
+	HDC _stageBackDC; // 폭파로 생기는 테두리를 표시하기 위한 DC
+	HDC _stageShadowDC; // 폭파로 생기는 입체감을 표현하기 위한 DC
+	HBRUSH _magentaBrush;
+	HPEN _magentaPen;
 
 	// **** 디버깅용 변수들
 	HDC _tempDC;
@@ -41,9 +45,10 @@ public:
 	int getWormsPerPlayer() { return _wormsPerPlayer; }
 	int getCurrentTurnIndex() { return _turnPlayer * _wormsPerPlayer + _turnWorm;}
 
-	COLORREF getPixel(int x, int y) { return GetPixel(_stageDC, x, y); }
+	COLORREF getPixel(int x, int y) { return GetPixel(_stageBackDC, x, y); }
+
+	void bomb(float x, float y, float damage, float width);
 
 	void makeStage();
-
 };
 

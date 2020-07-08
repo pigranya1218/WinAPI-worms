@@ -2,6 +2,7 @@
 #include "bazukaWeapon.h"
 #include "worm.h"
 #include "state.h"
+#include "stageManager.h"
 
 void bazukaWeapon::shoot(worm& shooter)
 {
@@ -98,9 +99,13 @@ WEAPON_FINISH_TYPE bazukaWeapon::update(worm& player)
 
 		if (isBomb) // ÆøÆÄ½ÃÅ°±â
 		{
-			EFFECT_MANAGER->play("EFFECT_CIRCLE", _projectile->getX(), _projectile->getY());
-			EFFECT_MANAGER->play("EFFECT_ELIPSE", _projectile->getX(), _projectile->getY());
-			EFFECT_MANAGER->play("EFFECT_EX_POW", _projectile->getX(), _projectile->getY() - 40);
+			float x = _projectile->getX(), y = _projectile->getY();
+			EFFECT_MANAGER->play("EFFECT_CIRCLE", x, y, _bombWidth, _bombWidth);
+			EFFECT_MANAGER->play("EFFECT_ELIPSE", x, y, _bombWidth + 30, _bombWidth + 30);
+			EFFECT_MANAGER->play("EFFECT_EX_POW", x, y - 50, 50, 50);
+			
+			player.getStageManager()->bomb(x, y, _damage, _bombWidth); // ÇÈ¼¿ ÆøÆÄ½ÃÅ°±â
+
 			_state = WEAPON_STATE::IDLE;
 		}
 	}
@@ -124,11 +129,6 @@ WEAPON_FINISH_TYPE bazukaWeapon::update(worm& player)
 
 void bazukaWeapon::render(worm& player)
 {
-	if (_isGaging)
-	{
-
-	}
-	
 	RECT rc = player.getRect();
 
 	float x = (rc.left + rc.right) / 2, y = (rc.top + rc.bottom) / 2;

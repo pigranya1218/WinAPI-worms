@@ -54,7 +54,9 @@ void effect::render()
 {
 	if (!_isRunning) return;
 
-	CAMERA_MANAGER->aniRender(getMemDC(), _effectImage, _x, _y, _effectAnimation, false);
+	CAMERA_MANAGER->render(getMemDC(), _effectImage, _x, _y, _width, _height, 
+		_effectAnimation->getFramePos().x, _effectAnimation->getFramePos().y, _effectAnimation->getFrameWidth(), _effectAnimation->getFrameHeight());
+	// CAMERA_MANAGER->aniRender(getMemDC(), _effectImage, _x, _y, _effectAnimation, false);
 	//_effectImage->aniRender(getMemDC(), _x, _y, _effectAnimation);
 }
 
@@ -65,6 +67,23 @@ void effect::startEffect(int x, int y)
 
 	_x = x - (_effectAnimation->getFrameWidth() / 2);
 	_y = y - (_effectAnimation->getFrameHeight() / 2);
+	_width = _effectAnimation->getFrameWidth();
+	_height = _effectAnimation->getFrameHeight();
+
+	_isRunning = true;
+
+	_effectAnimation->start();
+}
+
+void effect::startEffect(int x, int y, int width, int height)
+{
+	//이펙트 이미지 또는 이펙트 애니메이션이 없으면 실행하지마라
+	if (!_effectImage || !_effectAnimation) return;
+
+	_x = x - (width / 2);
+	_y = y - (height / 2);
+	_width = width;
+	_height = height;
 
 	_isRunning = true;
 

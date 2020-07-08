@@ -28,6 +28,7 @@ class weapon : public gameNode
 protected:
 	float getRealAngle(worm& player, float angle);
 	WEAPON_STATE _state;
+	float _blobOffset = (float)100 / 16; // 게이지 오프셋
 
 private:
 

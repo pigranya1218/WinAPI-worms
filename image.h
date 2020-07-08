@@ -93,6 +93,7 @@ public:
 
 	//·»´õÇÔ¼ö(»Ñ·ÁÁúDC, ±×·ÁÁú ÁÂÇ¥X(left), ±×·ÁÁú ÁÂÇ¥Y(top), °¡Á®¿ÃÁÂÇ¥X, °¡Á®¿ÃÁÂÇ¥Y, °¡Á®¿Ã °¡·ÎÅ©±â, °¡Á®¿Ã ¼¼·ÎÅ©±â)
 	void render(HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight);
+	void render(HDC hdc, int destX, int destY, int destWidth, int destHeight, int sourX, int sourY, int sourWidth, int sourHeight);
 	void render(HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight, bool leftRightInverse);
 	
 	//ÀÌ¹ÌÁö ÇÁ·¹ÀÓ ·»´õ(»Ñ·ÁÁúDC, ±×·ÁÁú ÁÂÇ¥(left), ±×·ÁÁú ÁÂÇ¥(top))

@@ -21,6 +21,8 @@ HRESULT playGround::init()
 	// ** 스테이지 이미지 관련
 	IMAGE_MANAGER->addImage("BACKGROUND", "resources/images/background.bmp", 2000, 1125, false, NULL);
 	IMAGE_MANAGER->addImage("STAGE", "resources/images/bigMap.bmp", 2000, 1125, true, RGB(255, 0, 255));
+	IMAGE_MANAGER->addImage("STAGE_BACK", "resources/images/bigMapBack.bmp", 2000, 1125, true, RGB(255, 0, 255));
+	IMAGE_MANAGER->addImage("STAGE_SHADOW", "resources/images/bigMapShadow.bmp", 2000, 1125, true, RGB(255, 0, 255));
 	IMAGE_MANAGER->addImage("SEA", "resources/images/sea.bmp", 2000, 170, true, RGB(255, 0, 255));
 	
 	
@@ -72,7 +74,7 @@ HRESULT playGround::init()
 	EFFECT_MANAGER->addEffect("EFFECT_FLAME", "EFFECT_FLAME", IMAGE_MANAGER->findImage("EFFECT_FLAME")->getWidth(), IMAGE_MANAGER->findImage("EFFECT_FLAME")->getHeight(),
 		IMAGE_MANAGER->findImage("EFFECT_FLAME")->getFrameWidth(), IMAGE_MANAGER->findImage("EFFECT_FLAME")->getFrameHeight(), 30, 10);
 	EFFECT_MANAGER->addEffect("EFFECT_EX_POW", "EFFECT_EX_POW", IMAGE_MANAGER->findImage("EFFECT_EX_POW")->getWidth(), IMAGE_MANAGER->findImage("EFFECT_EX_POW")->getHeight(),
-		IMAGE_MANAGER->findImage("EFFECT_EX_POW")->getFrameWidth(), IMAGE_MANAGER->findImage("EFFECT_EX_POW")->getFrameHeight(), 15, 10);
+		IMAGE_MANAGER->findImage("EFFECT_EX_POW")->getFrameWidth(), IMAGE_MANAGER->findImage("EFFECT_EX_POW")->getFrameHeight(), 25, 10);
 
 
 	// *** BAZUKA

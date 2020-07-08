@@ -8,6 +8,8 @@ class effect : public gameNode
 protected:
 	int _x;
 	int _y;
+	int _width;
+	int _height;
 
 	image*		_effectImage;
 	animation*	_effectAnimation;
@@ -24,6 +26,7 @@ public:
 	virtual void render();
 
 	void startEffect(int x, int y);
+	void startEffect(int x, int y, int width, int height);
 
 	virtual void killEffect();
 

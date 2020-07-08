@@ -58,6 +58,7 @@ public:
 	void render(HDC hdc, image* img);
 	void render(HDC hdc, image* img, float destX, float destY);
 	void render(HDC hdc, image* img, float destX, float destY, float sourX, float sourY, float sourWidth, float sourHeight);
+	void render(HDC hdc, image* img, float destX, float destY, float destWidth, float destHeight, float sourX, float sourY, float sourWidth, float sourHeight);
 	void render(HDC hdc, HDC originDC, float destX, float destY, float width, float height, bool trans, COLORREF rgb);
 	void loopRender(HDC hdc, image* img, RECT lpRect, int offsetX, int offsetY);
 

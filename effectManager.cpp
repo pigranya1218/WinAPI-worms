@@ -19,63 +19,39 @@ HRESULT effectManager::init()
 
 void effectManager::release()
 {
-	iterTotalEffect vIter;
-	iterEffect mIter;
-
-	for (vIter = _vTotalEffect.begin(); vIter != _vTotalEffect.end(); ++vIter)
+	for (auto vIter = _vTotalEffect.begin(); vIter != _vTotalEffect.end(); )
 	{
-		mIter = vIter->begin();
-		for (; mIter != vIter->end();)
+		if (vIter->second.size() != NULL)
 		{
-			if (mIter->second.size() != NULL)
+			while(!vIter->second.empty())
 			{
-				iterEffects vArrIter = mIter->second.begin();
-
-				for (; vArrIter != mIter->second.end();)
-				{
-					(*vArrIter)->release();
-					delete *vArrIter;
-					vArrIter = mIter->second.erase(vArrIter);
-				}
+				vIter->second[0]->release();
+				delete vIter->second[0];
+				vIter->second.erase(vIter->second.begin());
 			}
-			else ++mIter;
 		}
+		else ++vIter;
 	}
-
 }
 
 void effectManager::update()
 {
-	iterTotalEffect vIter;
-	iterEffect mIter;
-
-	for (vIter = _vTotalEffect.begin(); vIter != _vTotalEffect.end(); ++vIter)
+	for (auto vIter = _vTotalEffect.begin(); vIter != _vTotalEffect.end(); vIter++)
 	{
-		for (mIter = vIter->begin(); mIter != vIter->end(); ++mIter)
+		for (int i = 0; i < vIter->second.size() ; i++)
 		{
-			iterEffects vArrIter;
-			for (vArrIter = mIter->second.begin(); vArrIter != mIter->second.end(); ++vArrIter)
-			{
-				(*vArrIter)->update();
-			}
+			vIter->second[i]->update();
 		}
 	}
 }
 
 void effectManager::render()
 {
-	iterTotalEffect vIter;
-	iterEffect mIter;
-
-	for (vIter = _vTotalEffect.begin(); vIter != _vTotalEffect.end(); ++vIter)
+	for (auto vIter = _vTotalEffect.begin(); vIter != _vTotalEffect.end(); vIter++)
 	{
-		for (mIter = vIter->begin(); mIter != vIter->end(); ++mIter)
+		for (int i = 0; i < vIter->second.size(); i++)
 		{
-			iterEffects vArrIter;
-			for (vArrIter = mIter->second.begin(); vArrIter != mIter->second.end(); ++vArrIter)
-			{
-				(*vArrIter)->render();
-			}
+			vIter->second[i]->render();
 		}
 	}
 }
@@ -84,7 +60,6 @@ void effectManager::addEffect(string effectName, const char * imageName, int ima
 {
 	image* img;
 	arrEffects vEffectBuffer;
-	arrEffect mArrEffect;
 
 	if (IMAGE_MANAGER->findImage(imageName))
 	{
@@ -101,31 +76,35 @@ void effectManager::addEffect(string effectName, const char * imageName, int ima
 		vEffectBuffer[i]->init(img, effectWidth, effectHeight, fps);
 	}
 
-	mArrEffect.insert(pair<string, arrEffects>(effectName, vEffectBuffer));
-
-	_vTotalEffect.push_back(mArrEffect);
-
+	_vTotalEffect.insert(pair<string, arrEffects>(effectName, vEffectBuffer));
 }
 
 void effectManager::play(string effectName, int x, int y)
 {
-	iterTotalEffect vIter;
-	iterEffect mIter;
-
-	for (vIter = _vTotalEffect.begin(); vIter != _vTotalEffect.end(); ++vIter)
+	for (auto vIter = _vTotalEffect.begin(); vIter != _vTotalEffect.end(); vIter++)
 	{
-		for (mIter = vIter->begin(); mIter != vIter->end(); ++mIter)
-		{
-			if (!(mIter->first == effectName)) break;
+		if (!(vIter->first == effectName)) continue;
 
-			iterEffects vArrIter;
-			for (vArrIter = mIter->second.begin(); vArrIter != mIter->second.end(); ++vArrIter)
-			{
-				if ((*vArrIter)->getIsRunning()) continue;
-				(*vArrIter)->startEffect(x, y);
-				return;
-			}
+		for (int i = 0; i < vIter->second.size(); i++)
+		{
+			if (vIter->second[i]->getIsRunning()) continue;
+			vIter->second[i]->startEffect(x, y);
+			return;
 		}
 	}
+}
 
+void effectManager::play(string effectName, int x, int y, int width, int height)
+{
+	for (auto vIter = _vTotalEffect.begin(); vIter != _vTotalEffect.end(); vIter++)
+	{
+		if (!(vIter->first == effectName)) continue;
+
+		for (int i = 0; i < vIter->second.size() ; i++)
+		{
+			if (vIter->second[i]->getIsRunning()) continue;
+			vIter->second[i]->startEffect(x, y, width, height);
+			return;
+		}
+	}
 }

@@ -14,12 +14,9 @@ private:
 	//가공
 	typedef map<string, arrEffects>			  arrEffect;
 	typedef map<string, arrEffects>::iterator iterEffect;
-	//포장
-	typedef vector<map<string, arrEffects>>			  arrTotalEffect;
-	typedef vector<map<string, arrEffects>>::iterator iterTotalEffect;
 
 private:
-	arrTotalEffect _vTotalEffect;
+	arrEffect _vTotalEffect;
 
 public:
 	effectManager();
@@ -35,5 +32,6 @@ public:
 		int fps, int buffer);
 
 	void play(string effectName, int x, int y);
+	void play(string effectName, int x, int y, int width, int height);
 };
 
