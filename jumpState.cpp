@@ -20,6 +20,7 @@ void jumpState::exit(worm & player)
 {
 	if (!_transToLong)
 	{
+		_ani->release();
 		SAFE_DELETE(_ani);
 	}
 }

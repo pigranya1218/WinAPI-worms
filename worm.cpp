@@ -335,7 +335,7 @@ bool worm::gravityMove(float xPower) // xPower = x축 움직임 더하기
 
 						isPixelAvail = checkPixelAvail(x, bot); // 밟을 땅이 있는지 체크
 
-						if (isPixelAvail) // 밟을 당이 있다면
+						if (isPixelAvail) // 밟을 땅이 있다면
 						{
 							newX = x;
 							break;
@@ -434,7 +434,7 @@ bool worm::gravityMove(float xPower) // xPower = x축 움직임 더하기
 
 					isPixelAvail = checkPixelAvail(x, bot); // 밟을 땅이 있는지 체크
 
-					if (isPixelAvail) // 밟을 당이 있다면
+					if (isPixelAvail) // 밟을 땅이 있다면
 					{
 						newX = x;
 						break;
@@ -463,7 +463,6 @@ bool worm::gravityMove(float xPower) // xPower = x축 움직임 더하기
 	}
 	else // deltaY가 음수일 때 (위로 이동할 때), 위로 이동할 때는 착지 체크 안함
 	{
-
 		if (abs(deltaY) >= 1) // y축 이동이 있어 ratio 비율대로 계산할 때
 		{
 			for (int bot = floor(newBottom); bot >= floor(yMove); bot--)
@@ -644,4 +643,14 @@ bool worm::gravityMove(float xPower) // xPower = x축 움직임 더하기
 bool worm::isTurn()
 {
 	return (_wormManager->getCurrentTurnIndex() == _index);
+}
+
+stageManager * worm::getStageManager()
+{
+	return _wormManager->getStageManager();
+}
+
+wormManager * worm::getWormManager()
+{
+	return _wormManager;
 }

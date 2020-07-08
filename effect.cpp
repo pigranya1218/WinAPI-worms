@@ -15,13 +15,12 @@ effect::~effect()
 {
 }
 
-HRESULT effect::init(image * effectImage, int frameW, int frameH, int fps, float elapsedTime)
+HRESULT effect::init(image * effectImage, int frameW, int frameH, int fps)
 {
 	if (!effectImage) return E_FAIL;
 
-	_isRunning = false;
 	_effectImage = effectImage;
-	_elapsedTime = elapsedTime;
+	_isRunning = false;
 
 	//이펙트 애니메이션이 없으면 생성해라
 	if (!_effectAnimation) _effectAnimation = new animation;
@@ -46,7 +45,7 @@ void effect::update()
 	//이펙트 애니메이션 실행 변수가 false면 실행하지 마라
 	if (!_isRunning) return;
 
-	_effectAnimation->frameUpdate(_elapsedTime);
+	_effectAnimation->frameUpdate(TIME_MANAGER->getElapsedTime());
 
 	if (!_effectAnimation->isPlay()) killEffect();
 }
@@ -55,7 +54,8 @@ void effect::render()
 {
 	if (!_isRunning) return;
 
-	_effectImage->aniRender(getMemDC(), _x, _y, _effectAnimation);
+	CAMERA_MANAGER->aniRender(getMemDC(), _effectImage, _x, _y, _effectAnimation, false);
+	//_effectImage->aniRender(getMemDC(), _x, _y, _effectAnimation);
 }
 
 void effect::startEffect(int x, int y)

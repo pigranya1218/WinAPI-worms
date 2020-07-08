@@ -18,7 +18,7 @@ public:
 	effect();
 	~effect();
 
-	virtual HRESULT init(image* effectImage, int frameW, int frameH, int fps, float elapsedTime);
+	virtual HRESULT init(image* effectImage, int frameW, int frameH, int fps);
 	virtual void release();
 	virtual void update();
 	virtual void render();

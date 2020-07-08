@@ -20,8 +20,11 @@ public:
 	virtual void render();
 
 	void setStageManager(stageManager* stageManager);
+	stageManager* getStageManager() { return _stageManager;}
+
 	void addWorms(int index, float x, float y);
 	COLORREF getPixel(int x, int y);
 	int	getCurrentTurnIndex();
+	bool checkCollisionPixel(RECT object);
 };
 

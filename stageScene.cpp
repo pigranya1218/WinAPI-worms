@@ -41,6 +41,7 @@ void stageScene::update()
 	_wormManager->update();
 	_projectileManager->update();
 	_objectManager->update();
+	EFFECT_MANAGER->update();
 
 	if (KEY_MANAGER->isStayKeyDown('Z'))
 	{
@@ -61,5 +62,6 @@ void stageScene::render()
 	_wormManager->render();
 	_projectileManager->render();
 	_objectManager->render();
+	EFFECT_MANAGER->render();
 	CAMERA_MANAGER->zoom(getMemDC(), _zoom);
 }

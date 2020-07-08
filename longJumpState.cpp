@@ -12,6 +12,7 @@ void longJumpState::enter(worm& player)
 
 void longJumpState::exit(worm& player)
 {
+	_ani->release();
 	SAFE_DELETE(_ani);
 }
 

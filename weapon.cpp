@@ -7,7 +7,7 @@ float weapon::getRealAngle(worm& player, float angle)
 	float realAngle = 0;
 	if (player.getDirection() == DIRECTION::LEFT)
 	{
-		realAngle = (PI - angle) + PI / 2;
+		realAngle = (PI - angle) + PI / 2; 
 	} 
 	else
 	{

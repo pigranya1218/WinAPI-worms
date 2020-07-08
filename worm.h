@@ -58,6 +58,7 @@ public:
 	weapon* getWeapon() { return _weapon; }
 	float getX() { return _x; }
 	float getY() { return _y; }
+	float getWidth() { return _width; }
 	float getHeight() { return _height; }
 	RECT getRect() { return _rc; }
 
@@ -77,6 +78,9 @@ public:
 	void setGravity(float gravity) { _gravity = gravity; }
 	void setAngle(float angle) { _angle = angle; }
 	void setPower(float power) { _power = power; }
+
+	stageManager* getStageManager();
+	wormManager* getWormManager();
 
 
 

@@ -14,6 +14,7 @@ void idleState::enter(worm & player)
 
 void idleState::exit(worm & player)
 {
+	_ani->release();
 	SAFE_DELETE(_ani);
 }
 

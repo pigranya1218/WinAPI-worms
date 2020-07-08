@@ -2,6 +2,7 @@
 #include "gameNode.h"
 #include "projectile.h"
 
+
 class projectileManager : public gameNode
 {
 private:

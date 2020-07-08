@@ -1,5 +1,6 @@
 #pragma once
 #include "gameNode.h"
+#include "projectile.h"
 
 class worm;
 
@@ -12,10 +13,21 @@ enum class WEAPON_FINISH_TYPE
 	FINISH // 공격 종료
 };
 
+enum class WEAPON_STATE
+{
+	BEGIN, // 무기 꺼내는 상태
+	IDLE, // 각도 조정이나 이동하는 상태
+	GAGING, // 기 모으는 상태 (스페이스바 누르고 있는 상태)
+	SHOOTING, // 쏜 상태, 투사체가 있다면 투사체가 폭파할때까지 기다리는 상태
+	WAITING, // 무언가가 일어나고 끝날때까지 기다리는 상태
+	FINISH, // 무기 넣는 상태
+};
+
 class weapon : public gameNode
 {
 protected:
 	float getRealAngle(worm& player, float angle);
+	WEAPON_STATE _state;
 
 private:
 

@@ -14,6 +14,7 @@ void moveState::enter(worm & player)
 
 void moveState::exit(worm & player)
 {
+	_ani->release();
 	SAFE_DELETE(_ani);
 }
 

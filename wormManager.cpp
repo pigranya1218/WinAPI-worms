@@ -52,3 +52,19 @@ int wormManager::getCurrentTurnIndex()
 {
 	return _stageManager->getCurrentTurnIndex();
 }
+
+bool wormManager::checkCollisionPixel(RECT object)
+{
+	RECT temp;
+	for (int i = 0; i < _worms.size(); i++)
+	{
+		worm* currWorm = _worms[i];
+		
+		if (IntersectRect(&temp, &currWorm->getRect(), &object))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}

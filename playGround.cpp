@@ -50,6 +50,31 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("WEAPON_AIM", "resources/images/weapon/aim/aim.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
 	IMAGE_MANAGER->addFrameImage("WEAPON_BLOB", "resources/images/weapon/aim/blob.bmp", 64, 1024, 1, 16, true, RGB(128, 128, 192));
 
+	// *** PROJECTILE
+	IMAGE_MANAGER->addFrameImage("PROJECTILE_MISSILE", "resources/images/weapon/projectile/missile.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
+
+	// *** EFFECT
+	IMAGE_MANAGER->addFrameImage("EFFECT_CIRCLE", "resources/images/weapon/effect/circle50.bmp", 100, 800, 1, 8, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("EFFECT_ELIPSE", "resources/images/weapon/effect/elipse50.bmp", 150, 3000, 1, 20, true, RGB(32, 32, 248));
+	IMAGE_MANAGER->addFrameImage("EFFECT_SMOKE_WHITE", "resources/images/weapon/effect/smklt50.bmp", 60, 1680, 1, 28, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("EFFECT_SMOKE_DARK", "resources/images/weapon/effect/smkdrk30.bmp", 30, 840, 1, 28, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("EFFECT_FLAME", "resources/images/weapon/effect/flame1.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("EFFECT_EX_POW", "resources/images/weapon/effect/expow.bmp", 60, 720, 1, 12, true, RGB(128, 128, 192));
+
+	EFFECT_MANAGER->addEffect("EFFECT_CIRCLE", "EFFECT_CIRCLE", IMAGE_MANAGER->findImage("EFFECT_CIRCLE")->getWidth(), IMAGE_MANAGER->findImage("EFFECT_CIRCLE")->getHeight(),
+		IMAGE_MANAGER->findImage("EFFECT_CIRCLE")->getFrameWidth(), IMAGE_MANAGER->findImage("EFFECT_CIRCLE")->getFrameHeight(), 15, 10);
+	EFFECT_MANAGER->addEffect("EFFECT_ELIPSE", "EFFECT_ELIPSE", IMAGE_MANAGER->findImage("EFFECT_ELIPSE")->getWidth(), IMAGE_MANAGER->findImage("EFFECT_ELIPSE")->getHeight(),
+		IMAGE_MANAGER->findImage("EFFECT_ELIPSE")->getFrameWidth(), IMAGE_MANAGER->findImage("EFFECT_ELIPSE")->getFrameHeight(), 30, 10);
+	EFFECT_MANAGER->addEffect("EFFECT_SMOKE_WHITE", "EFFECT_SMOKE_WHITE", IMAGE_MANAGER->findImage("EFFECT_SMOKE_WHITE")->getWidth(), IMAGE_MANAGER->findImage("EFFECT_SMOKE_WHITE")->getHeight(),
+		IMAGE_MANAGER->findImage("EFFECT_SMOKE_WHITE")->getFrameWidth(), IMAGE_MANAGER->findImage("EFFECT_SMOKE_WHITE")->getFrameHeight(), 30, 10);
+	EFFECT_MANAGER->addEffect("EFFECT_SMOKE_DARK", "EFFECT_SMOKE_DARK", IMAGE_MANAGER->findImage("EFFECT_SMOKE_DARK")->getWidth(), IMAGE_MANAGER->findImage("EFFECT_SMOKE_DARK")->getHeight(),
+		IMAGE_MANAGER->findImage("EFFECT_SMOKE_DARK")->getFrameWidth(), IMAGE_MANAGER->findImage("EFFECT_SMOKE_DARK")->getFrameHeight(), 30, 10);
+	EFFECT_MANAGER->addEffect("EFFECT_FLAME", "EFFECT_FLAME", IMAGE_MANAGER->findImage("EFFECT_FLAME")->getWidth(), IMAGE_MANAGER->findImage("EFFECT_FLAME")->getHeight(),
+		IMAGE_MANAGER->findImage("EFFECT_FLAME")->getFrameWidth(), IMAGE_MANAGER->findImage("EFFECT_FLAME")->getFrameHeight(), 30, 10);
+	EFFECT_MANAGER->addEffect("EFFECT_EX_POW", "EFFECT_EX_POW", IMAGE_MANAGER->findImage("EFFECT_EX_POW")->getWidth(), IMAGE_MANAGER->findImage("EFFECT_EX_POW")->getHeight(),
+		IMAGE_MANAGER->findImage("EFFECT_EX_POW")->getFrameWidth(), IMAGE_MANAGER->findImage("EFFECT_EX_POW")->getFrameHeight(), 15, 10);
+
+
 	// *** BAZUKA
 	IMAGE_MANAGER->addFrameImage("WEAPON_BAZUKA_NORMAL", "resources/images/weapon/bazuka/wbaz.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
 	IMAGE_MANAGER->addFrameImage("WEAPON_BAZUKA_DOWN", "resources/images/weapon/bazuka/wbazd.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
