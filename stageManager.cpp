@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "stageManager.h"
 #include "wormManager.h"
+#include "uiManager.h"
 
 HRESULT stageManager::init(int playerNum, int wormsPerPlayer, int turnTime)
 {
@@ -17,6 +18,9 @@ HRESULT stageManager::init(int playerNum, int wormsPerPlayer, int turnTime)
 
 	_magentaBrush = CreateSolidBrush(RGB(255, 0, 255));
 	_magentaPen = CreatePen(BS_SOLID, 1, RGB(255, 0, 255));
+
+	_wormsWaiting = false;
+	_wormsDamages.resize(_playerNum * _wormsPerPlayer);
 
 	return S_OK;
 }
@@ -44,6 +48,30 @@ void stageManager::update()
 	if (KEY_MANAGER->isStayKeyDown('S'))
 	{
 		CAMERA_MANAGER->setY(CAMERA_MANAGER->getY() + 5);
+	}
+
+	if (_wormsWaiting)
+	{
+		// 대미지 처리하기
+		
+		// 죽음 처리하기
+
+		// 모든 처리가 끝나면 _wormsWaiting = false로 변경하기, 바람 변경하기, 플레이어 차례 변경하기
+		_wormsWaiting = false;
+		_turnTime = 30;
+	}
+	else // 누군가의 턴 중
+	{
+		if (_turnTime <= 0) // 타이머가 다 되었는지 파악하기
+		{
+			_wormsWaiting = true;
+		}
+
+		// 움직이는 게 있는지 파악하기
+
+		// 타이머 업데이트
+		_turnTime -= TIME_MANAGER->getElapsedTime();
+		_uiManager->setTimer(ceil(_turnTime)); // UI 타이머 변경
 	}
 
 }
@@ -75,7 +103,11 @@ void stageManager::setWormManager(wormManager * wormManager)
 	_wormManager = wormManager;
 }
 
-void stageManager::bomb(float x, float y, float damage, float width) // 픽셀 폭파시키기
+void stageManager::setUIManager(uiManager * uiManager)
+{
+}
+
+void stageManager::pixelBomb(float x, float y, float damage, float width) // 픽셀 폭파시키기
 {
 	SelectObject(_stageDC, _magentaBrush);
 	SelectObject(_stageDC, _magentaPen);

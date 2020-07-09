@@ -204,6 +204,12 @@
     <ClInclude Include="projectile.h">
       <Filter>playGround\stageScene\weapon\projectile</Filter>
     </ClInclude>
+    <ClInclude Include="flyState.h">
+      <Filter>playGround\stageScene\worm\state</Filter>
+    </ClInclude>
+    <ClInclude Include="uiManager.h">
+      <Filter>playGround\stageScene\stage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -316,6 +322,12 @@
     </ClCompile>
     <ClCompile Include="projectile.cpp">
       <Filter>playGround\stageScene\weapon\projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="flyState.cpp">
+      <Filter>playGround\stageScene\worm\state</Filter>
+    </ClCompile>
+    <ClCompile Include="uiManager.cpp">
+      <Filter>playGround\stageScene\stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

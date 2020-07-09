@@ -37,6 +37,7 @@ private:
 	int _maxHp = 100; // 최대 HP
 	int _currHp = 100; // 현재 HP
 	float _angle; // 현재 움직이는 각도
+	float _displayAngle; // 현재 보이는 각도
 	float _power; // 현재 움직이는 파워
 	float _gravity; // 현재 받고 있는 중력
 	RECT _rc; // 충돌 범위
@@ -74,6 +75,7 @@ public:
 
 	float getGravity() { return _gravity; }
 	float getAngle() { return _angle; }
+	float getDisplayAngle() { return _displayAngle; }
 	float getPower() { return _power; }
 	void setGravity(float gravity) { _gravity = gravity; }
 	void setAngle(float angle) { _angle = angle; }
@@ -82,7 +84,7 @@ public:
 	stageManager* getStageManager();
 	wormManager* getWormManager();
 
-
+	void hit(float angle, float power);
 
 	// ** DEBUG
 	void setPlayerPos(float x, float y) { _x = x, _y = y, _rc = RectMakeCenter(_x, _y, _width, _height); }

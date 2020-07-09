@@ -13,14 +13,16 @@ HRESULT stageScene::init(int playerNum, int wormsPerPlayer, int turnTime)
 	_wormManager = new wormManager;
 	_wormManager->init();
 
-	_projectileManager = new projectileManager;
-	_projectileManager->init();
-
 	_objectManager = new objectManager;
 	_objectManager->init();
 
+	_uiManager = new uiManager;
+	_uiManager->init();
+
 	_stageManager->setWormManager(_wormManager);
+	_stageManager->setUIManager(_uiManager);
 	_wormManager->setStageManager(_stageManager);
+	_wormManager->setUIManager(_uiManager);
 
 	_stageManager->makeStage();
 
@@ -31,16 +33,17 @@ void stageScene::release()
 {
 	_stageManager->release();
 	_wormManager->release();
-	_projectileManager->release();
 	_objectManager->release();
+	_uiManager->release();
 }
 
 void stageScene::update()
 {
 	_stageManager->update();
 	_wormManager->update();
-	_projectileManager->update();
 	_objectManager->update();
+	_uiManager->update();
+
 	EFFECT_MANAGER->update();
 
 	if (KEY_MANAGER->isStayKeyDown('Z'))
@@ -58,10 +61,13 @@ void stageScene::update()
 
 void stageScene::render()
 {
+	// ZOOM과 카메라가 필요한 렌더링
 	_stageManager->render();
 	_wormManager->render();
-	_projectileManager->render();
 	_objectManager->render();
 	EFFECT_MANAGER->render();
 	CAMERA_MANAGER->zoom(getMemDC(), _zoom);
+	
+	// UI 
+	_uiManager->render();
 }

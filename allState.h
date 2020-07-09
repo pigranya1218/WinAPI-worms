@@ -6,3 +6,4 @@
 #include "longJumpState.h"
 #include "deadState.h"
 #include "fallenState.h"
+#include "flyState.h"

@@ -7,18 +7,26 @@ bool projectile::checkPixelAvail(int x, int y)
 {
 	bool isBomb = false;
 
+	RECT rc = RectMakeCenter(_x, _y, 4, 4);
+
+
 	// pixel이 있는지 검사
-	COLORREF pixel = _stageManager->getPixel(x, y);
-	int pixelR = GetRValue(pixel);
-	int pixelG = GetGValue(pixel);
-	int pixelB = GetBValue(pixel);
-	if (!(pixelR == 255 && pixelG == 0 && pixelB == 255)) // 픽셀이 존재한다면
+	for (int x = rc.left; x < rc.right; x++)
 	{
-		return true;
+		for (int y = rc.top; y < rc.bottom; y++)
+		{
+			COLORREF pixel = _stageManager->getPixel(x, y);
+			int pixelR = GetRValue(pixel);
+			int pixelG = GetGValue(pixel);
+			int pixelB = GetBValue(pixel);
+			if (!(pixelR == 255 && pixelG == 0 && pixelB == 255)) // 픽셀이 존재한다면
+			{
+				return true;
+			}
+		}
 	}
 
 	// worm이 있는지 검사
-	RECT rc = RectMakeCenter(_x, _y, 4, 4);
 	return _wormManager->checkCollisionPixel(rc);
 }
 

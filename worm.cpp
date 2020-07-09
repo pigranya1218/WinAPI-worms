@@ -5,6 +5,8 @@
 #include "wormManager.h"
 #include <cmath>
 
+class flystate;
+
 bool worm::checkMoveAvail(int x, int bottom)
 {
 	for (int checkY = bottom - _height; checkY < bottom; checkY++) // 앞이 막혀있는지 체크
@@ -95,6 +97,14 @@ void worm::update()
 void worm::render()
 {
 	_state->render(*this);
+
+	if (dynamic_cast<flyState*>(_state))
+	{
+		char _buffer[100];
+		float displayDegree = _displayAngle * (180 / PI);
+		sprintf_s(_buffer, "current Display Angle : %.2f", displayDegree);
+		TextOut(getMemDC(), 0, 0, _buffer, strlen(_buffer));
+	}
 	// RECT rect = RectMakeCenter(_x, _rc.bottom, 2, 2);
 	// CAMERA_MANAGER->rectangle(getMemDC(), _rc);
 
@@ -227,6 +237,8 @@ bool worm::gravityMove(float xPower) // xPower = x축 움직임 더하기
 	_gravity += 0.08; // 중력 업데이트
 	float deltaX = cosf(_angle) * _power + xPower; // X축 이동값
 	float deltaY = -sinf(_angle) * _power + _gravity; // Y축 이동값
+	_displayAngle = atan2f(-deltaY, deltaX);
+	if (_displayAngle < 0) _displayAngle += PI2;
 
 	assert(deltaY != 0); // 혹시 모를 예외 체크
 	float ratio = abs(deltaX / deltaY); // y축 변화에 대한 x축 변화의 비율
@@ -358,6 +370,7 @@ bool worm::gravityMove(float xPower) // xPower = x축 움직임 더하기
 					_x = newX;
 					_y = bot - (_height / 2);
 					_rc = RectMakeCenter(_x, _y, _width, _height);
+					_power *= 0.6;
 					return true;
 				}
 
@@ -452,6 +465,7 @@ bool worm::gravityMove(float xPower) // xPower = x축 움직임 더하기
 				_x = newX;
 				_y = newBottom - (_height / 2);
 				_rc = RectMakeCenter(_x, _y, _width, _height);
+				_power *= 0.6;
 				return true;
 			}
 
@@ -633,7 +647,7 @@ bool worm::gravityMove(float xPower) // xPower = x축 움직임 더하기
 			}
 		}
 	}
-
+	
 	_x = newX;
 	_y = newBottom - (_height / 2);
 	_rc = RectMakeCenter(_x, _y, _width, _height);
@@ -643,6 +657,17 @@ bool worm::gravityMove(float xPower) // xPower = x축 움직임 더하기
 bool worm::isTurn()
 {
 	return (_wormManager->getCurrentTurnIndex() == _index);
+}
+
+void worm::hit(float angle, float power)
+{
+	_angle = angle;
+	_power = power;
+
+	_state->exit(*this);
+	_state = new flyState;
+	_state->enter(*this);
+
 }
 
 stageManager * worm::getStageManager()

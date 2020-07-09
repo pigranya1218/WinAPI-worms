@@ -3,6 +3,7 @@
 #include "worm.h"
 #include "state.h"
 #include "stageManager.h"
+#include "wormManager.h"
 
 void bazukaWeapon::shoot(worm& shooter)
 {
@@ -26,6 +27,15 @@ void bazukaWeapon::enter(worm& player)
 	_weaponImg = IMAGE_MANAGER->findImage(getImageKey("WEAPON_BAZUKA", player.getSlope()));
 	_aimImg = IMAGE_MANAGER->findImage("WEAPON_AIM");
 	_blobImg = IMAGE_MANAGER->findImage("WEAPON_BLOB");
+
+	_angle = PI / 2; // 무기의 각도 
+	_angleOffset = PI / 31; // 무기 각도 오프셋
+	_frameAngleOffset = _angleOffset / 2;
+	_gage = 0; // 무기의 충전률
+	_power = 10; // 무기의 파워
+	_damage = 40; // 무기의 대미지
+	_bombWidth = 130; // 무기의 폭파 반경
+	_aimRadius = 90;
 
 	_state = WEAPON_STATE::IDLE;
 }
@@ -75,14 +85,14 @@ WEAPON_FINISH_TYPE bazukaWeapon::update(worm& player)
 	{
 		if (player.isTurn())
 		{
-			if (KEY_MANAGER->isOnceKeyUp(VK_SPACE))
+			if (KEY_MANAGER->isStayKeyDown(VK_SPACE))
 			{
-				shoot(player);
-				_state = WEAPON_STATE::SHOOTING;
+				_gage = min(100, _gage + 2); // 게이지 충전
 			}
 			else
 			{
-				_gage = min(100, _gage + 2); // 게이지 충전
+				shoot(player);
+				_state = WEAPON_STATE::SHOOTING;
 			}
 		}
 		else
@@ -104,8 +114,8 @@ WEAPON_FINISH_TYPE bazukaWeapon::update(worm& player)
 			EFFECT_MANAGER->play("EFFECT_ELIPSE", x, y, _bombWidth + 30, _bombWidth + 30);
 			EFFECT_MANAGER->play("EFFECT_EX_POW", x, y - 50, 50, 50);
 			
-			player.getStageManager()->bomb(x, y, _damage, _bombWidth); // 픽셀 폭파시키기
-
+			player.getStageManager()->pixelBomb(x, y, _damage, _bombWidth); // 픽셀 폭파시키기
+			player.getWormManager()->wormBomb(x, y, _damage, _bombWidth); // 맞은 웜즈 날라가게 하기
 			_state = WEAPON_STATE::IDLE;
 		}
 	}

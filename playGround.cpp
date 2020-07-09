@@ -46,6 +46,16 @@ HRESULT playGround::init()
 	// ** LONG JUMP
 	IMAGE_MANAGER->addFrameImage("LONGJUMP", "resources/images/wbackflp.bmp", 60, 1320, 1, 22, true, RGB(128, 128, 192));
 
+	// ** FLY
+	IMAGE_MANAGER->addFrameImage("FLY1", "resources/images/wfly1.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("FLY2", "resources/images/wfly2.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("FLY3", "resources/images/wfly3.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("SLIDE_NORMAL", "resources/images/wslide.bmp", 60, 180, 1, 3, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("SLIDE_DOWN", "resources/images/wslided.bmp", 60, 180, 1, 3, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("SLIDE_UP", "resources/images/wslideu.bmp", 60, 180, 1, 3, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("SLIDE_LINK_NORMAL", "resources/images/wsldlk2.bmp", 60, 2160, 1, 36, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("SLIDE_LINK_DOWN", "resources/images/wsldlk2d.bmp", 60, 2160, 1, 36, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("SLIDE_LINK_UP", "resources/images/wsldlk2u.bmp", 60, 2160, 1, 36, true, RGB(128, 128, 192));
 
 	// ** ATTACK
 	// *** AIM
@@ -101,7 +111,7 @@ HRESULT playGround::init()
 
 	// 씬 추가
 	SCENE_MANAGER->addScene("StageScene", new stageScene);
-	dynamic_cast<stageScene*>(SCENE_MANAGER->findScene("StageScene"))->init(1, 1, 60); // 개발용...
+	dynamic_cast<stageScene*>(SCENE_MANAGER->findScene("StageScene"))->init(2, 1, 60); // 개발용...
 	SCENE_MANAGER->changeScene("StageScene");
 
 	return S_OK;

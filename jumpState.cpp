@@ -69,9 +69,10 @@ state * jumpState::update(worm & player)
 		if(isLanded)
 		{
 			_isGround = true;
-			if (player.getGravity() >= 8) // ¶¥¿¡ ½ê°Ô ºÎµúÈù °æ¿ì
+			if (player.getGravity() >= 5) // ¶¥¿¡ ½ê°Ô ºÎµúÈù °æ¿ì
 			{
 				player.updateSlope(); // ¶¥¿¡ ¹ÚÈú ´ç½ÃÀÇ ±â¿ï±â °è»ê
+				player.setGravity(0);
 				_img = IMAGE_MANAGER->findImage(getImageKey("FALLEN_TWANG", player.getSlope()));
 				_ani->init(_img->getWidth(), _img->getHeight(), _img->getFrameWidth(), _img->getFrameHeight());
 				_ani->setDefPlayFrame(false, false);
