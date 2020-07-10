@@ -2,7 +2,6 @@
 #include "gameNode.h"
 #include "projectile.h"
 
-
 class projectileManager : public gameNode
 {
 private:
@@ -16,5 +15,7 @@ public:
 	virtual void release();
 	virtual void update();
 	virtual void render();
-};
 
+	void addProjectile(projectile* projectile);
+	bool checkZero() { return _projectiles.size() == 0; }
+};

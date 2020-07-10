@@ -8,7 +8,6 @@ private:
 	image* _aimImg;
 	image* _blobImg;
 	animation* _ani;
-	projectile* _projectile;
 
 	float _angle; // 무기의 각도 
 	float _angleOffset; // 무기 각도 오프셋

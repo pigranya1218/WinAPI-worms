@@ -3,6 +3,7 @@
 #include <queue>
 
 class wormManager;
+class projectileManager;
 class uiManager;
 
 enum class STAGE_STATE
@@ -18,6 +19,7 @@ class stageManager : public gameNode
 {
 private:
 	wormManager* _wormManager;
+	projectileManager* _projectileManager;
 	uiManager* _uiManager;
 
 	int _playerNum; // 플레이어 숫자 
@@ -73,6 +75,7 @@ public:
 	virtual void render();
 
 	void setWormManager(wormManager* wormManager);
+	void setProjectileManager(projectileManager* projectileManager);
 	void setUIManager(uiManager* uiManager);
 
 	int getPlayerNum() { return _playerNum; }

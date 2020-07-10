@@ -7,7 +7,7 @@
 
 void bazukaWeapon::shoot(worm& shooter)
 {
-	_projectile = new projectile;
+	projectile* _projectile = new projectile;
 	
 	float initGravity = 0;
 	float initAngle = getRealAngle(shooter, _angle);
@@ -15,10 +15,15 @@ void bazukaWeapon::shoot(worm& shooter)
 
 	float initX = shooter.getX() + (cosf(initAngle) * 15);
 	float initY = shooter.getY() + (-sinf(initAngle) * 15);
-	
+	float widthX = 4;
+	float widthY = 4;
+	float initBombWidth = _bombWidth;
+	float initDamage = _damage;
 
-	_projectile->init(shooter.getStageManager(),  shooter.getWormManager(), initX, initY, initAngle, initPower);
+	_projectile->init(shooter.getStageManager(),  shooter.getWormManager(), initX, initY, widthX, widthY, initAngle, initPower, initDamage, initBombWidth, true);
 	_projectile->setImage(IMAGE_MANAGER->findImage("PROJECTILE_MISSILE"));
+	
+	shooter.getWormManager()->shoot(_projectile);
 }
 
 void bazukaWeapon::enter(worm& player)
@@ -42,10 +47,8 @@ void bazukaWeapon::enter(worm& player)
 void bazukaWeapon::exit(worm& player)
 {
 	_ani->release();
-	if(_projectile != nullptr)_projectile->release();
 
 	SAFE_DELETE(_ani);
-	SAFE_DELETE(_projectile);
 }
 
 WEAPON_FINISH_TYPE bazukaWeapon::update(worm& player)
@@ -91,7 +94,7 @@ WEAPON_FINISH_TYPE bazukaWeapon::update(worm& player)
 			else
 			{
 				shoot(player);
-				_state = WEAPON_STATE::SHOOTING;
+				_state = WEAPON_STATE::FINISH;
 			}
 		}
 		else
@@ -100,29 +103,9 @@ WEAPON_FINISH_TYPE bazukaWeapon::update(worm& player)
 		}
 	}
 	break;
-	
-	case WEAPON_STATE::SHOOTING:
-	{
-		float wind = player.getStageManager()->getWind() * 0.2;
-		bool isBomb = _projectile->gravityMove(wind);
-
-		if (isBomb) // ÆøÆÄ½ÃÅ°±â
-		{
-			float x = _projectile->getX(), y = _projectile->getY();
-			EFFECT_MANAGER->play("EFFECT_CIRCLE", x, y, _bombWidth, _bombWidth);
-			EFFECT_MANAGER->play("EFFECT_ELIPSE", x, y, _bombWidth + 30, _bombWidth + 30);
-			EFFECT_MANAGER->play("EFFECT_EX_POW", x, y - 50, 50, 50);
-			
-			player.getStageManager()->pixelBomb(x, y, _damage, _bombWidth); // ÇÈ¼¿ ÆøÆÄ½ÃÅ°±â
-			player.getWormManager()->wormBomb(x, y, _damage, _bombWidth); // ¸ÂÀº ¿úÁî ³¯¶ó°¡°Ô ÇÏ±â
-			
-			player.setWaiting();
-			_state = WEAPON_STATE::FINISH;
-		}
-	}
-	break;
 	case WEAPON_STATE::FINISH:
 	{
+		player.setWaiting();
 		return WEAPON_FINISH_TYPE::FINISH;
 	}
 	break;
@@ -163,11 +146,5 @@ void bazukaWeapon::render(worm& player)
 		}
 	}
 	break;
-	case WEAPON_STATE::SHOOTING:
-	{
-		_projectile->render();
 	}
-	break;
-	}
-	
 }

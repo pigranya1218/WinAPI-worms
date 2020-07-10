@@ -73,8 +73,8 @@ HRESULT worm::init(wormManager* wormManager, int index, string name, float x, fl
 	_state = new idleState;
 	_state->enter(*this);
 
-	_weapon = new bazukaWeapon;
-	_weapon->enter(*this);
+	_weapon = new donkeyWeapon;
+	// _weapon->enter(*this);
 
 	return S_OK;
 }

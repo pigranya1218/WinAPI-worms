@@ -18,7 +18,7 @@ state* attackState::update(worm& player)
 	WEAPON_FINISH_TYPE isFinish = player.getWeapon()->update(player); // 무기의 사용이 끝났는가
 	switch (isFinish)
 	{
-	case WEAPON_FINISH_TYPE::ATTACK: 
+	case WEAPON_FINISH_TYPE::ATTACK: // 아직 현재진행형
 		return nullptr;
 	case WEAPON_FINISH_TYPE::MOVING:
 	case WEAPON_FINISH_TYPE::FINISH_BUT_MOVE:

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "stageManager.h"
 #include "wormManager.h"
+#include "projectileManager.h"
 #include "uiManager.h"
 
 HRESULT stageManager::init(int playerNum, int wormsPerPlayer, int turnTime)
@@ -135,7 +136,7 @@ void stageManager::update()
 	break;
 	case STAGE_STATE::WAITING_TURN:
 	{
-		if (_wormManager->checkAllStop()) // 움직임이 끝날때까지 대기
+		if (_wormManager->checkAllStop() && _projectileManager->checkZero()) // 움직임이 끝날때까지 대기
 		{
 			_turnIndex = -1;
 			_damageFrame = 0;
@@ -195,6 +196,11 @@ void stageManager::render()
 void stageManager::setWormManager(wormManager * wormManager)
 {
 	_wormManager = wormManager;
+}
+
+void stageManager::setProjectileManager(projectileManager* projectileManager)
+{
+	_projectileManager = projectileManager;
 }
 
 void stageManager::setUIManager(uiManager * uiManager)

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "wormManager.h"
 #include "stageManager.h"
+#include "projectileManager.h"
 #include "uiManager.h"
 
 HRESULT wormManager::init()
@@ -35,6 +36,11 @@ void wormManager::render()
 void wormManager::setStageManager(stageManager * stageManager)
 {
 	_stageManager = stageManager;
+}
+
+void wormManager::setProjectileManager(projectileManager* projectileManager)
+{
+	_projectileManager = projectileManager;
 }
 
 void wormManager::setUIManager(uiManager * uiManager)
@@ -151,6 +157,11 @@ vector<int> wormManager::getTeamHp()
 int wormManager::getTeamMaxHp()
 {
 	return _worms[0]->getMaxHp() * _stageManager->getWormsPerPlayer();
+}
+
+void wormManager::shoot(projectile* projectile)
+{
+	_projectileManager->addProjectile(projectile);
 }
 
 

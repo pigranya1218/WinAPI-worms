@@ -100,6 +100,18 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("WEAPON_BAZUKA_LINK_DOWN", "resources/images/weapon/bazuka/wbazbak.bmp", 60, 420, 1, 7, true, RGB(128, 128, 192));
 	IMAGE_MANAGER->addFrameImage("WEAPON_BAZUKA_LINK_UP", "resources/images/weapon/bazuka/wbazbak.bmp", 60, 420, 1, 7, true, RGB(128, 128, 192));
 
+	// *** DONKEY
+	IMAGE_MANAGER->addImage("WEAPON_DONKEY", "resources/images/weapon/donkey/donkey.bmp", 158, 246, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("WEAPON_DONKEY_MARKER", "resources/images/weapon/donkey/markerc.bmp", 60, 600, 1, 10, true, RGB(192, 192, 128));
+
+	// *** 무전기 호출
+	IMAGE_MANAGER->addFrameImage("WEAPON_AIR_LINK_NORMAL", "resources/images/weapon/donkey/wairlnk.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_AIR_LINK_DOWN", "resources/images/weapon/donkey/wairlnkd.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_AIR_LINK_UP", "resources/images/weapon/donkey/wairlnku.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_AIR_NORMAL", "resources/images/weapon/donkey/wairtlk.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_AIR_DOWN", "resources/images/weapon/donkey/wairtlkd.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_AIR_UP", "resources/images/weapon/donkey/wairtlku.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
+
 	// ** FALLEN
 	IMAGE_MANAGER->addFrameImage("FALLEN", "resources/images/wfall.bmp", 60, 120, 1, 2, true, RGB(128, 128, 192));
 	IMAGE_MANAGER->addFrameImage("FALLEN_TWANG_NORMAL", "resources/images/wtwang.bmp", 60, 2940, 1, 49, true, RGB(128, 128, 192));

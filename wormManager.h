@@ -1,15 +1,18 @@
 #pragma once
 #include "gameNode.h"
 #include "worm.h"
+#include "projectile.h"
 
 class stageManager;
 class uiManager;
+class projectileManager;
 
 class wormManager : public gameNode
 {
 private:
 	vector<worm*> _worms;
 	stageManager* _stageManager;
+	projectileManager* _projectileManager;
 	uiManager* _uiManager;
 
 public:
@@ -22,6 +25,7 @@ public:
 	virtual void render();
 
 	void setStageManager(stageManager* stageManager);
+	void setProjectileManager(projectileManager* projectileManager);
 	void setUIManager(uiManager* uiManager);
 
 	stageManager* getStageManager() { return _stageManager;}
@@ -40,6 +44,8 @@ public:
 	void renderWormUI(float x, float y, int hp, int index, string name);
 	vector<int> getTeamHp();
 	int getTeamMaxHp();
+
+	void shoot(projectile* projectile);
 
 	bool checkAllStop();
 };

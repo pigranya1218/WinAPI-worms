@@ -14,7 +14,6 @@ void idleState::enter(worm & player)
 
 void idleState::exit(worm & player)
 {
-	_ani->release();
 	SAFE_DELETE(_ani);
 }
 
@@ -71,5 +70,5 @@ void idleState::render(worm & player)
 	POINT pos = _ani->getFramePos();
 
 	_img = IMAGE_MANAGER->findImage(getImageKey("IDLE_BIGHEAD", player.getSlope()));
-	CAMERA_MANAGER->aniRender(getMemDC(), _img, x - 30, y - 30, _ani, ( (player.getDirection() == DIRECTION::RIGHT)? true : false) );
+	CAMERA_MANAGER->aniRender(getMemDC(), _img, x - 30, y - 30, _ani, (player.getDirection() == DIRECTION::RIGHT));
 }

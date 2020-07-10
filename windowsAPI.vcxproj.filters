@@ -64,7 +64,7 @@
     <Filter Include="playGround\stageScene\item">
       <UniqueIdentifier>{effc9399-6e11-404f-aa41-bb7ac5a0b6fc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="playGround\stageScene\weapon\projectile">
+    <Filter Include="playGround\stageScene\projectile">
       <UniqueIdentifier>{f881f077-daed-4926-bd45-b61cab7bb8a3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -196,13 +196,22 @@
       <Filter>playGround\stageScene\item</Filter>
     </ClInclude>
     <ClInclude Include="projectile.h">
-      <Filter>playGround\stageScene\weapon\projectile</Filter>
+      <Filter>playGround\stageScene\projectile</Filter>
     </ClInclude>
     <ClInclude Include="flyState.h">
       <Filter>playGround\stageScene\worm\state</Filter>
     </ClInclude>
     <ClInclude Include="uiManager.h">
       <Filter>playGround\stageScene\stage</Filter>
+    </ClInclude>
+    <ClInclude Include="donkeyWeapon.h">
+      <Filter>playGround\stageScene\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="donkey.h">
+      <Filter>playGround\stageScene\projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="projectileManager.h">
+      <Filter>playGround\stageScene\projectile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -312,13 +321,22 @@
       <Filter>playGround\stageScene\item</Filter>
     </ClCompile>
     <ClCompile Include="projectile.cpp">
-      <Filter>playGround\stageScene\weapon\projectile</Filter>
+      <Filter>playGround\stageScene\projectile</Filter>
     </ClCompile>
     <ClCompile Include="flyState.cpp">
       <Filter>playGround\stageScene\worm\state</Filter>
     </ClCompile>
     <ClCompile Include="uiManager.cpp">
       <Filter>playGround\stageScene\stage</Filter>
+    </ClCompile>
+    <ClCompile Include="donkeyWeapon.cpp">
+      <Filter>playGround\stageScene\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="donkey.cpp">
+      <Filter>playGround\stageScene\projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="projectileManager.cpp">
+      <Filter>playGround\stageScene\projectile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
