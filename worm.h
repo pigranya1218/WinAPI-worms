@@ -24,6 +24,7 @@ private:
 	wormManager* _wormManager;
 
 	int _index;
+	string _name;
 	state* _state; // 상태
 	weapon* _weapon; // 사용 중인 무기
 	DIRECTION _dir; // 바라보는 방향
@@ -35,7 +36,7 @@ private:
 	int _offsetClimb = 6; // 오를 수 있는 픽셀 차
 	int _offsetSlope = 1; // 기울어짐 표현하는 픽셀차
 	int _maxHp = 100; // 최대 HP
-	int _currHp = 100; // 현재 HP
+	int _currHp = 10; // 현재 HP
 	float _angle; // 현재 움직이는 각도
 	float _displayAngle; // 현재 보이는 각도
 	float _power; // 현재 움직이는 파워
@@ -50,7 +51,7 @@ public:
 	worm() {}
 	~worm() {}
 
-	virtual HRESULT init(wormManager* stageManager, int index, float x, float y);
+	virtual HRESULT init(wormManager* stageManager, int index, string name, float x, float y);
 	virtual void release();
 	virtual void update();
 	virtual void render();
@@ -70,7 +71,7 @@ public:
 	void reverseSlope(); // 기울기를 반대로 설정해주는 메서드, 좌우 방향이 바뀔 때 사용
 	
 	bool move(); // 웜즈를 바라보고 있는 방향으로 이동시킴, false라면 fallen 상태로 돌리기
-	bool gravityMove(float xPower); // 중력 계산이 필요한 이동, true라면 땅에 부딪혔다는 뜻
+	bool gravityMove(float xPower, float powerChange); // 중력 계산이 필요한 이동, true라면 땅에 부딪혔다는 뜻
 	bool isTurn();
 
 	float getGravity() { return _gravity; }
@@ -80,11 +81,24 @@ public:
 	void setGravity(float gravity) { _gravity = gravity; }
 	void setAngle(float angle) { _angle = angle; }
 	void setPower(float power) { _power = power; }
+	void setDead();
+
+	bool isFreshDead();
+	bool isDead();
+	bool isStop();
 
 	stageManager* getStageManager();
 	wormManager* getWormManager();
 
 	void hit(float angle, float power);
+	void setDamage(int damage);
+	void discountHp(int discount) { _currHp = max(0, _currHp - discount); }
+	bool checkHpZero() { return (_currHp == 0); }
+	void renderUI(); // hp와 이름 그리는 함수
+	void setWaiting();
+
+	int getHp() { return _currHp; }
+	int getMaxHp() { return _maxHp; }
 
 	// ** DEBUG
 	void setPlayerPos(float x, float y) { _x = x, _y = y, _rc = RectMakeCenter(_x, _y, _width, _height); }

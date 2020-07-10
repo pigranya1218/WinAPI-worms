@@ -24,5 +24,7 @@ public:
 	virtual state* update(worm& player);
 
 	virtual void render(worm& player);
+
+	virtual bool isStop();
 };
 

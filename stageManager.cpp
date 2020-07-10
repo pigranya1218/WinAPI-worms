@@ -11,15 +11,47 @@ HRESULT stageManager::init(int playerNum, int wormsPerPlayer, int turnTime)
 	_turnPlayer = RND->getInt(_playerNum);
 	_turnWorm = RND->getInt(_wormsPerPlayer);
 
+	int playerCount = 0;
+	int wormCount = 0;
+
+	while (true)
+	{
+		
+		playerCount = 0;
+
+		while (true)
+		{
+			int index = _turnPlayer * _wormsPerPlayer + _turnWorm;
+			_turnQueue.push(index);
+
+			_turnPlayer = (_turnPlayer + 1) % _playerNum;
+			playerCount++;
+
+			if (playerCount == playerNum)
+			{
+				break;
+			}
+		}
+
+		_turnWorm = (_turnWorm + 1) % _wormsPerPlayer;
+		wormCount++;
+
+		if (wormCount == wormsPerPlayer)
+		{
+			break;
+		}
+	}
+
 	_offsetBG = 0;
 
-	_turnTime = turnTime;
+	_turnMaxTime = turnTime;
+	_turnWind = 0;
 	_zoom = 1;
 
 	_magentaBrush = CreateSolidBrush(RGB(255, 0, 255));
 	_magentaPen = CreatePen(BS_SOLID, 1, RGB(255, 0, 255));
 
-	_wormsWaiting = false;
+	_state = STAGE_STATE::READY_TURN;
 	_wormsDamages.resize(_playerNum * _wormsPerPlayer);
 
 	return S_OK;
@@ -31,7 +63,8 @@ void stageManager::release()
 
 void stageManager::update()
 {
-	_offsetBG += 1; // 배경 및 바다 이동
+	_offsetBG += (_turnWind >= 0) ? -1 : 1; // 배경 이동
+	_offsetSea += (_turnWind >= 0)? -1 : 1; // 바다 이동
 
 	if (KEY_MANAGER->isStayKeyDown('A'))
 	{
@@ -50,30 +83,91 @@ void stageManager::update()
 		CAMERA_MANAGER->setY(CAMERA_MANAGER->getY() + 5);
 	}
 
-	if (_wormsWaiting)
+	switch (_state)
 	{
-		// 대미지 처리하기
-		
-		// 죽음 처리하기
-
-		// 모든 처리가 끝나면 _wormsWaiting = false로 변경하기, 바람 변경하기, 플레이어 차례 변경하기
-		_wormsWaiting = false;
-		_turnTime = 30;
+	case STAGE_STATE::READY_TURN: // 다음 턴을 위한 준비
+	{
+		setTurnWind();
+		setNextTurnIndex();
+		_turnTime = _turnMaxTime;
+		_state = STAGE_STATE::WORM_TURN;
 	}
-	else // 누군가의 턴 중
+	break;
+	case STAGE_STATE::UPDATE_DEAD: // 죽음 처리, 경우에 따라 다시 waiting turn으로 돌아갈 수 있음
 	{
-		if (_turnTime <= 0) // 타이머가 다 되었는지 파악하기
+		bool isFinish = true;
+		for (int i = 0; i < _playerNum * _wormsPerPlayer; i++)
 		{
-			_wormsWaiting = true;
+			if (_wormManager->checkFreshDead(i))
+			{
+				_wormManager->setDead(i);
+				_state = STAGE_STATE::WAITING_TURN;
+				isFinish = false;
+				break;
+			}
+		}
+		if (isFinish)
+		{
+			_state = STAGE_STATE::READY_TURN;
+		}
+	}
+	break;
+	case STAGE_STATE::UPDATE_HP: // 대미지 처리
+	{
+		bool isFinish = true;
+		for (int i = 0; i < _playerNum * _wormsPerPlayer; i++)
+		{
+			if (_wormsDamages[i] > 0 && !_wormManager->wormHpZero(i))
+			{
+				_wormsDamages[i] -= 1;
+				_wormManager->wormHpDiscount(i, 1);
+				isFinish = false;
+			}
+		}
+		if (isFinish)
+		{
+			if (_damageFrame++ == 50)
+			{
+				_state = STAGE_STATE::UPDATE_DEAD;
+			}
+		}
+	}
+	break;
+	case STAGE_STATE::WAITING_TURN:
+	{
+		if (_wormManager->checkAllStop()) // 움직임이 끝날때까지 대기
+		{
+			_turnIndex = -1;
+			_damageFrame = 0;
+			_state = STAGE_STATE::UPDATE_HP;
+		}
+	}
+	break;
+	case STAGE_STATE::WORM_TURN:
+	{
+		// 타이머가 다 되었는지 파악하기
+		if (_turnTime <= 0) 
+		{
+			_turnTime = 0;
+			_state = STAGE_STATE::WAITING_TURN;
 		}
 
-		// 움직이는 게 있는지 파악하기
-
 		// 타이머 업데이트
-		_turnTime -= TIME_MANAGER->getElapsedTime();
-		_uiManager->setTimer(ceil(_turnTime)); // UI 타이머 변경
+		if (_turnTime > 0)
+		{
+			_turnTime -= TIME_MANAGER->getElapsedTime();
+		}
+	}
+	break;
 	}
 
+	_uiManager->setTimer(ceil(_turnTime)); // UI 타이머 변경
+	_uiManager->setTimerVisible(true);
+	_uiManager->setWind(_turnWind); // UI 타이머 변경
+	_uiManager->setWindVisible(true);
+	
+	_uiManager->setTeamHpVisible(true);
+	_uiManager->setTeamHp(_wormManager->getTeamMaxHp(), _wormManager->getTeamHp());
 }
 
 void stageManager::render()
@@ -92,7 +186,7 @@ void stageManager::render()
 	
 	// 바다 그리기
 	bgRect = { 0, height - IMAGE_MANAGER->findImage("SEA")->getHeight(), width, height};
-	CAMERA_MANAGER->loopRender(getMemDC(), IMAGE_MANAGER->findImage("SEA"), bgRect, _offsetBG, 0);
+	CAMERA_MANAGER->loopRender(getMemDC(), IMAGE_MANAGER->findImage("SEA"), bgRect, _offsetSea, 0);
 	// IMAGE_MANAGER->findImage("redTest")->alphaRedRender(getMemDC(), 122);
 
 	// CAMERA_MANAGER->render(getMemDC(), _tempDC, 0, 0, IMAGE_MANAGER->findImage("STAGE")->getWidth(), IMAGE_MANAGER->findImage("STAGE")->getHeight());
@@ -105,6 +199,44 @@ void stageManager::setWormManager(wormManager * wormManager)
 
 void stageManager::setUIManager(uiManager * uiManager)
 {
+	_uiManager = uiManager;
+}
+
+void stageManager::setNextTurnIndex()
+{
+	while (!_turnQueue.empty())
+	{
+		int index = _turnQueue.front();
+		_turnQueue.pop();
+		if (!_wormManager->checkDead(index))
+		{
+			_turnQueue.push(index);
+			_turnIndex = index;
+			return;
+		}
+	}
+
+	_turnIndex = -1;
+}
+
+void stageManager::setTurnWind()
+{
+	int randomCount = RND->getInt(5);
+	if (randomCount != 0) // wind change
+	{
+		_turnWind = RND->getFromFloatTo(-1, 1); // 랜덤 값 얻기
+		_turnWind = round(_turnWind * 10) / 10; // 소수 첫째자리까지만
+	}
+}
+
+void stageManager::setWormDamage(int index, int damage)
+{
+	_wormsDamages[index] += damage;
+}
+
+void stageManager::setWaiting()
+{
+	_state = STAGE_STATE::WAITING_TURN;
 }
 
 void stageManager::pixelBomb(float x, float y, float damage, float width) // 픽셀 폭파시키기
@@ -131,6 +263,8 @@ void stageManager::makeStage()
 {
 	makeWorld();
 	makeWorms();
+	setNextTurnIndex();
+	setTurnWind();
 }
 
 void stageManager::makeWorld() // 맵 복사
@@ -187,13 +321,25 @@ void stageManager::makeWorms() // 맵 곳곳에 웜즈 만들기
 	int stageWidth = IMAGE_MANAGER->findImage("STAGE")->getWidth();
 	int stageHeight = IMAGE_MANAGER->findImage("STAGE")->getHeight();
 	vector<pair<int, int>> alreadyExist; // 각 웜즈를 떨어뜨려 생성시키기 위해
+	vector<bool> alreadyNames (_wormNames.size(), false);
 
 	// 랜덤으로 위치를 잡아 차례로 생성하기 
 	for (int i = 0; i < wormSize; i++)
 	{
 		bool isAvailPosition = false;
+		bool isAvailName = false;
 		int posX;
 		int posY;
+		string name;
+		while (!isAvailName)
+		{
+			int nameIndex = RND->getInt(_wormNames.size());
+			if (alreadyNames[nameIndex]) continue;
+			isAvailName = true;
+			alreadyNames[nameIndex] = true;
+			name = _wormNames[nameIndex];
+		}
+
 		while (!isAvailPosition)
 		{
 			bool isValidX = false;
@@ -230,7 +376,7 @@ void stageManager::makeWorms() // 맵 곳곳에 웜즈 만들기
 			}
 		}
 		alreadyExist.push_back(make_pair(posX - 60, posX + 60));
-		_wormManager->addWorms(i, posX, posY); // 소환
+		_wormManager->addWorms(i, name, posX, posY); // 소환
 	}
 }
 

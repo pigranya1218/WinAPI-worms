@@ -13,7 +13,7 @@ private:
 	float _angle; // 무기의 각도 
 	float _angleOffset; // 무기 각도 오프셋
 	float _frameAngleOffset;
-	int _gage; // 무기의 충전률
+	int _gauge; // 무기의 충전률
 	float _power; // 무기의 파워
 	float _damage; // 무기의 대미지
 	float _bombWidth; // 무기의 폭파 반경

@@ -48,12 +48,16 @@ state* longJumpState::update(worm& player)
 
 	if (!_ready && !_isGround) // 점프한 상태인 경우
 	{
-		bool isLanded = player.gravityMove(xMove); // 점프 계산 이동
+		bool isLanded = player.gravityMove(xMove, 0.6); // 점프 계산 이동
 		if (isLanded) // 착륙한 경우
 		{
 			_isGround = true;
 			if (player.getGravity() >= 8) // 땅에 쎄게 부딪힌 경우
 			{
+				// 대미지 및 턴 종료
+				player.setDamage(player.getGravity());
+				player.setWaiting();
+
 				player.updateSlope(); // 땅에 박힐 당시의 기울기 계산
 				_img = IMAGE_MANAGER->findImage(getImageKey("FALLEN_TWANG", player.getSlope()));
 				_ani->init(_img->getWidth(), _img->getHeight(), _img->getFrameWidth(), _img->getFrameHeight());

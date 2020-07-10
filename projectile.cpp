@@ -76,9 +76,5 @@ void projectile::render()
 	{
 		int frameIndex = getFrameIndex();
 		CAMERA_MANAGER->frameRender(getMemDC(), _img, _x - (_img->getFrameWidth() / 2), _y - (_img->getFrameHeight() / 2), 0, frameIndex, false);
-		
-		char _buffer[100];
-		sprintf_s(_buffer, "angle : %.2f, displayAngle : %.2f, frameIndex : %d", _angle, _angleDisplay, frameIndex);
-		TextOut(getMemDC(), 10, 10, _buffer, strlen(_buffer));
 	}
 }

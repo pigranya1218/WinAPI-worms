@@ -25,5 +25,7 @@ public:
 	virtual void render(worm& player);
 
 	void setCurrentAni(animation* ani) { _ani = ani; };
+
+	virtual bool isStop() { return false; }
 };
 

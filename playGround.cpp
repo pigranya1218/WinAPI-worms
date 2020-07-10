@@ -24,6 +24,8 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addImage("STAGE_BACK", "resources/images/bigMapBack.bmp", 2000, 1125, true, RGB(255, 0, 255));
 	IMAGE_MANAGER->addImage("STAGE_SHADOW", "resources/images/bigMapShadow.bmp", 2000, 1125, true, RGB(255, 0, 255));
 	IMAGE_MANAGER->addImage("SEA", "resources/images/sea.bmp", 2000, 170, true, RGB(255, 0, 255));
+	IMAGE_MANAGER->addImage("WIND_LEFT", "resources/images/windl.bmp", 222, 30, false, NULL);
+	IMAGE_MANAGER->addImage("WIND_RIGHT", "resources/images/windr.bmp", 222, 30, false, NULL);
 	
 	
 	// * 웜즈 애니메이션 관련
@@ -104,6 +106,15 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("FALLEN_TWANG_DOWN", "resources/images/wtwangd.bmp", 60, 2940, 1, 49, true, RGB(128, 128, 192));
 	IMAGE_MANAGER->addFrameImage("FALLEN_TWANG_UP", "resources/images/wtwangu.bmp", 60, 2940, 1, 49, true, RGB(128, 128, 192));
 
+	// ** DEAD
+	IMAGE_MANAGER->addFrameImage("DEAD", "resources/images/wdie.bmp", 60, 3600, 1, 60, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("GRAVE1", "resources/images/grave1.bmp", 60, 1200, 1, 20, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("GRAVE2", "resources/images/grave2.bmp", 60, 1200, 1, 20, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("GRAVE3", "resources/images/grave3.bmp", 60, 1200, 1, 20, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("GRAVE4", "resources/images/grave4.bmp", 60, 1200, 1, 20, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("GRAVE5", "resources/images/grave5.bmp", 60, 1200, 1, 20, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("GRAVE6", "resources/images/grave6.bmp", 60, 1200, 1, 20, true, RGB(192, 192, 128));
+
 	// ** etc
 	IMAGE_MANAGER->addImage("redDC", "resources/images/redDC.bmp", 500, 500, false, NULL);
 	IMAGE_MANAGER->addImage("redTest", "resources/images/redtest.bmp", 27, 24, true, RGB(255, 0, 255));
@@ -111,7 +122,7 @@ HRESULT playGround::init()
 
 	// 씬 추가
 	SCENE_MANAGER->addScene("StageScene", new stageScene);
-	dynamic_cast<stageScene*>(SCENE_MANAGER->findScene("StageScene"))->init(2, 1, 60); // 개발용...
+	dynamic_cast<stageScene*>(SCENE_MANAGER->findScene("StageScene"))->init(4, 1, 30); // 개발용...
 	SCENE_MANAGER->changeScene("StageScene");
 
 	return S_OK;

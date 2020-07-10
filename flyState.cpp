@@ -63,7 +63,7 @@ state* flyState::update(worm& player)
 	{
 		float lastX = player.getX();
 		float lastY = player.getY();
-		_isGround = player.gravityMove(0); // 날라가는 중
+		_isGround = player.gravityMove(0, 0.8); // 날라가는 중
 
 		float angle = player.getDisplayAngle();
 		if (angle >= PI * 0.5 && angle <= PI * 1.5)
@@ -91,7 +91,7 @@ state* flyState::update(worm& player)
 				_state = FLY_STATE::FLY;
 				_currFrameCount = 0;
 			}
-			else if (power >=  1) // 땅에 덜 쎄게 박았을 때 (슬라이딩)
+			else if (power >=  0.4) // 땅에 덜 쎄게 박았을 때 (슬라이딩)
 			{
 				_state = FLY_STATE::SLIDING;
 				_currFrameCount = 0;
@@ -112,7 +112,7 @@ state* flyState::update(worm& player)
 				_ani->setFPS(20);
 				_ani->start();
 			}
-			player.setGravity(0); // 다시 튕길 수 있도록 함
+			player.setGravity(gravity * 0.2); // 다시 튕길 수 있도록 함
 		}
 	}
 	break;
@@ -160,10 +160,10 @@ void flyState::render(worm& player)
 		_img = IMAGE_MANAGER->findImage(getImageKey("SLIDE", player.getSlope()));
 
 		_currFrameCount++;
-		if (_currFrameCount == 6)
+		if (_currFrameCount == 4)
 		{
 			_currFrameCount = 0;
-			_currFrame = min(_currFrame + 1, 2);
+			_currFrame = (_currFrame + 1) % 3;
 		}
 		CAMERA_MANAGER->frameRender(getMemDC(), _img, x - (_img->getFrameWidth() / 2), y - (_img->getFrameHeight() / 2), 0, _currFrame, (player.getDirection() == DIRECTION::RIGHT));
 	}

@@ -25,12 +25,16 @@ state* fallenState::update(worm& player)
 	// 땅에 닿을 때까지 떨어지기
 	if (!_isGround)
 	{
-		_isGround = player.gravityMove(0);
+		_isGround = player.gravityMove(0, 0.6);
 		if (_isGround)
 		{
 			_gravity = player.getGravity(); // 착지할 당시의 중력값 저장
 			if (_gravity >= 5) // 7 이상의 중력값에선 땅에 박혀야 함
 			{
+				// 대미지 및 턴 종료
+				player.setDamage(player.getGravity());
+				player.setWaiting();
+
 				player.updateSlope(); // 땅에 박힐 당시의 기울기 계산
 				player.setGravity(0);
 				_img = IMAGE_MANAGER->findImage(getImageKey("FALLEN_TWANG", player.getSlope()));

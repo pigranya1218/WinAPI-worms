@@ -3,6 +3,7 @@
 #include "allState.h"
 #include "allWeapon.h"
 #include "wormManager.h"
+#include "stageManager.h"
 #include <cmath>
 
 class flystate;
@@ -55,13 +56,14 @@ bool worm::checkPixelAvail(int x, int bottom)
 	return false;
 }
 
-HRESULT worm::init(wormManager* wormManager, int index, float x, float y) // x 좌표와 바닥 높이
+HRESULT worm::init(wormManager* wormManager, int index, string name, float x, float y) // x 좌표와 바닥 높이
 {
 	_wormManager = wormManager;
 
 	_index = index;
 	_x = x;
 	_y = y - (_height / 2);
+	_name = name;
 	_rc = RectMakeCenter(_x, _y, _width, _height);
 
 	int random = RND->getInt(2);
@@ -97,26 +99,11 @@ void worm::update()
 void worm::render()
 {
 	_state->render(*this);
-
-	if (dynamic_cast<flyState*>(_state))
+	
+	if (_wormManager->getCurrentTurnIndex() != _index && !isDead()) // 체력바랑 이름 표시하기
 	{
-		char _buffer[100];
-		float displayDegree = _displayAngle * (180 / PI);
-		sprintf_s(_buffer, "current Display Angle : %.2f", displayDegree);
-		TextOut(getMemDC(), 0, 0, _buffer, strlen(_buffer));
+		renderUI();
 	}
-	// RECT rect = RectMakeCenter(_x, _rc.bottom, 2, 2);
-	// CAMERA_MANAGER->rectangle(getMemDC(), _rc);
-
-	// DEBUG CODE
-	/*
-	CAMERA_MANAGER->rectangle(getMemDC(), _rc);
-	char _buffer[50];
-	sprintf_s(_buffer, "SLOPE : %s", ((_slope == SLOPE::UP) ? "UP" : ((_slope == SLOPE::NORMAL) ? "NORMAL" : "DOWN")));
-	TextOut(getMemDC(), 0, 0, _buffer, strlen(_buffer));
-	sprintf_s(_buffer, "xPos : %f", _x);
-	TextOut(getMemDC(), 0, 20, _buffer, strlen(_buffer));
-	*/
 }
 
 // 중심점을 기준으로 보고 있는 방향 봐서 각도 변화가 있는지 파악함
@@ -232,7 +219,7 @@ bool worm::move() // true : 땅이 있음, false : 땅이 없어서 추락할 예정
 }
 
 // false : 아직 떨어지는 중 , true : 착지함
-bool worm::gravityMove(float xPower) // xPower = x축 움직임 더하기
+bool worm::gravityMove(float xPower, float powerChange) // xPower = x축 움직임 더하기
 {
 	_gravity += 0.08; // 중력 업데이트
 	float deltaX = cosf(_angle) * _power + xPower; // X축 이동값
@@ -240,7 +227,10 @@ bool worm::gravityMove(float xPower) // xPower = x축 움직임 더하기
 	_displayAngle = atan2f(-deltaY, deltaX);
 	if (_displayAngle < 0) _displayAngle += PI2;
 
-	assert(deltaY != 0); // 혹시 모를 예외 체크
+	if (deltaY == 0)
+	{
+		deltaY = 0.0001;
+	}
 	float ratio = abs(deltaX / deltaY); // y축 변화에 대한 x축 변화의 비율
 
 	float newX = _x;
@@ -292,7 +282,7 @@ bool worm::gravityMove(float xPower) // xPower = x축 움직임 더하기
 								newX = x - 1; // 확인되었던 x로 돌아가기
 							}
 							_angle = PI - _angle;
-							_power *= 0.6;
+							_power *= powerChange;
 							break;
 						}
 
@@ -341,7 +331,7 @@ bool worm::gravityMove(float xPower) // xPower = x축 움직임 더하기
 								newX = x + 1; // 확인되었던 x로 돌아가기
 							}
 							_angle = PI - _angle;
-							_power *= 0.6;
+							_power *= powerChange;
 							break;
 						}
 
@@ -370,7 +360,7 @@ bool worm::gravityMove(float xPower) // xPower = x축 움직임 더하기
 					_x = newX;
 					_y = bot - (_height / 2);
 					_rc = RectMakeCenter(_x, _y, _width, _height);
-					_power *= 0.6;
+					_power *= powerChange;
 					return true;
 				}
 
@@ -405,7 +395,7 @@ bool worm::gravityMove(float xPower) // xPower = x축 움직임 더하기
 							newX = x - 1; // 확인되었던 x로 돌아가기
 						}
 						_angle = PI - _angle;
-						_power *= 0.6;
+						_power *= powerChange;
 						break;
 					}
 
@@ -441,7 +431,7 @@ bool worm::gravityMove(float xPower) // xPower = x축 움직임 더하기
 							newX = x + 1; // 확인되었던 x로 돌아가기
 						}
 						_angle = PI - _angle;
-						_power *= 0.6;
+						_power *= powerChange;
 						break;
 					}
 
@@ -465,7 +455,7 @@ bool worm::gravityMove(float xPower) // xPower = x축 움직임 더하기
 				_x = newX;
 				_y = newBottom - (_height / 2);
 				_rc = RectMakeCenter(_x, _y, _width, _height);
-				_power *= 0.6;
+				_power *= powerChange;
 				return true;
 			}
 
@@ -518,7 +508,7 @@ bool worm::gravityMove(float xPower) // xPower = x축 움직임 더하기
 								newX = x - 1;
 							}
 							_angle = PI - _angle;
-							_power *= 0.6;
+							_power *= powerChange;
 							break;
 						}
 
@@ -559,7 +549,7 @@ bool worm::gravityMove(float xPower) // xPower = x축 움직임 더하기
 								newX = x + 1;
 							}
 							_angle = PI - _angle;
-							_power *= 0.6;
+							_power *= powerChange;
 							break;
 						}
 
@@ -605,7 +595,7 @@ bool worm::gravityMove(float xPower) // xPower = x축 움직임 더하기
 							newX = x - 1;
 						}
 						_angle = PI - _angle;
-						_power *= 0.6;
+						_power *= powerChange;
 						break;
 					}
 					if (x == floor(xMove)) // 이동할 수 있는 만큼 다 이동한 경우
@@ -631,7 +621,7 @@ bool worm::gravityMove(float xPower) // xPower = x축 움직임 더하기
 							newX = x;
 						}
 						_angle = PI - _angle;
-						_power *= 0.6;
+						_power *= powerChange;
 						break;
 					}
 
@@ -656,7 +646,7 @@ bool worm::gravityMove(float xPower) // xPower = x축 움직임 더하기
 
 bool worm::isTurn()
 {
-	return (_wormManager->getCurrentTurnIndex() == _index);
+	return (_wormManager->getCurrentTurnIndex() == _index && getStageManager()->isTurn());
 }
 
 void worm::hit(float angle, float power)
@@ -664,10 +654,59 @@ void worm::hit(float angle, float power)
 	_angle = angle;
 	_power = power;
 
-	_state->exit(*this);
-	_state = new flyState;
-	_state->enter(*this);
+	if (!isDead())
+	{
+		_state->exit(*this);
+		delete _state;
+		_state = new flyState;
+		_state->enter(*this);
+	}
+}
 
+void worm::setDamage(int damage)
+{
+	_wormManager->wormDamage(_index, damage);
+}
+
+void worm::renderUI()
+{
+	_wormManager->renderWormUI(_x, _y, _currHp, _index, _name);
+}
+
+void worm::setWaiting()
+{
+	getStageManager()->setWaiting();
+}
+
+void worm::setDead()
+{
+	_state->exit(*this);
+	delete _state;
+	_state = new deadState;
+	_state->enter(*this);
+}
+
+bool worm::isFreshDead()
+{
+	if (_currHp == 0 && !dynamic_cast<deadState*>(_state))
+	{
+		return true;
+	}
+	return false;
+}
+
+bool worm::isDead()
+{
+	if (dynamic_cast<deadState*>(_state))
+	{
+		return true;
+	}
+	return false;
+}
+
+bool worm::isStop()
+{
+	return _state->isStop();
 }
 
 stageManager * worm::getStageManager()

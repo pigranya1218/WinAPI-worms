@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "allState.h"
 #include "worm.h"
+#include "wormManager.h"
 
 void jumpState::enter(worm & player)
 {
@@ -65,20 +66,27 @@ state * jumpState::update(worm & player)
 
 	if (!_ready && !_isGround) // 점프한 상태인 경우
 	{
-		bool isLanded = player.gravityMove(0); // 점프 계산 이동
+		bool isLanded = player.gravityMove(0, 0.6); // 점프 계산 이동
 		if(isLanded)
 		{
 			_isGround = true;
 			if (player.getGravity() >= 5) // 땅에 쎄게 부딪힌 경우
 			{
-				player.updateSlope(); // 땅에 박힐 당시의 기울기 계산
+				// 대미지 및 턴 종료
+				player.setDamage(player.getGravity());
+				player.setWaiting();
+
+				// 땅에 박히는 애니메이션 출력
+				player.updateSlope();
 				player.setGravity(0);
 				_img = IMAGE_MANAGER->findImage(getImageKey("FALLEN_TWANG", player.getSlope()));
 				_ani->init(_img->getWidth(), _img->getHeight(), _img->getFrameWidth(), _img->getFrameHeight());
 				_ani->setDefPlayFrame(false, false);
 				_ani->setFPS(20);
 				_ani->start();
-			} 
+				
+				
+			}
 			else
 			{
 				return new moveState;

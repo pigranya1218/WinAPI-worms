@@ -11,7 +11,7 @@ void bazukaWeapon::shoot(worm& shooter)
 	
 	float initGravity = 0;
 	float initAngle = getRealAngle(shooter, _angle);
-	float initPower = _power * ((float) _gage / 100);
+	float initPower = _power * ((float) _gauge / 100);
 
 	float initX = shooter.getX() + (cosf(initAngle) * 15);
 	float initY = shooter.getY() + (-sinf(initAngle) * 15);
@@ -19,7 +19,6 @@ void bazukaWeapon::shoot(worm& shooter)
 
 	_projectile->init(shooter.getStageManager(),  shooter.getWormManager(), initX, initY, initAngle, initPower);
 	_projectile->setImage(IMAGE_MANAGER->findImage("PROJECTILE_MISSILE"));
-
 }
 
 void bazukaWeapon::enter(worm& player)
@@ -31,9 +30,9 @@ void bazukaWeapon::enter(worm& player)
 	_angle = PI / 2; // 무기의 각도 
 	_angleOffset = PI / 31; // 무기 각도 오프셋
 	_frameAngleOffset = _angleOffset / 2;
-	_gage = 0; // 무기의 충전률
+	_gauge = 0; // 무기의 충전률
 	_power = 10; // 무기의 파워
-	_damage = 40; // 무기의 대미지
+	_damage = 30; // 무기의 대미지
 	_bombWidth = 130; // 무기의 폭파 반경
 	_aimRadius = 90;
 
@@ -87,7 +86,7 @@ WEAPON_FINISH_TYPE bazukaWeapon::update(worm& player)
 		{
 			if (KEY_MANAGER->isStayKeyDown(VK_SPACE))
 			{
-				_gage = min(100, _gage + 2); // 게이지 충전
+				_gauge = min(100, _gauge + 2); // 게이지 충전
 			}
 			else
 			{
@@ -104,7 +103,7 @@ WEAPON_FINISH_TYPE bazukaWeapon::update(worm& player)
 	
 	case WEAPON_STATE::SHOOTING:
 	{
-		float wind = 0.05;
+		float wind = player.getStageManager()->getWind() * 0.2;
 		bool isBomb = _projectile->gravityMove(wind);
 
 		if (isBomb) // 폭파시키기
@@ -116,17 +115,12 @@ WEAPON_FINISH_TYPE bazukaWeapon::update(worm& player)
 			
 			player.getStageManager()->pixelBomb(x, y, _damage, _bombWidth); // 픽셀 폭파시키기
 			player.getWormManager()->wormBomb(x, y, _damage, _bombWidth); // 맞은 웜즈 날라가게 하기
-			_state = WEAPON_STATE::IDLE;
+			
+			player.setWaiting();
+			_state = WEAPON_STATE::FINISH;
 		}
 	}
 	break;
-	
-	case WEAPON_STATE::WAITING: // 폭발 및 대미지 처리 기다리기
-	{
-		
-	}
-	break;
-
 	case WEAPON_STATE::FINISH:
 	{
 		return WEAPON_FINISH_TYPE::FINISH;
@@ -157,7 +151,7 @@ void bazukaWeapon::render(worm& player)
 		float aimY = y - sinf(realAngle) * _aimRadius;
 		CAMERA_MANAGER->frameRender(getMemDC(), _aimImg, aimX - (_aimImg->getFrameWidth() / 2), aimY - (_aimImg->getFrameHeight() / 2), 0, frameIndex, (player.getDirection() == DIRECTION::RIGHT));
 
-		int blobCount = floor(_gage / _blobOffset);
+		int blobCount = floor(_gauge / _blobOffset);
 		float blobX = x + cosf(realAngle) * 16;
 		float blobY = y - sinf(realAngle) * 16;
 		for (int i = 0; i < blobCount; i++)

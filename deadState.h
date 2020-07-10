@@ -4,6 +4,13 @@
 class deadState : public state
 {
 private:
+	image* _img;
+	animation* _ani;
+	
+	bool _isBomb;
+	bool _isGround;
+	float _damage; // 무기의 대미지
+	float _bombWidth; // 무기의 폭파 반경
 
 public:
 	deadState() {}
@@ -16,5 +23,7 @@ public:
 	virtual state* update(worm& player);
 
 	virtual void render(worm& player);
+
+	virtual bool isStop();
 };
 

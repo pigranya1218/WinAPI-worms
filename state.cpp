@@ -37,3 +37,8 @@ state * state::update(worm & player)
 void state::render(worm & player)
 {
 }
+
+bool state::isStop()
+{
+	return false;
+}
