@@ -1,8 +1,14 @@
-﻿  donkeyWeapon.cpp
+﻿  projectile.cpp
 c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(34): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
 c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(104): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kyungwoong kang\desktop\winapi-worms\donkeyweapon.cpp(69): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kyungwoong kang\desktop\winapi-worms\donkeyweapon.cpp(70): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kyungwoong kang\desktop\winapi-worms\donkeyweapon.cpp(114): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kyungwoong kang\desktop\winapi-worms\donkeyweapon.cpp(122): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\projectile.cpp(8): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\projectile.cpp(31): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\projectile.cpp(46): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\projectile.cpp(54): warning C4305: '+=': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\projectile.cpp(75): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\projectile.cpp(79): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\projectile.cpp(93): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\projectile.cpp(98): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\projectile.cpp(99): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\projectile.cpp(100): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   windowsAPI.vcxproj -> C:\Users\kyungwoong kang\Desktop\WinAPI-worms\x64\Debug\windowsAPI.exe

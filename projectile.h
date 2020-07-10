@@ -24,10 +24,15 @@ protected:
 	float _frameAngleOffset;
 	float _bombWidth;
 
+
 	bool _isAngleFrame;
+	bool _isWindEffected;
+	bool _checkPixel;
+	bool _checkWorm;
 	bool _isFinish;
 
 	bool checkPixelAvail(int x, int y);
+	bool checkWormAvail(int x, int y);
 	int getFrameIndex();
 
 public:
@@ -47,13 +52,16 @@ public:
 	void setBombWidth(float bombWidth) { _bombWidth = bombWidth; }
 
 	void init(stageManager* stageManager, wormManager* wormManager, float x, float y, float width, float height, 
-		float angle, float power, float damage, float bombWidth, bool isAngleFrame)
+		float angle, float power, float damage, float bombWidth, bool isAngleFrame, bool isWindEffected, bool checkPixel, bool checkWorm)
 	{
 		_stageManager = stageManager;
 		_wormManager = wormManager;
 		_angleDisplay = angle;
 		_isFinish = false;
 		_isAngleFrame = isAngleFrame;
+		_isWindEffected = isWindEffected;
+		_checkPixel = checkPixel;
+		_checkWorm = checkWorm;
 
 		setX(x);
 		setY(y);

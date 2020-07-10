@@ -10,17 +10,17 @@ void donkeyWeapon::shoot(worm& shooter)
     donkey* _donkey = new donkey;
 
     float initGravity = 0;
-    float initAngle = PI * 0.5;
+    float initAngle = 0;
     float initPower = _power;
 
     float initX = _x;
-    float initY = 500;
+    float initY = 100;
     float widthX = 100;
     float widthY = 2;
     float initBombWidth = _bombWidth;
     float initDamage = _damage;
 
-    _donkey->init(shooter.getStageManager(), shooter.getWormManager(), initX, initY, widthX, widthY, initAngle, initPower, initDamage, initBombWidth, true);
+    _donkey->init(shooter.getStageManager(), shooter.getWormManager(), initX, initY, widthX, widthY, initAngle, initPower, initDamage, initBombWidth, false, false, true, false);
     _donkey->setImage(IMAGE_MANAGER->findImage("WEAPON_DONKEY"));
 
     shooter.getWormManager()->shoot(_donkey);
@@ -28,9 +28,9 @@ void donkeyWeapon::shoot(worm& shooter)
 
 void donkeyWeapon::enter(worm& player)
 {
-    _power = 10;
+    _power = 0;
     _damage = 50;
-    _bombWidth = 150;
+    _bombWidth = 240;
     _state = WEAPON_STATE::BEGIN;
     _x = _y = 0;
 
@@ -38,15 +38,15 @@ void donkeyWeapon::enter(worm& player)
     _wormAni = new animation;
     _wormAni->init(_wormImg->getWidth(), _wormImg->getHeight(), _wormImg->getFrameWidth(), _wormImg->getFrameHeight());
     _wormAni->setDefPlayFrame(false, false);
-    _wormAni->setFPS(10);
-    _wormAni->isPlay();
+    _wormAni->setFPS(20);
+    _wormAni->start();
 
     _markerImg = IMAGE_MANAGER->findImage("WEAPON_DONKEY_MARKER");
     _markerAni = new animation;
     _markerAni->init(_markerImg->getWidth(), _markerImg->getHeight(), _markerImg->getFrameWidth(), _markerImg->getFrameHeight());
     _markerAni->setDefPlayFrame(true, true);
-    _markerAni->setFPS(20);
-    _markerAni->isPlay();
+    _markerAni->setFPS(40);
+    _markerAni->start();
 }
 
 void donkeyWeapon::exit(worm& player)
@@ -60,6 +60,22 @@ WEAPON_FINISH_TYPE donkeyWeapon::update(worm& player)
     switch (_state)
     {
     case WEAPON_STATE::BEGIN:
+    {
+        if (player.isTurn())
+        {
+            if (KEY_MANAGER->isOnceKeyDown(VK_LBUTTON))
+            {
+                _x = CAMERA_MANAGER->getAbsoluteL(_ptMouse.x);
+                _y = CAMERA_MANAGER->getAbsoluteT(_ptMouse.y);
+                _state = WEAPON_STATE::IDLE;
+            }
+        }
+        else
+        {
+            _state = WEAPON_STATE::FINISH;
+        }
+    }
+    break;
     case WEAPON_STATE::IDLE: // 발사 위치 조정
     {
         if (player.isTurn())
@@ -75,8 +91,8 @@ WEAPON_FINISH_TYPE donkeyWeapon::update(worm& player)
                 _wormImg = IMAGE_MANAGER->findImage(getImageKey("WEAPON_AIR", player.getSlope()));
                 _wormAni->init(_wormImg->getWidth(), _wormImg->getHeight(), _wormImg->getFrameWidth(), _wormImg->getFrameHeight());
                 _wormAni->setDefPlayFrame(false, false);
-                _wormAni->setFPS(10);
-                _wormAni->isPlay();
+                _wormAni->setFPS(20);
+                _wormAni->start();
                 _state = WEAPON_STATE::SHOOTING;
             }
         }
@@ -90,7 +106,20 @@ WEAPON_FINISH_TYPE donkeyWeapon::update(worm& player)
     {
         if (!_wormAni->isPlay())
         {
-            // shoot(player);
+            shoot(player);
+            _wormImg = IMAGE_MANAGER->findImage(getImageKey("WEAPON_AIR_BACK", player.getSlope()));
+            _wormAni->init(_wormImg->getWidth(), _wormImg->getHeight(), _wormImg->getFrameWidth(), _wormImg->getFrameHeight());
+            _wormAni->setDefPlayFrame(false, false);
+            _wormAni->setFPS(20);
+            _wormAni->start();
+            _state = WEAPON_STATE::WAITING;
+        }
+    }
+    break;
+    case WEAPON_STATE::WAITING:
+    {
+        if (!_wormAni->isPlay())
+        {
             _state = WEAPON_STATE::FINISH;
         }
     }
@@ -117,6 +146,7 @@ void donkeyWeapon::render(worm& player)
     {
     case WEAPON_STATE::IDLE:
     case WEAPON_STATE::SHOOTING:
+    case WEAPON_STATE::WAITING:
     case WEAPON_STATE::FINISH:
     {
         CAMERA_MANAGER->aniRender(getMemDC(), _markerImg, _x - (_markerImg->getFrameWidth() / 2), _y - (_markerImg->getFrameHeight() / 2), _markerAni, false);

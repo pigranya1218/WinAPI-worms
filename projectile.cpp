@@ -5,8 +5,6 @@
 
 bool projectile::checkPixelAvail(int x, int y)
 {
-	bool isBomb = false;
-
 	RECT rc = RectMakeCenter(_x, _y, _width, _height);
 
 	// pixel이 있는지 검사
@@ -25,7 +23,13 @@ bool projectile::checkPixelAvail(int x, int y)
 		}
 	}
 
-	// worm이 있는지 검사
+	return false;
+}
+
+bool projectile::checkWormAvail(int x, int y)
+{
+	RECT rc = RectMakeCenter(_x, _y, _width, _height);
+
 	return _wormManager->checkCollisionPixel(rc);
 }
 
@@ -48,9 +52,15 @@ int projectile::getFrameIndex()
 bool projectile::gravityMove(float wind)
 {
 	_gravity += 0.08;
-	_wind += wind;
-	float deltaX = cosf(_angle) * _power + _wind;
+	float deltaX = cosf(_angle) * _power;
 	float deltaY = (-sinf(_angle) * _power) + _gravity;
+	if (_isWindEffected)
+	{
+		_wind += wind;
+		deltaX += _wind;
+
+	}
+	
 	_angleDisplay = atan2f(-deltaY, deltaX);
 	if (_angleDisplay < 0) _angleDisplay += PI2;
 	if (_angleDisplay > PI2) _angleDisplay -= PI2;
@@ -58,7 +68,18 @@ bool projectile::gravityMove(float wind)
 	_x += deltaX;
 	_y += deltaY;
 
-	return checkPixelAvail(_x, _y);
+	bool result = false;
+
+	if (_checkPixel)
+	{
+		result = result | checkPixelAvail(_x, _y);
+	}
+	if (_checkWorm)
+	{
+		result = result | checkWormAvail(_x, _y);
+	}
+
+	return result;
 }
 
 void projectile::release()
