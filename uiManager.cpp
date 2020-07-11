@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "uiManager.h"
+#include "allWeapon.h"
+#include "wormManager.h"
 
 // 타이머를 그림
 void uiManager::drawTimer()
@@ -87,6 +89,61 @@ void uiManager::drawTeamHp()
 
 }
 
+void uiManager::drawWeapons()
+{
+	SelectObject(getMemDC(), _blackBrush);
+	SelectObject(getMemDC(), _weaponFont);
+	SetTextColor(getMemDC(), RGB(255, 255, 255));
+	SetTextAlign(getMemDC(), TA_RIGHT);
+
+	int width = 35;
+	int height = 35;
+	int x = WINSIZEX - (width / 2);
+	int y = (WINSIZEY - 38) - (height / 2);
+	_weaponRC.clear();
+	for (auto iter = _weaponCount.begin(); iter != _weaponCount.end(); iter++)
+	{
+		RECT weaponRc = RectMakeCenter(x, y, width, height);
+		_weaponRC.push_back(make_pair(weaponRc, iter->first));
+
+		if (PtInRect(&weaponRc, _ptMouse))
+		{
+			SelectObject(getMemDC(), _white2Pen);
+		}
+		else
+		{
+			SelectObject(getMemDC(), _white1Pen);
+		}
+		Rectangle(getMemDC(), weaponRc);
+
+		char buffer[20];
+		image* img = IMAGE_MANAGER->findImage("WEAPON_ICON_" + _weaponName[iter->first]);
+
+		if (iter->second == -1) // 무한 사용 가능 무기
+		{
+			img->render(getMemDC(), x - (img->getWidth() / 2), y - (img->getHeight() / 2));
+		}
+		else 
+		{
+			if (iter->second == 0) // 무기가 없음
+			{
+				img->alphaRender(getMemDC(), x - (img->getWidth() / 2), y - (img->getHeight() / 2), 60);
+			}
+			else
+			{
+				img->render(getMemDC(), x - (img->getWidth() / 2), y - (img->getHeight() / 2));
+			}
+			sprintf_s(buffer, "%d", iter->second);
+			TextOut(getMemDC(), weaponRc.right - 2, weaponRc.bottom - 14, buffer, strlen(buffer));
+		}
+		
+		x -= width;
+	}
+
+
+
+}
+
 HRESULT uiManager::init()
 {
 	_blackBrush = CreateSolidBrush(RGB(0, 0, 0));
@@ -97,11 +154,19 @@ HRESULT uiManager::init()
 
 	_timerFont = CreateFont(60, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 0, 0, 0, 0, "궁서");
 	_wormFont = CreateFont(16, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 0, 0, 0, 0, "궁서");
+	_weaponFont = CreateFont(14, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 0, 0, 0, 0, "궁서");
 
 	for (int i = 0; i < _fontColors.size(); i++)
 	{
 		_teamBrush.push_back(CreateSolidBrush(_fontColors[i]));
 	}
+
+	_weaponName.insert(make_pair(WEAPON_CODE::BANANA, "BANANA"));
+	_weaponName.insert(make_pair(WEAPON_CODE::BAZOOKA, "BAZOOKA"));
+	_weaponName.insert(make_pair(WEAPON_CODE::DONKEY, "DONKEY"));
+	_weaponName.insert(make_pair(WEAPON_CODE::FIRESTRK, "FIRESTRK"));
+	_weaponName.insert(make_pair(WEAPON_CODE::MINE, "MINE"));
+	_weaponName.insert(make_pair(WEAPON_CODE::HOMING, "HOMING"));
 
 	return S_OK;
 }
@@ -112,6 +177,23 @@ void uiManager::release()
 
 void uiManager::update()
 {
+	if (_weaponVisible)
+	{
+		if (KEY_MANAGER->isStayKeyDown(VK_LBUTTON))
+		{
+			for (int i = 0; i < _weaponRC.size(); i++)
+			{
+				RECT weaponRC = _weaponRC[i].first;
+				WEAPON_CODE weaponCode = _weaponRC[i].second;
+				if (PtInRect(&weaponRC, _ptMouse) && (_weaponCount[weaponCode] == -1 || _weaponCount[weaponCode] > 0))
+				{
+					_wormManager->setWeaponsWorm(_weaponRC[i].second);
+					_weaponVisible = false;
+					break;
+				}
+			}
+		}
+	}
 }
 
 void uiManager::render()
@@ -130,12 +212,22 @@ void uiManager::render()
 	{
 		drawTeamHp();
 	}
+
+	if (_weaponVisible)
+	{
+		drawWeapons();
+	}
 }
 
 void uiManager::setTeamHp(int maxHp, vector<int> hps)
 {
 	_maxHp = maxHp;
 	_teamHps = hps;
+}
+
+void uiManager::setWeapons(map<WEAPON_CODE, int> weaponCount)
+{
+	_weaponCount = weaponCount;
 }
 
 void uiManager::drawWormUI(float x, float y, int hp, int playerIndex, string name)

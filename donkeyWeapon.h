@@ -19,7 +19,8 @@ private:
 
 	float _x, _y; // 포인트 좌표
 
-	void shoot(worm& shooter);
+	void shot(worm& shooter);
+	void setWaiting(worm& player);
 
 public:
 	donkeyWeapon() {}

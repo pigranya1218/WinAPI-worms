@@ -1,14 +1,15 @@
 #pragma once
 #include "weapon.h"
 
-class bazukaWeapon : public weapon
+class bazookaWeapon : public weapon
 {
-private:
+protected:
 	image* _weaponImg;
 	image* _aimImg;
 	image* _blobImg;
 	animation* _ani;
 
+	string _weaponName = "BAZOOKA";
 	float _angle; // 무기의 각도 
 	float _angleOffset; // 무기 각도 오프셋
 	float _frameAngleOffset;
@@ -18,11 +19,12 @@ private:
 	float _bombWidth; // 무기의 폭파 반경
 	float _aimRadius;
 	
-	void shoot(worm& shooter);
+	virtual void shot(worm& shooter);
+	virtual void setWaiting(worm& player);
 
 public:
-	bazukaWeapon() {}
-	~bazukaWeapon() {}
+	bazookaWeapon() {}
+	~bazookaWeapon() {}
 
 	virtual void enter(worm& player);
 

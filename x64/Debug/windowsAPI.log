@@ -1,14 +1,424 @@
-﻿  projectile.cpp
-c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(34): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
-c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(104): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+﻿  attackState.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\jumpstate.h(11): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\longjumpstate.h(13): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.h(98): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  banana.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.h(11): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.h(98): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(58): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(59): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(9): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(52): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(53): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(54): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(55): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(67): warning C4305: '+=': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(73): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(85): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(108): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(119): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(123): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(134): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(158): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(168): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(172): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(183): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(196): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(216): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(222): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(231): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(235): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(246): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(258): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(267): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(271): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(282): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(311): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(334): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(342): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(347): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(375): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(384): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(388): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(404): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(417): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(422): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(430): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(434): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(448): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(456): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(460): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(489): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(490): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(496): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(497): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(498): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(506): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(510): warning C4305: '-=': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.cpp(528): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  bananaWeapon.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.h(11): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.h(22): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(58): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(59): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  bazookaWeapon.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.h(98): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(58): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(59): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\bazookaweapon.cpp(163): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\bazookaweapon.cpp(170): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\bazookaweapon.cpp(175): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\bazookaweapon.cpp(184): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\bazookaweapon.cpp(191): warning C4244: '+=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\bazookaweapon.cpp(192): warning C4244: '+=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  deadState.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.h(98): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(58): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(59): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\deadstate.cpp(37): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\deadstate.cpp(38): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\deadstate.cpp(39): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\deadstate.cpp(43): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\deadstate.cpp(57): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\deadstate.cpp(74): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\deadstate.cpp(78): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  donkey.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.h(98): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(58): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(59): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\donkey.cpp(10): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\donkey.cpp(15): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\donkey.cpp(16): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\donkey.cpp(17): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  donkeyWeapon.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.h(11): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.h(22): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.h(98): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(58): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(59): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\donkeyweapon.cpp(105): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\donkeyweapon.cpp(106): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\donkeyweapon.cpp(165): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\donkeyweapon.cpp(174): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  fallenState.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\jumpstate.h(11): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\longjumpstate.h(13): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\fallenstate.cpp(28): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\fallenstate.cpp(35): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\fallenstate.cpp(68): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\fallenstate.cpp(71): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  flyState.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\jumpstate.h(11): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\longjumpstate.h(13): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\flystate.cpp(32): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\flystate.cpp(33): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\flystate.cpp(66): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\flystate.cpp(115): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\flystate.cpp(137): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\flystate.cpp(174): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  homing.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.h(98): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(58): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(59): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\homing.cpp(25): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\homing.cpp(30): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\homing.cpp(31): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\homing.cpp(32): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\homing.cpp(52): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  homingWeapon.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.h(11): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.h(22): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.h(98): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(58): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(59): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\homingweapon.cpp(98): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\homingweapon.cpp(99): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\homingweapon.cpp(180): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  idleState.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\jumpstate.h(11): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\longjumpstate.h(13): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(58): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(59): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\idlestate.cpp(27): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\idlestate.cpp(72): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\idlestate.cpp(76): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  jumpState.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\jumpstate.h(11): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\longjumpstate.h(13): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(58): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(59): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\jumpstate.cpp(62): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\jumpstate.cpp(69): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\jumpstate.cpp(104): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\jumpstate.cpp(107): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  longJumpState.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\jumpstate.h(11): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\longjumpstate.h(13): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\longjumpstate.cpp(44): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\longjumpstate.cpp(51): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\longjumpstate.cpp(82): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\longjumpstate.cpp(85): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  mineObject.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.h(22): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(58): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(59): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.h(98): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(8): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(44): warning C4305: '+=': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(50): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(62): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(85): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(96): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(100): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(111): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(135): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(145): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(149): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(160): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(173): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(193): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(199): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(208): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(212): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(223): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(235): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(244): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(248): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(259): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(288): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(311): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(319): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(324): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(352): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(361): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(365): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(381): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(394): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(399): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(407): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(411): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(425): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(433): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(437): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(464): warning C4838: 'float'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(464): warning C4244: '초기화 중': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(470): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(471): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(472): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.cpp(549): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  mineWeapon.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.h(11): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.h(22): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.h(98): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineweapon.cpp(11): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineweapon.cpp(110): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  moveState.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\jumpstate.h(11): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\longjumpstate.h(13): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\movestate.cpp(77): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\movestate.cpp(81): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  playGround.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.h(98): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(58): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(59): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  projectile.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.h(98): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(58): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(59): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\users\kyungwoong kang\desktop\winapi-worms\projectile.cpp(8): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\users\kyungwoong kang\desktop\winapi-worms\projectile.cpp(31): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\users\kyungwoong kang\desktop\winapi-worms\projectile.cpp(46): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\users\kyungwoong kang\desktop\winapi-worms\projectile.cpp(54): warning C4305: '+=': 'double'에서 'float'(으)로 잘립니다.
-c:\users\kyungwoong kang\desktop\winapi-worms\projectile.cpp(75): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kyungwoong kang\desktop\winapi-worms\projectile.cpp(79): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\projectile.cpp(74): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\projectile.cpp(78): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\projectile.cpp(92): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\users\kyungwoong kang\desktop\winapi-worms\projectile.cpp(93): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\users\kyungwoong kang\desktop\winapi-worms\projectile.cpp(98): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\users\kyungwoong kang\desktop\winapi-worms\projectile.cpp(99): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\users\kyungwoong kang\desktop\winapi-worms\projectile.cpp(100): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  stageManager.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.h(98): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(58): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(59): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.cpp(49): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.cpp(98): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.cpp(99): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.cpp(176): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.cpp(194): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.cpp(195): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.cpp(196): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.cpp(273): warning C4838: 'float'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.cpp(273): warning C4244: '초기화 중': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.cpp(275): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.cpp(276): warning C4838: 'float'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.cpp(276): warning C4244: '초기화 중': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.cpp(278): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.cpp(279): warning C4838: 'float'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.cpp(279): warning C4244: '초기화 중': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.cpp(359): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.cpp(402): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
+c:\users\kyungwoong kang\desktop\winapi-worms\attackstate.cpp(36): warning C4715: 'attackState::update': 모든 제어 경로에서 값을 반환하지는 않습니다.
+  컴파일하고 있습니다...
+  stageScene.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.h(98): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(58): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(59): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagescene.cpp(61): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagescene.cpp(65): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  state.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  uiManager.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.h(11): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.h(22): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(58): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(59): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\uimanager.cpp(21): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\uimanager.cpp(43): warning C4838: 'float'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\uimanager.cpp(43): warning C4244: '초기화 중': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\uimanager.cpp(53): warning C4838: 'float'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\uimanager.cpp(53): warning C4244: '초기화 중': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\uimanager.cpp(68): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\uimanager.cpp(75): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\uimanager.cpp(85): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\uimanager.cpp(137): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\uimanager.cpp(244): warning C4838: 'float'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\uimanager.cpp(244): warning C4244: '초기화 중': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\uimanager.cpp(246): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\uimanager.cpp(246): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\uimanager.cpp(250): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\uimanager.cpp(262): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\uimanager.cpp(262): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  weapon.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  windowsAPI.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.h(98): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(58): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(59): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\windowsapi.cpp(92): warning C4244: 'return': 'WPARAM'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  worm.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\jumpstate.h(11): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\longjumpstate.h(13): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.h(11): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.h(22): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(58): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(59): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.h(98): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(13): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(27): warning C4838: 'float'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(27): warning C4244: '초기화 중': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(68): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(131): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(170): warning C4553: '==': 식의 결과가 사용되지 않습니다. '='을(를) 의도했습니까?
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(174): warning C4553: '==': 식의 결과가 사용되지 않습니다. '='을(를) 의도했습니까?
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(182): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(192): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(195): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(199): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(210): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(214): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(216): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(222): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(234): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(242): warning C4305: '+=': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(250): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(262): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(285): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(296): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(300): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(311): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(335): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(345): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(349): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(360): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(373): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(380): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(394): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(400): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(409): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(413): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(424): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(436): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(445): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(449): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(460): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(475): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(490): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(513): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(521): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(526): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(554): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(563): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(567): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(583): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(596): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(601): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(609): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(613): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(627): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(635): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(639): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.cpp(661): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  wormManager.cpp
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(38): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\worm.h(118): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(58): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.h(59): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\stagemanager.h(98): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\banana.h(11): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\mineobject.h(22): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.cpp(162): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.cpp(167): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kyungwoong kang\desktop\winapi-worms\wormmanager.cpp(168): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
   windowsAPI.vcxproj -> C:\Users\kyungwoong kang\Desktop\WinAPI-worms\x64\Debug\windowsAPI.exe

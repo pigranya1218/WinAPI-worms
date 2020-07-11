@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "allState.h"
 #include "worm.h"
+#include "stageManager.h"
 
 
 void attackState::enter(worm& player)
@@ -10,7 +11,6 @@ void attackState::enter(worm& player)
 
 void attackState::exit(worm& player)
 {
-	player.getWeapon()->exit(player);
 }
 
 state* attackState::update(worm& player)
@@ -20,12 +20,17 @@ state* attackState::update(worm& player)
 	{
 	case WEAPON_FINISH_TYPE::ATTACK: // 아직 현재진행형
 		return nullptr;
-	case WEAPON_FINISH_TYPE::MOVING:
 	case WEAPON_FINISH_TYPE::FINISH_BUT_MOVE:
+	{
+		player.getStageManager()->setTimer(5);
+		player.setAttackAvail(false);
+	}
+	case WEAPON_FINISH_TYPE::MOVING:
 		return new moveState;
 	case WEAPON_FINISH_TYPE::JUMPING:
 		return new jumpState;
 	case WEAPON_FINISH_TYPE::FINISH:
+		player.removeWeapon();
 		return new idleState;
 	}
 }

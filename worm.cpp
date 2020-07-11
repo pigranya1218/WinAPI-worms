@@ -24,7 +24,8 @@ bool worm::checkMoveAvail(int x, int bottom)
 		}
 	}
 
-	return true;
+	RECT wormRC = { x - 1, bottom - _height, x, bottom - 1};
+	return (!_wormManager->checkCollisionPixel(wormRC, _index));
 }
 
 int worm::checkGroundAvail(int x, int bottom)
@@ -37,7 +38,7 @@ int worm::checkGroundAvail(int x, int bottom)
 		}
 	}
 
-	return -1; // 밟을 발판이 없음
+	return _wormManager->checkGroundPixel(x, bottom, _index, _offsetClimb); // 밟을 발판이 없음
 }
 
 bool worm::checkPixelAvail(int x, int bottom)
@@ -73,8 +74,14 @@ HRESULT worm::init(wormManager* wormManager, int index, string name, float x, fl
 	_state = new idleState;
 	_state->enter(*this);
 
-	_weapon = new donkeyWeapon;
-	// _weapon->enter(*this);
+	_weapon = nullptr;
+
+	_weaponCount.insert(make_pair(WEAPON_CODE::BAZOOKA, -1));
+	_weaponCount.insert(make_pair(WEAPON_CODE::DONKEY, 1));
+	_weaponCount.insert(make_pair(WEAPON_CODE::BANANA, 1));
+	_weaponCount.insert(make_pair(WEAPON_CODE::FIRESTRK, 1));
+	_weaponCount.insert(make_pair(WEAPON_CODE::MINE, 1));
+	_weaponCount.insert(make_pair(WEAPON_CODE::HOMING, 2));
 
 	return S_OK;
 }
@@ -104,6 +111,17 @@ void worm::render()
 	{
 		renderUI();
 	}
+}
+
+void worm::setWeapon(weapon* weapon)
+{
+	if (!_canAttack) return;
+	_state->exit(*this);
+	delete _state;
+	delete _weapon;
+	_state = new attackState;
+	_weapon = weapon;
+	_state->enter(*this);
 }
 
 // 중심점을 기준으로 보고 있는 방향 봐서 각도 변화가 있는지 파악함
@@ -678,6 +696,13 @@ void worm::setWaiting()
 	getStageManager()->setWaiting();
 }
 
+void worm::removeWeapon()
+{
+	_weapon->exit(*this);
+	delete _weapon;
+	_weapon = nullptr;
+}
+
 void worm::setDead()
 {
 	_state->exit(*this);
@@ -717,4 +742,9 @@ stageManager * worm::getStageManager()
 wormManager * worm::getWormManager()
 {
 	return _wormManager;
+}
+
+objectManager* worm::getObjectManager()
+{
+	return _wormManager->getObjectManager();
 }

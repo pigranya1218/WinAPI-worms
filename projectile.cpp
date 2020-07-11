@@ -51,14 +51,13 @@ int projectile::getFrameIndex()
 
 bool projectile::gravityMove(float wind)
 {
-	_gravity += 0.08;
+	if(_isGravityEffected) _gravity += 0.08;
 	float deltaX = cosf(_angle) * _power;
 	float deltaY = (-sinf(_angle) * _power) + _gravity;
 	if (_isWindEffected)
 	{
 		_wind += wind;
 		deltaX += _wind;
-
 	}
 	
 	_angleDisplay = atan2f(-deltaY, deltaX);
@@ -90,6 +89,7 @@ void projectile::update()
 {
 	if (!_isFinish)
 	{
+		EFFECT_MANAGER->play("EFFECT_HEXHAUST", _x, _y, 40, 40);
 		float wind = _stageManager->getWind() * 0.2;
 		bool isBomb = gravityMove(wind);
 

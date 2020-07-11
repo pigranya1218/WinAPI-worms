@@ -186,9 +186,6 @@
     <ClInclude Include="allWeapon.h">
       <Filter>playGround\stageScene\weapon</Filter>
     </ClInclude>
-    <ClInclude Include="bazukaWeapon.h">
-      <Filter>playGround\stageScene\weapon</Filter>
-    </ClInclude>
     <ClInclude Include="object.h">
       <Filter>playGround\stageScene\item</Filter>
     </ClInclude>
@@ -212,6 +209,30 @@
     </ClInclude>
     <ClInclude Include="projectileManager.h">
       <Filter>playGround\stageScene\projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="bazookaWeapon.h">
+      <Filter>playGround\stageScene\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="homingWeapon.h">
+      <Filter>playGround\stageScene\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="homing.h">
+      <Filter>playGround\stageScene\projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="bananaWeapon.h">
+      <Filter>playGround\stageScene\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="banana.h">
+      <Filter>playGround\stageScene\projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="mineWeapon.h">
+      <Filter>playGround\stageScene\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="firestrkWeapon.h">
+      <Filter>playGround\stageScene\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="mineObject.h">
+      <Filter>playGround\stageScene\item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -311,9 +332,6 @@
     <ClCompile Include="fallenState.cpp">
       <Filter>playGround\stageScene\worm\state</Filter>
     </ClCompile>
-    <ClCompile Include="bazukaWeapon.cpp">
-      <Filter>playGround\stageScene\weapon</Filter>
-    </ClCompile>
     <ClCompile Include="object.cpp">
       <Filter>playGround\stageScene\item</Filter>
     </ClCompile>
@@ -337,6 +355,30 @@
     </ClCompile>
     <ClCompile Include="projectileManager.cpp">
       <Filter>playGround\stageScene\projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="bazookaWeapon.cpp">
+      <Filter>playGround\stageScene\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="homingWeapon.cpp">
+      <Filter>playGround\stageScene\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="homing.cpp">
+      <Filter>playGround\stageScene\projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="bananaWeapon.cpp">
+      <Filter>playGround\stageScene\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="banana.cpp">
+      <Filter>playGround\stageScene\projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="mineWeapon.cpp">
+      <Filter>playGround\stageScene\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="firestrkWeapon.cpp">
+      <Filter>playGround\stageScene\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="mineObject.cpp">
+      <Filter>playGround\stageScene\item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

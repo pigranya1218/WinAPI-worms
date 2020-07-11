@@ -2,6 +2,7 @@
 #include "stageManager.h"
 #include "wormManager.h"
 #include "projectileManager.h"
+#include "objectManager.h"
 #include "uiManager.h"
 
 HRESULT stageManager::init(int playerNum, int wormsPerPlayer, int turnTime)
@@ -92,6 +93,10 @@ void stageManager::update()
 		setNextTurnIndex();
 		_turnTime = _turnMaxTime;
 		_state = STAGE_STATE::WORM_TURN;
+		_wormManager->setWeaponsUI(_turnIndex); // 무기 UI
+		_wormManager->setWormsAttackAvail();
+		CAMERA_MANAGER->setX(_wormManager->getWormPosX(_turnIndex));
+		CAMERA_MANAGER->setY(_wormManager->getWormPosY(_turnIndex));
 	}
 	break;
 	case STAGE_STATE::UPDATE_DEAD: // 죽음 처리, 경우에 따라 다시 waiting turn으로 돌아갈 수 있음
@@ -136,7 +141,7 @@ void stageManager::update()
 	break;
 	case STAGE_STATE::WAITING_TURN:
 	{
-		if (_wormManager->checkAllStop() && _projectileManager->checkZero()) // 움직임이 끝날때까지 대기
+		if (_wormManager->checkAllStop() && _projectileManager->checkZero() && _objectManager->checkNoUpdate()) // 움직임이 끝날때까지 대기
 		{
 			_turnIndex = -1;
 			_damageFrame = 0;
@@ -151,6 +156,7 @@ void stageManager::update()
 		{
 			_turnTime = 0;
 			_state = STAGE_STATE::WAITING_TURN;
+			_uiManager->setWeaponVisible(false);
 		}
 
 		// 타이머 업데이트
@@ -158,16 +164,20 @@ void stageManager::update()
 		{
 			_turnTime -= TIME_MANAGER->getElapsedTime();
 		}
+
+		if (KEY_MANAGER->isOnceKeyDown(VK_RBUTTON))
+		{
+			_wormManager->toggleWeapons();
+		}
 	}
 	break;
 	}
 
 	_uiManager->setTimer(ceil(_turnTime)); // UI 타이머 변경
 	_uiManager->setTimerVisible(true);
-	_uiManager->setWind(_turnWind); // UI 타이머 변경
+	_uiManager->setWind(_turnWind); // UI 바람 변경
 	_uiManager->setWindVisible(true);
-	
-	_uiManager->setTeamHpVisible(true);
+	_uiManager->setTeamHpVisible(true); // UI 팀 체력바 변경
 	_uiManager->setTeamHp(_wormManager->getTeamMaxHp(), _wormManager->getTeamHp());
 }
 
@@ -201,6 +211,11 @@ void stageManager::setWormManager(wormManager * wormManager)
 void stageManager::setProjectileManager(projectileManager* projectileManager)
 {
 	_projectileManager = projectileManager;
+}
+
+void stageManager::setObjectManager(objectManager* objectManager)
+{
+	_objectManager = objectManager;
 }
 
 void stageManager::setUIManager(uiManager * uiManager)
@@ -271,6 +286,8 @@ void stageManager::makeStage()
 	makeWorms();
 	setNextTurnIndex();
 	setTurnWind();
+	_wormManager->setWeaponsUI(_turnIndex); // 무기 UI
+	_uiManager->setWeaponVisible(false);
 }
 
 void stageManager::makeWorld() // 맵 복사

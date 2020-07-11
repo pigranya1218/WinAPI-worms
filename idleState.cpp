@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "allState.h"
 #include "worm.h"
+#include "wormManager.h"
 
 void idleState::enter(worm & player)
 {
@@ -21,12 +22,11 @@ state * idleState::update(worm & player)
 {
 	if (player.isTurn())
 	{
-		if (KEY_MANAGER->isOnceKeyDown(VK_LBUTTON))
+		if (KEY_MANAGER->isStayKeyDown(VK_LBUTTON))
 		{
 			player.setPlayerPos(CAMERA_MANAGER->getAbsoluteL(_ptMouse.x), CAMERA_MANAGER->getAbsoluteT(_ptMouse.y));
-			return nullptr;
-		} 
-		if (KEY_MANAGER->isOnceKeyDown(VK_LEFT)) // 왼쪽으로 움직이기
+		}
+		if (KEY_MANAGER->isStayKeyDown(VK_LEFT)) // 왼쪽으로 움직이기
 		{
 			if (player.getDirection() == DIRECTION::RIGHT)
 			{
@@ -35,7 +35,7 @@ state * idleState::update(worm & player)
 			}
 			return new moveState;
 		}
-		else if (KEY_MANAGER->isOnceKeyDown(VK_RIGHT)) // 오른쪽으로 움직이기
+		else if (KEY_MANAGER->isStayKeyDown(VK_RIGHT)) // 오른쪽으로 움직이기
 		{
 			if (player.getDirection() == DIRECTION::LEFT)
 			{
@@ -48,9 +48,12 @@ state * idleState::update(worm & player)
 		{
 			return new jumpState;
 		}
-		else if (KEY_MANAGER->isOnceKeyDown(VK_UP) || KEY_MANAGER->isOnceKeyDown(VK_DOWN) || KEY_MANAGER->isOnceKeyDown(VK_SPACE))
+		else if ((KEY_MANAGER->isOnceKeyDown(VK_UP) || KEY_MANAGER->isOnceKeyDown(VK_DOWN) || KEY_MANAGER->isOnceKeyDown(VK_SPACE)) && player.getAttackAvail())
 		{
-			return new attackState;
+			if (player.getWeapon() != nullptr)
+			{
+				return new attackState;
+			}
 		}
 	}
 	else // 랜덤으로 IDLE 애니메이션 재생

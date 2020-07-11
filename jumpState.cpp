@@ -28,13 +28,6 @@ void jumpState::exit(worm & player)
 
 state * jumpState::update(worm & player)
 {
-	// DEBUG
-	if (KEY_MANAGER->isOnceKeyDown(VK_LBUTTON))
-	{
-		player.setPlayerPos(CAMERA_MANAGER->getAbsoluteL(_ptMouse.x), CAMERA_MANAGER->getAbsoluteT(_ptMouse.y));
-		return new idleState;
-	}
-
 	if (player.isTurn())
 	{
 		if (_ready) // 아직 준비단계일 때

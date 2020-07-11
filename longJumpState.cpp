@@ -18,13 +18,6 @@ void longJumpState::exit(worm& player)
 
 state* longJumpState::update(worm& player)
 {
-	// DEBUG
-	if (KEY_MANAGER->isOnceKeyDown(VK_LBUTTON))
-	{
-		player.setPlayerPos(CAMERA_MANAGER->getAbsoluteL(_ptMouse.x), CAMERA_MANAGER->getAbsoluteT(_ptMouse.y));
-		return new idleState;
-	}
-
 	float xMove = (player.getDirection() == DIRECTION::LEFT)? _xMove : -_xMove;
 
 	if (player.isTurn())

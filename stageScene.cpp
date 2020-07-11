@@ -22,14 +22,15 @@ HRESULT stageScene::init(int playerNum, int wormsPerPlayer, int turnTime)
 	_uiManager = new uiManager;
 	_uiManager->init();
 
-
-
 	_stageManager->setWormManager(_wormManager);
 	_stageManager->setProjectileManager(_projectileManager);
+	_stageManager->setObjectManager(_objectManager);
 	_stageManager->setUIManager(_uiManager);
 	_wormManager->setStageManager(_stageManager);
 	_wormManager->setProjectileManager(_projectileManager);
+	_wormManager->setObjectManager(_objectManager);
 	_wormManager->setUIManager(_uiManager);
+	_uiManager->setWormManager(_wormManager);
 
 	_stageManager->makeStage();
 

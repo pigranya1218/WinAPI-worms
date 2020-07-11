@@ -1,11 +1,11 @@
 #include "stdafx.h"
-#include "donkeyWeapon.h"
+#include "allWeapon.h"
 #include "worm.h"
 #include "state.h"
 #include "stageManager.h"
 #include "wormManager.h"
 
-void donkeyWeapon::shoot(worm& shooter)
+void donkeyWeapon::shot(worm& shooter)
 {
     donkey* _donkey = new donkey;
 
@@ -20,10 +20,22 @@ void donkeyWeapon::shoot(worm& shooter)
     float initBombWidth = _bombWidth;
     float initDamage = _damage;
 
-    _donkey->init(shooter.getStageManager(), shooter.getWormManager(), initX, initY, widthX, widthY, initAngle, initPower, initDamage, initBombWidth, false, false, true, false);
+    _donkey->init(shooter.getStageManager(), shooter.getWormManager(), initX, initY, widthX, widthY, initAngle, initPower, initDamage, initBombWidth, false, false, true, false, true);
     _donkey->setImage(IMAGE_MANAGER->findImage("WEAPON_DONKEY"));
 
     shooter.getWormManager()->shoot(_donkey);
+    shooter.adjustWeapon(WEAPON_CODE::DONKEY, -1);
+}
+
+void donkeyWeapon::setWaiting(worm& player)
+{
+    _wormImg = IMAGE_MANAGER->findImage(getImageKey("WEAPON_AIR_BACK", player.getSlope()));
+    _wormAni->init(_wormImg->getWidth(), _wormImg->getHeight(), _wormImg->getFrameWidth(), _wormImg->getFrameHeight());
+    _wormAni->setDefPlayFrame(false, false);
+    _wormAni->setFPS(30);
+    _wormAni->start();
+    _state = WEAPON_STATE::WAITING;
+    player.setWaiting();
 }
 
 void donkeyWeapon::enter(worm& player)
@@ -32,16 +44,17 @@ void donkeyWeapon::enter(worm& player)
     _damage = 50;
     _bombWidth = 240;
     _state = WEAPON_STATE::BEGIN;
-    _x = _y = 0;
+    _x = player.getX();
+    _y = player.getY();
 
     _wormImg = IMAGE_MANAGER->findImage(getImageKey("WEAPON_AIR_LINK", player.getSlope()));
     _wormAni = new animation;
     _wormAni->init(_wormImg->getWidth(), _wormImg->getHeight(), _wormImg->getFrameWidth(), _wormImg->getFrameHeight());
     _wormAni->setDefPlayFrame(false, false);
-    _wormAni->setFPS(20);
+    _wormAni->setFPS(30);
     _wormAni->start();
 
-    _markerImg = IMAGE_MANAGER->findImage("WEAPON_DONKEY_MARKER");
+    _markerImg = IMAGE_MANAGER->findImage("WEAPON_MARKER");
     _markerAni = new animation;
     _markerAni->init(_markerImg->getWidth(), _markerImg->getHeight(), _markerImg->getFrameWidth(), _markerImg->getFrameHeight());
     _markerAni->setDefPlayFrame(true, true);
@@ -63,16 +76,23 @@ WEAPON_FINISH_TYPE donkeyWeapon::update(worm& player)
     {
         if (player.isTurn())
         {
-            if (KEY_MANAGER->isOnceKeyDown(VK_LBUTTON))
+            if (KEY_MANAGER->isOnceKeyDown(VK_LEFT) || KEY_MANAGER->isOnceKeyDown(VK_RIGHT)) // 이동을 시도하는 경우
             {
-                _x = CAMERA_MANAGER->getAbsoluteL(_ptMouse.x);
-                _y = CAMERA_MANAGER->getAbsoluteT(_ptMouse.y);
+                return WEAPON_FINISH_TYPE::MOVING;
+            }
+            else if (KEY_MANAGER->isOnceKeyDown(VK_LCONTROL)) // 점프를 시동하는 경우
+            {
+                return WEAPON_FINISH_TYPE::JUMPING;
+            }
+
+            if (!_wormAni->isPlay())
+            {
                 _state = WEAPON_STATE::IDLE;
             }
         }
         else
         {
-            _state = WEAPON_STATE::FINISH;
+            setWaiting(player);
         }
     }
     break;
@@ -80,25 +100,32 @@ WEAPON_FINISH_TYPE donkeyWeapon::update(worm& player)
     {
         if (player.isTurn())
         {
-            if (KEY_MANAGER->isOnceKeyDown(VK_LBUTTON))
+            if (KEY_MANAGER->isStayKeyDown(VK_LBUTTON))
             {
                 _x = CAMERA_MANAGER->getAbsoluteL(_ptMouse.x);
                 _y = CAMERA_MANAGER->getAbsoluteT(_ptMouse.y);
-                _state = WEAPON_STATE::IDLE;
             }
             else if (KEY_MANAGER->isOnceKeyDown(VK_SPACE)) // 발사!!
             {
                 _wormImg = IMAGE_MANAGER->findImage(getImageKey("WEAPON_AIR", player.getSlope()));
                 _wormAni->init(_wormImg->getWidth(), _wormImg->getHeight(), _wormImg->getFrameWidth(), _wormImg->getFrameHeight());
                 _wormAni->setDefPlayFrame(false, false);
-                _wormAni->setFPS(20);
+                _wormAni->setFPS(30);
                 _wormAni->start();
                 _state = WEAPON_STATE::SHOOTING;
+            }
+            else if (KEY_MANAGER->isOnceKeyDown(VK_LEFT) || KEY_MANAGER->isOnceKeyDown(VK_RIGHT)) // 이동을 시도하는 경우
+            {
+                return WEAPON_FINISH_TYPE::MOVING;
+            }
+            else if (KEY_MANAGER->isOnceKeyDown(VK_LCONTROL)) // 점프를 시동하는 경우
+            {
+                return WEAPON_FINISH_TYPE::JUMPING;
             }
         }
         else
         {
-            _state = WEAPON_STATE::FINISH;
+            setWaiting(player);
         }
     }
     break;
@@ -106,13 +133,8 @@ WEAPON_FINISH_TYPE donkeyWeapon::update(worm& player)
     {
         if (!_wormAni->isPlay())
         {
-            shoot(player);
-            _wormImg = IMAGE_MANAGER->findImage(getImageKey("WEAPON_AIR_BACK", player.getSlope()));
-            _wormAni->init(_wormImg->getWidth(), _wormImg->getHeight(), _wormImg->getFrameWidth(), _wormImg->getFrameHeight());
-            _wormAni->setDefPlayFrame(false, false);
-            _wormAni->setFPS(20);
-            _wormAni->start();
-            _state = WEAPON_STATE::WAITING;
+            shot(player);
+            setWaiting(player);
         }
     }
     break;

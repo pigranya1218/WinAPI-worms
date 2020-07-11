@@ -1,11 +1,11 @@
 #include "stdafx.h"
-#include "bazukaWeapon.h"
+#include "bazookaWeapon.h"
 #include "worm.h"
 #include "state.h"
 #include "stageManager.h"
 #include "wormManager.h"
 
-void bazukaWeapon::shoot(worm& shooter)
+void bazookaWeapon::shot(worm& shooter)
 {
 	projectile* _projectile = new projectile;
 	
@@ -20,15 +20,32 @@ void bazukaWeapon::shoot(worm& shooter)
 	float initBombWidth = _bombWidth;
 	float initDamage = _damage;
 
-	_projectile->init(shooter.getStageManager(),  shooter.getWormManager(), initX, initY, widthX, widthY, initAngle, initPower, initDamage, initBombWidth, true, true, true, true);
+	_projectile->init(shooter.getStageManager(),  shooter.getWormManager(), initX, initY, widthX, widthY, initAngle, initPower, initDamage, initBombWidth, true, true, true, true, true);
 	_projectile->setImage(IMAGE_MANAGER->findImage("PROJECTILE_MISSILE"));
 	
 	shooter.getWormManager()->shoot(_projectile);
 }
 
-void bazukaWeapon::enter(worm& player)
+void bazookaWeapon::setWaiting(worm& player)
 {
-	_weaponImg = IMAGE_MANAGER->findImage(getImageKey("WEAPON_BAZUKA", player.getSlope()));
+	_weaponImg = IMAGE_MANAGER->findImage(getImageKey("WEAPON_" + _weaponName + "_BACK", player.getSlope()));
+	_ani->init(_weaponImg->getWidth(), _weaponImg->getHeight(), _weaponImg->getFrameWidth(), _weaponImg->getFrameHeight());
+	_ani->setDefPlayFrame(false, false);
+	_ani->setFPS(30);
+	_ani->start();
+	_state = WEAPON_STATE::WAITING;
+	player.setWaiting();
+}
+
+void bazookaWeapon::enter(worm& player)
+{
+	_weaponImg = IMAGE_MANAGER->findImage(getImageKey("WEAPON_" + _weaponName + "_LINK", player.getSlope()));
+	_ani = new animation;
+	_ani->init(_weaponImg->getWidth(), _weaponImg->getHeight(), _weaponImg->getFrameWidth(), _weaponImg->getFrameHeight());
+	_ani->setDefPlayFrame(false, false);
+	_ani->setFPS(30);
+	_ani->start();
+
 	_aimImg = IMAGE_MANAGER->findImage("WEAPON_AIM");
 	_blobImg = IMAGE_MANAGER->findImage("WEAPON_BLOB");
 
@@ -41,27 +58,40 @@ void bazukaWeapon::enter(worm& player)
 	_bombWidth = 130; // 무기의 폭파 반경
 	_aimRadius = 90;
 
-	_state = WEAPON_STATE::IDLE;
+	_state = WEAPON_STATE::BEGIN;
 }
 
-void bazukaWeapon::exit(worm& player)
+void bazookaWeapon::exit(worm& player)
 {
-	_ani->release();
-
 	SAFE_DELETE(_ani);
 }
 
-WEAPON_FINISH_TYPE bazukaWeapon::update(worm& player)
+WEAPON_FINISH_TYPE bazookaWeapon::update(worm& player)
 {
 	switch (_state)
 	{
+	case WEAPON_STATE::BEGIN:
+	{
+		if (player.isTurn())
+		{
+			if (!_ani->isPlay())
+			{
+				_state = WEAPON_STATE::IDLE;
+			}
+		}
+		else
+		{
+			setWaiting(player);
+		}
+	}
+	break;
 	case WEAPON_STATE::IDLE:
 	{
 		if (player.isTurn())
 		{
 			if (KEY_MANAGER->isOnceKeyDown(VK_SPACE))
 			{
-				_state = WEAPON_STATE::GAGING;
+				_state = WEAPON_STATE::GAUGING;
 			}
 			else if (KEY_MANAGER->isStayKeyDown(VK_UP))
 			{
@@ -75,15 +105,19 @@ WEAPON_FINISH_TYPE bazukaWeapon::update(worm& player)
 			{
 				return WEAPON_FINISH_TYPE::MOVING;
 			}
+			else if (KEY_MANAGER->isOnceKeyDown(VK_LCONTROL))
+			{
+				return WEAPON_FINISH_TYPE::JUMPING;
+			}
 		}
 		else
 		{
-			_state = WEAPON_STATE::FINISH;
+			setWaiting(player);
 		}
 	}
 	break;
 	
-	case WEAPON_STATE::GAGING:
+	case WEAPON_STATE::GAUGING:
 	{
 		if (player.isTurn())
 		{
@@ -93,11 +127,19 @@ WEAPON_FINISH_TYPE bazukaWeapon::update(worm& player)
 			}
 			else
 			{
-				shoot(player);
-				_state = WEAPON_STATE::FINISH;
+				shot(player);
+				setWaiting(player);
 			}
 		}
 		else
+		{
+			setWaiting(player);
+		}
+	}
+	break;
+	case WEAPON_STATE::WAITING:
+	{
+		if (!_ani->isPlay())
 		{
 			_state = WEAPON_STATE::FINISH;
 		}
@@ -105,30 +147,35 @@ WEAPON_FINISH_TYPE bazukaWeapon::update(worm& player)
 	break;
 	case WEAPON_STATE::FINISH:
 	{
-		player.setWaiting();
 		return WEAPON_FINISH_TYPE::FINISH;
 	}
 	break;
 	}
 
+	_ani->frameUpdate(TIME_MANAGER->getElapsedTime());
 	return WEAPON_FINISH_TYPE::ATTACK;
 }
 
-void bazukaWeapon::render(worm& player)
+void bazookaWeapon::render(worm& player)
 {
 	RECT rc = player.getRect();
 
 	float x = (rc.left + rc.right) / 2, y = (rc.top + rc.bottom) / 2;
-	int frameIndex = floor(((_angle / _frameAngleOffset) + 1) / 2);
-
-	_weaponImg = IMAGE_MANAGER->findImage(getImageKey("WEAPON_BAZUKA", player.getSlope()));
-	CAMERA_MANAGER->frameRender(getMemDC(), _weaponImg, x - 30, y - 30, 0, frameIndex, ((player.getDirection() == DIRECTION::RIGHT) ? true : false));
 
 	switch (_state)
 	{
+	case WEAPON_STATE::BEGIN:
+	case WEAPON_STATE::WAITING:
+	case WEAPON_STATE::FINISH:
+		CAMERA_MANAGER->aniRender(getMemDC(), _weaponImg, x - 30, y - 30, _ani, (player.getDirection() == DIRECTION::RIGHT));
+		break;
 	case WEAPON_STATE::IDLE:
-	case WEAPON_STATE::GAGING:
-	{
+	case WEAPON_STATE::GAUGING:
+	case WEAPON_STATE::SHOOTING:
+		int frameIndex = floor(((_angle / _frameAngleOffset) + 1) / 2);
+		_weaponImg = IMAGE_MANAGER->findImage(getImageKey("WEAPON_" + _weaponName, player.getSlope()));
+		CAMERA_MANAGER->frameRender(getMemDC(), _weaponImg, x - 30, y - 30, 0, frameIndex, ((player.getDirection() == DIRECTION::RIGHT) ? true : false));
+
 		float realAngle = getRealAngle(player, _angle);
 		float aimX = x + cosf(realAngle) * _aimRadius;
 		float aimY = y - sinf(realAngle) * _aimRadius;
@@ -144,7 +191,6 @@ void bazukaWeapon::render(worm& player)
 			blobX += cosf(realAngle) * 3.5;
 			blobY += -sinf(realAngle) * 3.5;
 		}
-	}
-	break;
+		break;
 	}
 }

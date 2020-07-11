@@ -15,5 +15,9 @@ public:
 	virtual void release();
 	virtual void update();
 	virtual void render();
+
+	void pushObject(object* object) { _objects.push_back(object); }
+
+	bool checkNoUpdate();
 };
 

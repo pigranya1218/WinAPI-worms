@@ -4,6 +4,7 @@
 
 class wormManager;
 class projectileManager;
+class objectManager;
 class uiManager;
 
 enum class STAGE_STATE
@@ -20,6 +21,7 @@ class stageManager : public gameNode
 private:
 	wormManager* _wormManager;
 	projectileManager* _projectileManager;
+	objectManager* _objectManager;
 	uiManager* _uiManager;
 
 	int _playerNum; // 플레이어 숫자 
@@ -76,6 +78,7 @@ public:
 
 	void setWormManager(wormManager* wormManager);
 	void setProjectileManager(projectileManager* projectileManager);
+	void setObjectManager(objectManager* objectManager);
 	void setUIManager(uiManager* uiManager);
 
 	int getPlayerNum() { return _playerNum; }
@@ -91,6 +94,8 @@ public:
 	COLORREF getPixel(int x, int y) { return GetPixel(_stageBackDC, x, y); }
 
 	void pixelBomb(float x, float y, float damage, float width);
+
+	void setTimer(int time) { _turnTime = time; };
 
 	void makeStage();
 };

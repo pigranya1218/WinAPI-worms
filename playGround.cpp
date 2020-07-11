@@ -63,9 +63,17 @@ HRESULT playGround::init()
 	// *** AIM
 	IMAGE_MANAGER->addFrameImage("WEAPON_AIM", "resources/images/weapon/aim/aim.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
 	IMAGE_MANAGER->addFrameImage("WEAPON_BLOB", "resources/images/weapon/aim/blob.bmp", 64, 1024, 1, 16, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_MARKER", "resources/images/weapon/donkey/markerc.bmp", 60, 600, 1, 10, true, RGB(192, 192, 128));
+	
 
 	// *** PROJECTILE
 	IMAGE_MANAGER->addFrameImage("PROJECTILE_MISSILE", "resources/images/weapon/projectile/missile.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("PROJECTILE_HOMING_BLUE", "resources/images/weapon/projectile/hmissil1.bmp", 60, 1920, 1, 32, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("PROJECTILE_HOMING_RED", "resources/images/weapon/projectile/hmissil2.bmp", 60, 1920, 1, 32, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("PROJECTILE_BANANA", "resources/images/weapon/projectile/banana.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("PROJECTILE_BANANA_SMALL", "resources/images/weapon/projectile/sbanana.bmp", 30, 960, 1, 32, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("WEAPON_MINE_ON", "resources/images/weapon/mine/mineon.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_MINE_OFF", "resources/images/weapon/mine/mineoff.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
 
 	// *** EFFECT
 	IMAGE_MANAGER->addFrameImage("EFFECT_CIRCLE", "resources/images/weapon/effect/circle50.bmp", 100, 800, 1, 8, true, RGB(128, 128, 192));
@@ -74,6 +82,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("EFFECT_SMOKE_DARK", "resources/images/weapon/effect/smkdrk30.bmp", 30, 840, 1, 28, true, RGB(128, 128, 192));
 	IMAGE_MANAGER->addFrameImage("EFFECT_FLAME", "resources/images/weapon/effect/flame1.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
 	IMAGE_MANAGER->addFrameImage("EFFECT_EX_POW", "resources/images/weapon/effect/expow.bmp", 60, 720, 1, 12, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("EFFECT_HEXHAUST", "resources/images/weapon/effect/hexhaust.bmp", 60, 1680, 1, 28, true, RGB(192, 192, 128));
 
 	EFFECT_MANAGER->addEffect("EFFECT_CIRCLE", "EFFECT_CIRCLE", IMAGE_MANAGER->findImage("EFFECT_CIRCLE")->getWidth(), IMAGE_MANAGER->findImage("EFFECT_CIRCLE")->getHeight(),
 		IMAGE_MANAGER->findImage("EFFECT_CIRCLE")->getFrameWidth(), IMAGE_MANAGER->findImage("EFFECT_CIRCLE")->getFrameHeight(), 15, 10);
@@ -87,22 +96,61 @@ HRESULT playGround::init()
 		IMAGE_MANAGER->findImage("EFFECT_FLAME")->getFrameWidth(), IMAGE_MANAGER->findImage("EFFECT_FLAME")->getFrameHeight(), 30, 10);
 	EFFECT_MANAGER->addEffect("EFFECT_EX_POW", "EFFECT_EX_POW", IMAGE_MANAGER->findImage("EFFECT_EX_POW")->getWidth(), IMAGE_MANAGER->findImage("EFFECT_EX_POW")->getHeight(),
 		IMAGE_MANAGER->findImage("EFFECT_EX_POW")->getFrameWidth(), IMAGE_MANAGER->findImage("EFFECT_EX_POW")->getFrameHeight(), 25, 10);
+	EFFECT_MANAGER->addEffect("EFFECT_HEXHAUST", "EFFECT_HEXHAUST", IMAGE_MANAGER->findImage("EFFECT_HEXHAUST")->getWidth(), IMAGE_MANAGER->findImage("EFFECT_HEXHAUST")->getHeight(),
+		IMAGE_MANAGER->findImage("EFFECT_HEXHAUST")->getFrameWidth(), IMAGE_MANAGER->findImage("EFFECT_HEXHAUST")->getFrameHeight(), 50, 100);
 
 
 	// *** BAZUKA
-	IMAGE_MANAGER->addFrameImage("WEAPON_BAZUKA_NORMAL", "resources/images/weapon/bazuka/wbaz.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
-	IMAGE_MANAGER->addFrameImage("WEAPON_BAZUKA_DOWN", "resources/images/weapon/bazuka/wbazd.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
-	IMAGE_MANAGER->addFrameImage("WEAPON_BAZUKA_UP", "resources/images/weapon/bazuka/wbazu.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
-	IMAGE_MANAGER->addFrameImage("WEAPON_BAZUKA_BACK_NORMAL", "resources/images/weapon/bazuka/wbazbak.bmp", 60, 420, 1, 7, true, RGB(128, 128, 192));
-	IMAGE_MANAGER->addFrameImage("WEAPON_BAZUKA_BACK_DOWN", "resources/images/weapon/bazuka/wbazbak.bmp", 60, 420, 1, 7, true, RGB(128, 128, 192));
-	IMAGE_MANAGER->addFrameImage("WEAPON_BAZUKA_BACK_UP", "resources/images/weapon/bazuka/wbazbak.bmp", 60, 420, 1, 7, true, RGB(128, 128, 192));
-	IMAGE_MANAGER->addFrameImage("WEAPON_BAZUKA_LINK_NORMAL", "resources/images/weapon/bazuka/wbazbak.bmp", 60, 420, 1, 7, true, RGB(128, 128, 192));
-	IMAGE_MANAGER->addFrameImage("WEAPON_BAZUKA_LINK_DOWN", "resources/images/weapon/bazuka/wbazbak.bmp", 60, 420, 1, 7, true, RGB(128, 128, 192));
-	IMAGE_MANAGER->addFrameImage("WEAPON_BAZUKA_LINK_UP", "resources/images/weapon/bazuka/wbazbak.bmp", 60, 420, 1, 7, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BAZOOKA_NORMAL", "resources/images/weapon/bazuka/wbaz.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BAZOOKA_DOWN", "resources/images/weapon/bazuka/wbazd.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BAZOOKA_UP", "resources/images/weapon/bazuka/wbazu.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BAZOOKA_BACK_NORMAL", "resources/images/weapon/bazuka/wbazbak.bmp", 60, 420, 1, 7, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BAZOOKA_BACK_DOWN", "resources/images/weapon/bazuka/wbazbak.bmp", 60, 420, 1, 7, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BAZOOKA_BACK_UP", "resources/images/weapon/bazuka/wbazbak.bmp", 60, 420, 1, 7, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BAZOOKA_LINK_NORMAL", "resources/images/weapon/bazuka/wbazlnk.bmp", 60, 420, 1, 7, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BAZOOKA_LINK_DOWN", "resources/images/weapon/bazuka/wbazlnkd.bmp", 60, 420, 1, 7, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BAZOOKA_LINK_UP", "resources/images/weapon/bazuka/wbazlnku.bmp", 60, 420, 1, 7, true, RGB(128, 128, 192));
+
+	// *** HOMING
+	IMAGE_MANAGER->addFrameImage("WEAPON_HOMING_NORMAL", "resources/images/weapon/homing/wbaz3.bmp", 60, 1920, 1, 32, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("WEAPON_HOMING_DOWN", "resources/images/weapon/homing/wbaz3d.bmp", 60, 1920, 1, 32, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("WEAPON_HOMING_UP", "resources/images/weapon/homing/wbaz3u.bmp", 60, 1920, 1, 32, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("WEAPON_HOMING_BACK_NORMAL", "resources/images/weapon/homing/wbz3bak.bmp", 60, 420, 1, 7, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("WEAPON_HOMING_BACK_DOWN", "resources/images/weapon/homing/wbz3bak.bmp", 60, 420, 1, 7, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("WEAPON_HOMING_BACK_UP", "resources/images/weapon/homing/wbz3bak.bmp", 60, 420, 1, 7, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("WEAPON_HOMING_LINK_NORMAL", "resources/images/weapon/homing/wbz3lnk.bmp", 60, 420, 1, 7, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("WEAPON_HOMING_LINK_DOWN", "resources/images/weapon/homing/wbz3lnkd.bmp", 60, 420, 1, 7, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("WEAPON_HOMING_LINK_UP", "resources/images/weapon/homing/wbz3lnku.bmp", 60, 420, 1, 7, true, RGB(192, 192, 128));
 
 	// *** DONKEY
 	IMAGE_MANAGER->addImage("WEAPON_DONKEY", "resources/images/weapon/donkey/donkey.bmp", 158, 246, true, RGB(192, 192, 128));
-	IMAGE_MANAGER->addFrameImage("WEAPON_DONKEY_MARKER", "resources/images/weapon/donkey/markerc.bmp", 60, 600, 1, 10, true, RGB(192, 192, 128));
+
+	// *** BANANA
+	IMAGE_MANAGER->addFrameImage("WEAPON_BANANA_NORMAL", "resources/images/weapon/banana/wthrban.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BANANA_DOWN", "resources/images/weapon/banana/wthrband.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BANANA_UP", "resources/images/weapon/banana/wthrbanu.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BANANA_BACK_NORMAL", "resources/images/weapon/banana/wbanbak.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BANANA_BACK_DOWN", "resources/images/weapon/banana/wbanbakd.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BANANA_BACK_UP", "resources/images/weapon/banana/wbanbaku.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BANANA_LINK_NORMAL", "resources/images/weapon/banana/wbanlnk.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BANANA_LINK_DOWN", "resources/images/weapon/banana/wbanlnkd.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_BANANA_LINK_UP", "resources/images/weapon/banana/wbanlnku.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
+
+	// *** MINE
+	IMAGE_MANAGER->addFrameImage("WEAPON_MINE_BACK_NORMAL", "resources/images/weapon/mine/wminbak.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_MINE_BACK_DOWN", "resources/images/weapon/mine/wminbakd.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_MINE_BACK_UP", "resources/images/weapon/mine/wminbaku.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_MINE_LINK_NORMAL", "resources/images/weapon/mine/wminlnk.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_MINE_LINK_DOWN", "resources/images/weapon/mine/wminlnkd.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("WEAPON_MINE_LINK_UP", "resources/images/weapon/mine/wminlnku.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
+
+	// *** WEAPON ICON
+	IMAGE_MANAGER->addImage("WEAPON_ICON_BANANA", "resources/images/weapon/icon/banana.bmp", 32, 32, false, NULL);
+	IMAGE_MANAGER->addImage("WEAPON_ICON_BAZOOKA", "resources/images/weapon/icon/bazooka.bmp", 32, 32, false, NULL);
+	IMAGE_MANAGER->addImage("WEAPON_ICON_DONKEY", "resources/images/weapon/icon/donkey.bmp", 32, 32, false, NULL);
+	IMAGE_MANAGER->addImage("WEAPON_ICON_FIRESTRK", "resources/images/weapon/icon/firestrk.bmp", 32, 32, false, NULL);
+	IMAGE_MANAGER->addImage("WEAPON_ICON_HOMING", "resources/images/weapon/icon/hmissile.bmp", 32, 32, false, NULL);
+	IMAGE_MANAGER->addImage("WEAPON_ICON_MINE", "resources/images/weapon/icon/mine.bmp", 32, 32, false, NULL);
 
 	// *** 무전기 호출
 	IMAGE_MANAGER->addFrameImage("WEAPON_AIR_LINK_NORMAL", "resources/images/weapon/donkey/wairlnk.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));

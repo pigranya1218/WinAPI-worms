@@ -1,7 +1,17 @@
 #pragma once
-class object
+#include "gameNode.h"
+
+class stageManager;
+class wormManager;
+
+class object : public gameNode
 {
-private:
+protected:
+	stageManager* _stageManager;
+	wormManager* _wormManager;
+
+	bool _isFinish;
+	bool _isUpdate;
 
 public:
 	object() {}
@@ -12,5 +22,9 @@ public:
 	virtual void update();
 
 	virtual void render();
+
+	bool isFinish() { return _isFinish; }
+
+	bool isUpdate() { return _isUpdate; }
 };
 

@@ -27,6 +27,7 @@ protected:
 
 	bool _isAngleFrame;
 	bool _isWindEffected;
+	bool _isGravityEffected;
 	bool _checkPixel;
 	bool _checkWorm;
 	bool _isFinish;
@@ -52,7 +53,7 @@ public:
 	void setBombWidth(float bombWidth) { _bombWidth = bombWidth; }
 
 	void init(stageManager* stageManager, wormManager* wormManager, float x, float y, float width, float height, 
-		float angle, float power, float damage, float bombWidth, bool isAngleFrame, bool isWindEffected, bool checkPixel, bool checkWorm)
+		float angle, float power, float damage, float bombWidth, bool isAngleFrame, bool isWindEffected, bool checkPixel, bool checkWorm, bool isGravityEffected)
 	{
 		_stageManager = stageManager;
 		_wormManager = wormManager;
@@ -62,6 +63,7 @@ public:
 		_isWindEffected = isWindEffected;
 		_checkPixel = checkPixel;
 		_checkWorm = checkWorm;
+		_isGravityEffected = isGravityEffected;
 
 		setX(x);
 		setY(y);
@@ -84,13 +86,13 @@ public:
 
 	bool isFinish() { return _isFinish; }
 
-	bool gravityMove(float xPower); // true : ÇÈ¼¿°ú Ãæµ¹
+	virtual bool gravityMove(float xPower); // true : ÇÈ¼¿°ú Ãæµ¹
 
 	void release();
 
 	virtual void update();
 
-	void render();
+	virtual void render();
 
 };
 

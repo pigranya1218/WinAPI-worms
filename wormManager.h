@@ -6,6 +6,7 @@
 class stageManager;
 class uiManager;
 class projectileManager;
+class objectManager;
 
 class wormManager : public gameNode
 {
@@ -13,6 +14,7 @@ private:
 	vector<worm*> _worms;
 	stageManager* _stageManager;
 	projectileManager* _projectileManager;
+	objectManager* _objectManager;
 	uiManager* _uiManager;
 
 public:
@@ -26,14 +28,18 @@ public:
 
 	void setStageManager(stageManager* stageManager);
 	void setProjectileManager(projectileManager* projectileManager);
+	void setObjectManager(objectManager* objectManager);
 	void setUIManager(uiManager* uiManager);
 
 	stageManager* getStageManager() { return _stageManager;}
+	objectManager* getObjectManager() { return _objectManager; }
 
 	void addWorms(int index, string name, float x, float y);
 	COLORREF getPixel(int x, int y);
 	int	getCurrentTurnIndex();
 	bool checkCollisionPixel(RECT object);
+	bool checkCollisionPixel(RECT object, int index);
+	int checkGroundPixel(int x, int bot, int index, int offsetClimb);
 	bool checkFreshDead(int index);
 	bool checkDead(int index);
 	void setDead(int index);
@@ -46,6 +52,16 @@ public:
 	int getTeamMaxHp();
 
 	void shoot(projectile* projectile);
+	
+	void setWormsAttackAvail();
+
+	int getWormPosX(int index) { return _worms[index]->getX(); }
+	int getWormPosY(int index) { return _worms[index]->getY(); }
+
+	void setWeaponsUI(int wormIndex);
+	void setWeaponsWorm(WEAPON_CODE weaponCode);
+	void toggleWeapons();
+	bool getWeaponVisible();
 
 	bool checkAllStop();
 };

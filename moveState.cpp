@@ -25,11 +25,14 @@ state * moveState::update(worm & player)
 		return new idleState;
 	}
 
-	if (KEY_MANAGER->isOnceKeyDown(VK_UP) || KEY_MANAGER->isOnceKeyDown(VK_DOWN)) // 공격
+	if ((KEY_MANAGER->isOnceKeyDown(VK_UP) || KEY_MANAGER->isOnceKeyDown(VK_DOWN) || KEY_MANAGER->isOnceKeyDown(VK_SPACE)) && player.getAttackAvail()) // 공격
 	{
-		return new attackState;
+		if (player.getWeapon() != nullptr)
+		{
+			return new attackState;
+		}
 	}
-	else if (KEY_MANAGER->isOnceKeyDown(VK_LCONTROL)) // 점프 버튼 입력
+	if (KEY_MANAGER->isOnceKeyDown(VK_LCONTROL)) // 점프 버튼 입력
 	{
 		return new jumpState;
 	}

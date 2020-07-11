@@ -1,5 +1,4 @@
 #pragma once
-#include "gameNode.h"
 #include "projectile.h"
 
 class donkey : public projectile

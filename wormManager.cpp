@@ -1,7 +1,9 @@
 #include "stdafx.h"
 #include "wormManager.h"
 #include "stageManager.h"
+#include "allWeapon.h"
 #include "projectileManager.h"
+#include "objectManager.h"
 #include "uiManager.h"
 
 HRESULT wormManager::init()
@@ -27,9 +29,14 @@ void wormManager::update()
 
 void wormManager::render()
 {
-	for (int i = 0; i < _worms.size(); i++)
+	int wormCount = 0;
+	int wormIndex = (_stageManager->getCurrentTurnIndex() + 1) % _worms.size();
+	
+	while (wormCount < _worms.size())
 	{
-		_worms[i]->render();
+		_worms[wormIndex]->render();
+		wormIndex = (wormIndex + 1) % _worms.size();
+		wormCount++;
 	}
 }
 
@@ -41,6 +48,11 @@ void wormManager::setStageManager(stageManager * stageManager)
 void wormManager::setProjectileManager(projectileManager* projectileManager)
 {
 	_projectileManager = projectileManager;
+}
+
+void wormManager::setObjectManager(objectManager* objectManager)
+{
+	_objectManager = objectManager;
 }
 
 void wormManager::setUIManager(uiManager * uiManager)
@@ -79,6 +91,43 @@ bool wormManager::checkCollisionPixel(RECT object)
 	}
 
 	return false;
+}
+
+bool wormManager::checkCollisionPixel(RECT object, int index)
+{
+	RECT temp;
+	for (int i = 0; i < _worms.size(); i++)
+	{
+		if (i == index) continue;
+		worm* currWorm = _worms[i];
+
+		if (IntersectRect(&temp, &currWorm->getRect(), &object))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+int wormManager::checkGroundPixel(int x, int bottom, int index, int offsetClimb)
+{
+	for (int i = 0; i < _worms.size(); i++)
+	{
+		if (i == index) continue;
+		if (x - 1 <= _worms[i]->getX() && _worms[i]->getX() <= x)
+		{
+			for (int bot = bottom - offsetClimb; bot <= bottom + offsetClimb; bot++) // 위에서부터 땅이 있는지 체크
+			{
+				if (_worms[i]->getRect().top == bot)
+				{
+					return bot;
+				}
+			}
+		}
+	}
+
+	return -1;
 }
 
 bool wormManager::checkFreshDead(int index)
@@ -164,7 +213,70 @@ void wormManager::shoot(projectile* projectile)
 	_projectileManager->addProjectile(projectile);
 }
 
+void wormManager::setWormsAttackAvail()
+{
+	for (int i = 0; i < _worms.size(); i++)
+	{
+		_worms[i]->setAttackAvail(true);
+	}
+}
 
+void wormManager::setWeaponsUI(int index)
+{
+	_uiManager->setWeapons(_worms[index]->getWeaponCount());
+}
+
+void wormManager::setWeaponsWorm(WEAPON_CODE weaponCode)
+{
+	// 선택한 코드에 따른 무기 전달
+
+	weapon* newWeapon = nullptr;
+	switch (weaponCode)
+	{
+	case WEAPON_CODE::BAZOOKA:
+	{
+		newWeapon = new bazookaWeapon;
+	}
+	break;
+	case WEAPON_CODE::DONKEY:
+	{
+		newWeapon = new donkeyWeapon;
+	}
+	break;
+	case WEAPON_CODE::BANANA:
+	{
+		newWeapon = new bananaWeapon;
+	}
+	break;
+	case WEAPON_CODE::FIRESTRK:
+	{
+		newWeapon = new firestrkWeapon;
+	}
+	break;
+	case WEAPON_CODE::HOMING:
+	{
+		newWeapon = new homingWeapon;
+	}
+	break;
+	case WEAPON_CODE::MINE:
+	{
+		newWeapon = new mineWeapon;
+	}
+	break;
+	}
+	
+	_worms[_stageManager->getCurrentTurnIndex()]->setWeapon(newWeapon);
+}
+
+void wormManager::toggleWeapons()
+{
+	_uiManager->setWeaponToggle();
+}
+
+bool wormManager::getWeaponVisible()
+{
+	return _uiManager->getWeaponVisible();
+}
 
 bool wormManager::checkAllStop()
 {
