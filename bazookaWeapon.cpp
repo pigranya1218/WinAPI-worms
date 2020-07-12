@@ -20,7 +20,7 @@ void bazookaWeapon::shot(worm& shooter)
 	float initBombWidth = _bombWidth;
 	float initDamage = _damage;
 
-	_projectile->init(shooter.getStageManager(),  shooter.getWormManager(), initX, initY, widthX, widthY, initAngle, initPower, initDamage, initBombWidth, true, true, true, true, true);
+	_projectile->init(shooter.getStageManager(),  shooter.getWormManager(), shooter.getObjectManager(), initX, initY, widthX, widthY, initAngle, initPower, initDamage, initBombWidth, true, true, true, true, true);
 	_projectile->setImage(IMAGE_MANAGER->findImage("PROJECTILE_MISSILE"));
 	
 	shooter.getWormManager()->shoot(_projectile);

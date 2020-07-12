@@ -451,7 +451,7 @@ void stageManager::makeWormsMines() // ¸Ê °÷°÷¿¡ ¿úÁî ¸¸µé±â
 		alreadyExist.push_back(make_pair(posX - 50, posX + 50));
 
 		mineObject* mine = new mineObject;
-		mine->init(this, _wormManager, posX, posY - 2, 0, 0);
+		mine->init(this, _wormManager, _objectManager, posX, posY - 4, 0, 0);
 		_objectManager->pushObject(mine);
 	}
 }

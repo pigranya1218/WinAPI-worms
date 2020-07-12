@@ -20,7 +20,7 @@ void donkeyWeapon::shot(worm& shooter)
     float initBombWidth = _bombWidth;
     float initDamage = _damage;
 
-    _donkey->init(shooter.getStageManager(), shooter.getWormManager(), initX, initY, widthX, widthY, initAngle, initPower, initDamage, initBombWidth, false, false, true, false, true);
+    _donkey->init(shooter.getStageManager(), shooter.getWormManager(), shooter.getObjectManager(), initX, initY, widthX, widthY, initAngle, initPower, initDamage, initBombWidth, false, false, true, false, true);
     _donkey->setImage(IMAGE_MANAGER->findImage("WEAPON_DONKEY"));
 
     shooter.getWormManager()->shoot(_donkey);

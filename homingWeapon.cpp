@@ -20,7 +20,7 @@ void homingWeapon::shot(worm& shooter)
 	float initBombWidth = _bombWidth;
 	float initDamage = _damage;
 
-	_homing->init(shooter.getStageManager(), shooter.getWormManager(), initX, initY, widthX, widthY, initAngle, initPower, initDamage, initBombWidth, true, true, true, true, false);
+	_homing->init(shooter.getStageManager(), shooter.getWormManager(), shooter.getObjectManager(), initX, initY, widthX, widthY, initAngle, initPower, initDamage, initBombWidth, true, true, true, true, false);
 	_homing->setPoint(_pointX, _pointY);
 	_homing->setImage(IMAGE_MANAGER->findImage("PROJECTILE_HOMING_BLUE"));
 	_homing->setAnimation();

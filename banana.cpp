@@ -2,6 +2,7 @@
 #include "banana.h"
 #include "stageManager.h"
 #include "wormManager.h"
+#include "objectManager.h"
 
 
 bool banana::checkMoveAvail(int x, int bot)
@@ -54,7 +55,7 @@ void banana::makeBanana(float angle)
 	float initBombWidth = _bombWidth * 0.6;
 	float initDamage = _damage * 0.6;
 
-	_projectile->init(_stageManager, _wormManager, initX, initY, widthX, widthY, initAngle, initPower, initDamage, initBombWidth, true, true, true, true, true);
+	_projectile->init(_stageManager, _wormManager, _objectManager, initX, initY, widthX, widthY, initAngle, initPower, initDamage, initBombWidth, true, true, true, true, true);
 	_projectile->setImage(IMAGE_MANAGER->findImage("PROJECTILE_BANANA_SMALL"));
 	_projectile->setAnimation();
 	_projectile->setLevel(1);
@@ -499,6 +500,7 @@ void banana::update()
 
 				_stageManager->pixelBomb(_x, _y, _damage, _bombWidth); // 픽셀 폭파시키기
 				_wormManager->wormBomb(_x, _y, _damage, _bombWidth); // 맞은 웜즈 날라가게 하기
+				_objectManager->objectBomb(_x, _y, _damage, _bombWidth);
 
 				_isFinish = true;
 				if (_level > 1)

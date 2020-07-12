@@ -3,12 +3,14 @@
 
 class stageManager;
 class wormManager;
+class objectManager;
 
 class projectile : public gameNode
 {
 protected:
 	stageManager* _stageManager;
 	wormManager* _wormManager;
+	objectManager* _objectManager;
 
 	image* _img;
 	float _x, _y;
@@ -52,11 +54,12 @@ public:
 	void setDamage(float damage) { _damage = damage; }
 	void setBombWidth(float bombWidth) { _bombWidth = bombWidth; }
 
-	void init(stageManager* stageManager, wormManager* wormManager, float x, float y, float width, float height, 
+	void init(stageManager* stageManager, wormManager* wormManager, objectManager* objectManager, float x, float y, float width, float height, 
 		float angle, float power, float damage, float bombWidth, bool isAngleFrame, bool isWindEffected, bool checkPixel, bool checkWorm, bool isGravityEffected)
 	{
 		_stageManager = stageManager;
 		_wormManager = wormManager;
+		_objectManager = objectManager;
 		_angleDisplay = angle;
 		_isFinish = false;
 		_isAngleFrame = isAngleFrame;

@@ -18,6 +18,9 @@ public:
 
 	void pushObject(object* object) { _objects.push_back(object); }
 
+	void objectBomb(float x, float y, float power, float width);
+
 	bool checkNoUpdate();
+
 };
 
