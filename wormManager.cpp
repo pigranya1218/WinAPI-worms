@@ -211,9 +211,9 @@ void wormManager::setWeaponsWorm(WEAPON_CODE weaponCode)
 		newWeapon = new bananaWeapon;
 	}
 	break;
-	case WEAPON_CODE::FIRESTRK:
+	case WEAPON_CODE::TELEPORT:
 	{
-		newWeapon = new firestrkWeapon;
+		newWeapon = new teleportWeapon;
 	}
 	break;
 	case WEAPON_CODE::HOMING:

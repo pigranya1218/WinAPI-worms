@@ -176,7 +176,7 @@ HRESULT uiManager::init()
 	_weaponName.insert(make_pair(WEAPON_CODE::BANANA, "BANANA"));
 	_weaponName.insert(make_pair(WEAPON_CODE::BAZOOKA, "BAZOOKA"));
 	_weaponName.insert(make_pair(WEAPON_CODE::DONKEY, "DONKEY"));
-	_weaponName.insert(make_pair(WEAPON_CODE::FIRESTRK, "FIRESTRK"));
+	_weaponName.insert(make_pair(WEAPON_CODE::TELEPORT, "TELEPORT"));
 	_weaponName.insert(make_pair(WEAPON_CODE::MINE, "MINE"));
 	_weaponName.insert(make_pair(WEAPON_CODE::HOMING, "HOMING"));
 

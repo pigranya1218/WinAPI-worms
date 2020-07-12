@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "allWeapon.h"
 #include "worm.h"
-#include "state.h"
 #include "stageManager.h"
 #include "wormManager.h"
 
@@ -54,7 +53,7 @@ void donkeyWeapon::enter(worm& player)
     _wormAni->setFPS(30);
     _wormAni->start();
 
-    _markerImg = IMAGE_MANAGER->findImage("WEAPON_MARKER");
+    _markerImg = IMAGE_MANAGER->findImage("WEAPON_MARKER_OKAY");
     _markerAni = new animation;
     _markerAni->init(_markerImg->getWidth(), _markerImg->getHeight(), _markerImg->getFrameWidth(), _markerImg->getFrameHeight());
     _markerAni->setDefPlayFrame(true, true);

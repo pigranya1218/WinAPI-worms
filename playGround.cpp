@@ -63,7 +63,8 @@ HRESULT playGround::init()
 	// *** AIM
 	IMAGE_MANAGER->addFrameImage("WEAPON_AIM", "resources/images/weapon/aim/aim.bmp", 60, 1920, 1, 32, true, RGB(128, 128, 192));
 	IMAGE_MANAGER->addFrameImage("WEAPON_BLOB", "resources/images/weapon/aim/blob.bmp", 64, 1024, 1, 16, true, RGB(128, 128, 192));
-	IMAGE_MANAGER->addFrameImage("WEAPON_MARKER", "resources/images/weapon/donkey/markerc.bmp", 60, 600, 1, 10, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("WEAPON_MARKER_OKAY", "resources/images/weapon/aim/markerc.bmp", 60, 600, 1, 10, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("WEAPON_MARKER_NOTOKAY", "resources/images/weapon/aim/markerr.bmp", 60, 600, 1, 10, true, RGB(192, 192, 128));
 	
 
 	// *** PROJECTILE
@@ -144,11 +145,22 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("WEAPON_MINE_LINK_DOWN", "resources/images/weapon/mine/wminlnkd.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
 	IMAGE_MANAGER->addFrameImage("WEAPON_MINE_LINK_UP", "resources/images/weapon/mine/wminlnku.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
 
+	// *** TELEPORT
+	IMAGE_MANAGER->addFrameImage("WEAPON_TELEPORT_BACK_NORMAL", "resources/images/weapon/teleport/wtelbak.bmp", 60, 600, 1, 10, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("WEAPON_TELEPORT_BACK_DOWN", "resources/images/weapon/teleport/wtelbakd.bmp", 60, 600, 1, 10, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("WEAPON_TELEPORT_BACK_UP", "resources/images/weapon/teleport/wtelbaku.bmp", 60, 600, 1, 10, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("WEAPON_TELEPORT_LINK_NORMAL", "resources/images/weapon/teleport/wtellnk.bmp", 60, 600, 1, 10, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("WEAPON_TELEPORT_LINK_DOWN", "resources/images/weapon/teleport/wtellnkd.bmp", 60, 600, 1, 10, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("WEAPON_TELEPORT_LINK_UP", "resources/images/weapon/teleport/wtellnku.bmp", 60, 600, 1, 10, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("WEAPON_TELEPORT_NORMAL", "resources/images/weapon/teleport/wteldsv.bmp", 60, 2880, 1, 48, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("WEAPON_TELEPORT_DOWN", "resources/images/weapon/teleport/wteldsvd.bmp", 60, 2880, 1, 48, true, RGB(192, 192, 128));
+	IMAGE_MANAGER->addFrameImage("WEAPON_TELEPORT_UP", "resources/images/weapon/teleport/wteldsvu.bmp", 60, 2880, 1, 48, true, RGB(192, 192, 128));
+
 	// *** WEAPON ICON
 	IMAGE_MANAGER->addImage("WEAPON_ICON_BANANA", "resources/images/weapon/icon/banana.bmp", 32, 32, false, NULL);
 	IMAGE_MANAGER->addImage("WEAPON_ICON_BAZOOKA", "resources/images/weapon/icon/bazooka.bmp", 32, 32, false, NULL);
 	IMAGE_MANAGER->addImage("WEAPON_ICON_DONKEY", "resources/images/weapon/icon/donkey.bmp", 32, 32, false, NULL);
-	IMAGE_MANAGER->addImage("WEAPON_ICON_FIRESTRK", "resources/images/weapon/icon/firestrk.bmp", 32, 32, false, NULL);
+	IMAGE_MANAGER->addImage("WEAPON_ICON_TELEPORT", "resources/images/weapon/icon/teleport.bmp", 32, 32, false, NULL);
 	IMAGE_MANAGER->addImage("WEAPON_ICON_HOMING", "resources/images/weapon/icon/hmissile.bmp", 32, 32, false, NULL);
 	IMAGE_MANAGER->addImage("WEAPON_ICON_MINE", "resources/images/weapon/icon/mine.bmp", 32, 32, false, NULL);
 

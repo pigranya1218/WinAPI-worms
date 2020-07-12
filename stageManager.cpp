@@ -371,7 +371,7 @@ void stageManager::makeWormsMines() // ¸Ê °÷°÷¿¡ ¿úÁî ¸¸µé±â
 			while (!isValidX)
 			{
 				isValidX = true;
-				randomX = RND->getFromIntTo(100, stageWidth - 100);
+				randomX = RND->getFromIntTo(300, stageWidth - 300);
 				for (int j = 0; j < alreadyExist.size(); j++)
 				{
 					if (alreadyExist[j].first <= randomX && randomX <= alreadyExist[j].second)

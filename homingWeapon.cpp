@@ -39,7 +39,7 @@ void homingWeapon::enter(worm& player)
 	_ani->setFPS(30);
 	_ani->start();
 
-	_markerImg = IMAGE_MANAGER->findImage("WEAPON_MARKER");
+	_markerImg = IMAGE_MANAGER->findImage("WEAPON_MARKER_OKAY");
 	_markerAni = new animation;
 	_markerAni->init(_markerImg->getWidth(), _markerImg->getHeight(), _markerImg->getFrameWidth(), _markerImg->getFrameHeight());
 	_markerAni->setDefPlayFrame(true, true);

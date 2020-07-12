@@ -5,14 +5,14 @@
 #include "homingWeapon.h"
 #include "bananaWeapon.h"
 #include "mineWeapon.h"
-#include "firestrkWeapon.h"
+#include "teleportWeapon.h"
 
 enum class WEAPON_CODE
 {
 	BANANA,
 	BAZOOKA,
 	DONKEY,
-	FIRESTRK,
+	TELEPORT,
 	MINE,
 	HOMING
 };

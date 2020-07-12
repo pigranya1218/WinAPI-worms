@@ -162,7 +162,6 @@
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
     <ClInclude Include="fallenState.h" />
-    <ClInclude Include="firestrkWeapon.h" />
     <ClInclude Include="flyState.h" />
     <ClInclude Include="gameNode.h" />
     <ClInclude Include="homing.h" />
@@ -192,6 +191,7 @@
     <ClInclude Include="state.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="teleportWeapon.h" />
     <ClInclude Include="timeManager.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="txtData.h" />
@@ -216,7 +216,6 @@
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
     <ClCompile Include="fallenState.cpp" />
-    <ClCompile Include="firestrkWeapon.cpp" />
     <ClCompile Include="flyState.cpp" />
     <ClCompile Include="gameNode.cpp" />
     <ClCompile Include="homing.cpp" />
@@ -247,6 +246,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="teleportWeapon.cpp" />
     <ClCompile Include="timeManager.cpp" />
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="txtData.cpp" />

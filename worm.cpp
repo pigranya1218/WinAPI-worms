@@ -78,7 +78,7 @@ HRESULT worm::init(wormManager* wormManager, int index, string name, float x, fl
 	_weaponCount.insert(make_pair(WEAPON_CODE::BAZOOKA, -1));
 	_weaponCount.insert(make_pair(WEAPON_CODE::DONKEY, 1));
 	_weaponCount.insert(make_pair(WEAPON_CODE::BANANA, 1));
-	//_weaponCount.insert(make_pair(WEAPON_CODE::FIRESTRK, 1));
+	_weaponCount.insert(make_pair(WEAPON_CODE::TELEPORT, 1));
 	_weaponCount.insert(make_pair(WEAPON_CODE::MINE, 1));
 	_weaponCount.insert(make_pair(WEAPON_CODE::HOMING, 2));
 

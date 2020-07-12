@@ -49,10 +49,6 @@ private:
 
 	map<WEAPON_CODE, int> _weaponCount;
 
-	bool checkMoveAvail(int x, int y); // 움직일 수 있는지 x, y 픽셀과 _dir 기준으로 검사
-	int checkGroundAvail(int x, int y); // 밟을 땅이 있는지 _y와 _dir 기준으로 검사
-	bool checkPixelAvail(int x, int y); // 밟을 땅이 있는지 x와 y 검사
-
 public:
 	worm() {}
 	~worm() {}
@@ -68,6 +64,10 @@ public:
 	float getWidth() { return _width; }
 	float getHeight() { return _height; }
 	RECT getRect() { return _rc; }
+
+	bool checkMoveAvail(int x, int y); // 움직일 수 있는지 x, y 픽셀과 _dir 기준으로 검사
+	int checkGroundAvail(int x, int y); // 밟을 땅이 있는지 _y와 _dir 기준으로 검사
+	bool checkPixelAvail(int x, int y); // 밟을 땅이 있는지 x와 y 검사
 
 	DIRECTION getDirection() { return _dir; }
 	SLOPE	getSlope() { return _slope; }
