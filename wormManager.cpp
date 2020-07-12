@@ -93,43 +93,6 @@ bool wormManager::checkCollisionPixel(RECT object)
 	return false;
 }
 
-bool wormManager::checkCollisionPixel(RECT object, int index)
-{
-	RECT temp;
-	for (int i = 0; i < _worms.size(); i++)
-	{
-		if (i == index) continue;
-		worm* currWorm = _worms[i];
-
-		if (IntersectRect(&temp, &currWorm->getRect(), &object))
-		{
-			return true;
-		}
-	}
-
-	return false;
-}
-
-int wormManager::checkGroundPixel(int x, int bottom, int index, int offsetClimb)
-{
-	for (int i = 0; i < _worms.size(); i++)
-	{
-		if (i == index) continue;
-		if (x - 1 <= _worms[i]->getX() && _worms[i]->getX() <= x)
-		{
-			for (int bot = bottom - offsetClimb; bot <= bottom + offsetClimb; bot++) // 위에서부터 땅이 있는지 체크
-			{
-				if (_worms[i]->getRect().top == bot)
-				{
-					return bot;
-				}
-			}
-		}
-	}
-
-	return -1;
-}
-
 bool wormManager::checkFreshDead(int index)
 {
 	if (_worms[index]->isFreshDead())

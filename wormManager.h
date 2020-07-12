@@ -38,8 +38,6 @@ public:
 	COLORREF getPixel(int x, int y);
 	int	getCurrentTurnIndex();
 	bool checkCollisionPixel(RECT object);
-	bool checkCollisionPixel(RECT object, int index);
-	int checkGroundPixel(int x, int bot, int index, int offsetClimb);
 	bool checkFreshDead(int index);
 	bool checkDead(int index);
 	void setDead(int index);

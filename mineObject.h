@@ -16,7 +16,7 @@ private:
 	float _y; // 현재 y 위치
 	float _gravity = 0; // 현재 중력값
 	float _angle; // 날라가는 angle 값
-	float _power = 2; // 날라가는 힘
+	float _power; // 날라가는 힘
 	float _width = 2; // 너비
 	float _height = 2; // 높이
 	float _powerChange = 0.8; // 부딪힐 때마다 감소될 파워
@@ -41,13 +41,14 @@ public:
 	mineObject() {}
 	~mineObject() {}
 
-	void init(stageManager* stageManager, wormManager* wormManager, float x, float y, float angle) 
+	void init(stageManager* stageManager, wormManager* wormManager, float x, float y, float angle, float power) 
 	{
 		_stageManager = stageManager;
 		_wormManager = wormManager;
 		_x = x;
 		_y = y;
 		_angle = angle;
+		_power = power;
 
 		_img = IMAGE_MANAGER->findImage("WEAPON_MINE_OFF");
 		_ani = new animation;
@@ -55,6 +56,7 @@ public:
 		_ani->setDefPlayFrame(false, true);
 		_ani->setFPS(40);
 		_ani->start();
+		_ani->frameUpdate(RND->getFloat(1));
 	}
 
 	virtual void release();

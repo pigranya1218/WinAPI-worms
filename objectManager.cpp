@@ -11,6 +11,7 @@ void objectManager::release()
 	for (int i = 0; i < _objects.size(); i++)
 	{
 		_objects[i]->release();
+		delete _objects[i];
 	}
 }
 
@@ -22,6 +23,7 @@ void objectManager::update()
 		if (_objects[i]->isFinish()) // 끝난 object는 없앤다
 		{
 			_objects[i]->release();
+			delete _objects[i];
 			_objects.erase(_objects.begin() + i);
 		} 
 		else

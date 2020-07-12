@@ -3,6 +3,7 @@
 #include "wormManager.h"
 #include "projectileManager.h"
 #include "objectManager.h"
+#include "mineObject.h"
 #include "uiManager.h"
 
 HRESULT stageManager::init(int playerNum, int wormsPerPlayer, int turnTime)
@@ -283,7 +284,7 @@ void stageManager::pixelBomb(float x, float y, float damage, float width) // 픽�
 void stageManager::makeStage()
 {
 	makeWorld();
-	makeWorms();
+	makeWormsMines();
 	setNextTurnIndex();
 	setTurnWind();
 	_wormManager->setWeaponsUI(_turnIndex); // 무기 UI
@@ -337,7 +338,7 @@ void stageManager::makeWorld() // 맵 복사
 	DeleteObject(originBitMap3);
 }
 
-void stageManager::makeWorms() // 맵 곳곳에 웜즈 만들기
+void stageManager::makeWormsMines() // 맵 곳곳에 웜즈 만들기
 {
 	int wormSize = _playerNum * _wormsPerPlayer; // 만들어야 하는 웜즈 수
 	HDC stageDC = IMAGE_MANAGER->findImage("STAGE")->getMemDC();
@@ -400,6 +401,58 @@ void stageManager::makeWorms() // 맵 곳곳에 웜즈 만들기
 		}
 		alreadyExist.push_back(make_pair(posX - 60, posX + 60));
 		_wormManager->addWorms(i, name, posX, posY); // 소환
+	}
+
+
+	int mineSize = 5; // 만들어야 하는 지뢰 수
+
+	// 랜덤으로 위치를 잡아 차례로 생성하기 
+	for (int i = 0; i < mineSize; i++)
+	{
+		bool isAvailPosition = false;
+		int posX;
+		int posY;
+
+		while (!isAvailPosition)
+		{
+			bool isValidX = false;
+			int randomX; // 소환될 X 위치 결정 과정
+			while (!isValidX)
+			{
+				isValidX = true;
+				randomX = RND->getFromIntTo(100, stageWidth - 100);
+				for (int j = 0; j < alreadyExist.size(); j++)
+				{
+					if (alreadyExist[j].first <= randomX && randomX <= alreadyExist[j].second)
+					{
+						isValidX = false;
+						break;
+					}
+				}
+			}
+
+			for (int y = 0; y < stageHeight - 190; y++) // 소환될 Y 위치 결정 과정
+			{
+				COLORREF sourceRGB = GetPixel(stageDC, randomX, y);
+
+				int R = GetRValue(sourceRGB);
+				int G = GetGValue(sourceRGB);
+				int B = GetBValue(sourceRGB);
+
+				if (!(R == 255 && G == 0 && B == 255))
+				{
+					posX = randomX;
+					posY = y;
+					isAvailPosition = true;
+					break;
+				}
+			}
+		}
+		alreadyExist.push_back(make_pair(posX - 50, posX + 50));
+
+		mineObject* mine = new mineObject;
+		mine->init(this, _wormManager, posX, posY - 2, 0, 0);
+		_objectManager->pushObject(mine);
 	}
 }
 

@@ -24,8 +24,7 @@ bool worm::checkMoveAvail(int x, int bottom)
 		}
 	}
 
-	RECT wormRC = { x - 1, bottom - _height, x, bottom - 1};
-	return (!_wormManager->checkCollisionPixel(wormRC, _index));
+	return true;
 }
 
 int worm::checkGroundAvail(int x, int bottom)
@@ -38,7 +37,7 @@ int worm::checkGroundAvail(int x, int bottom)
 		}
 	}
 
-	return _wormManager->checkGroundPixel(x, bottom, _index, _offsetClimb); // 밟을 발판이 없음
+	return -1; // 밟을 발판이 없음
 }
 
 bool worm::checkPixelAvail(int x, int bottom)
@@ -79,7 +78,7 @@ HRESULT worm::init(wormManager* wormManager, int index, string name, float x, fl
 	_weaponCount.insert(make_pair(WEAPON_CODE::BAZOOKA, -1));
 	_weaponCount.insert(make_pair(WEAPON_CODE::DONKEY, 1));
 	_weaponCount.insert(make_pair(WEAPON_CODE::BANANA, 1));
-	_weaponCount.insert(make_pair(WEAPON_CODE::FIRESTRK, 1));
+	//_weaponCount.insert(make_pair(WEAPON_CODE::FIRESTRK, 1));
 	_weaponCount.insert(make_pair(WEAPON_CODE::MINE, 1));
 	_weaponCount.insert(make_pair(WEAPON_CODE::HOMING, 2));
 
@@ -106,7 +105,8 @@ void worm::update()
 void worm::render()
 {
 	_state->render(*this);
-	
+	//CAMERA_MANAGER->rectangle(getMemDC(), _rc);
+
 	if (_wormManager->getCurrentTurnIndex() != _index && !isDead()) // 체력바랑 이름 표시하기
 	{
 		renderUI();

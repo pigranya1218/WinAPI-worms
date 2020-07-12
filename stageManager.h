@@ -39,7 +39,7 @@ private:
 	float _turnWind; // 현재 바람 (-1 ~ 1)
 
 	void makeWorld(); // 맵 그리기
-	void makeWorms(); // 맵 곳곳에 랜덤 위치로 웜즈 지정하기
+	void makeWormsMines(); // 맵 곳곳에 랜덤 위치로 웜즈 지정하기
 	HDC getGroundDC(); // 웜즈 배치 위치 선정을 위한 알고리즘 땅 확인
 
 	int _offsetBG; // 배경 이미지 LOOP 이동 변수

@@ -9,11 +9,12 @@ void mineWeapon::shot(worm& shooter)
 	mineObject* mine = new mineObject;
 
 	float initAngle = (shooter.getDirection() == DIRECTION::LEFT)?(PI * 0.9):(PI * 0.1);
+	float initPower = 2;
 
 	float initX = shooter.getX() + (cosf(initAngle) * 10);
 	float initY = shooter.getY() + (-sinf(initAngle) * 10);
 
-	mine->init(shooter.getStageManager(), shooter.getWormManager(), initX, initY, initAngle);
+	mine->init(shooter.getStageManager(), shooter.getWormManager(), initX, initY, initAngle, initPower);
 	shooter.getObjectManager()->pushObject(mine);
 	shooter.adjustWeapon(WEAPON_CODE::MINE, -1);
 }

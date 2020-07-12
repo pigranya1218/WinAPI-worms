@@ -11,6 +11,7 @@ void projectileManager::release()
 	for (int i = 0; i < _projectiles.size(); i++)
 	{
 		_projectiles[i]->release();
+		delete _projectiles[i];
 	}
 }
 
@@ -21,6 +22,8 @@ void projectileManager::update()
 		_projectiles[i]->update();
 		if (_projectiles[i]->isFinish())
 		{
+			_projectiles[i]->release();
+			delete _projectiles[i];
 			_projectiles.erase(_projectiles.begin() + i);
 		}
 		else

@@ -242,7 +242,7 @@ void animation::frameUpdate(float elapsedTime)
 	{
 		_elapsedSec += elapsedTime;
 
-		if (_elapsedSec >= _frameUpdateSec)
+		while (_elapsedSec >= _frameUpdateSec)
 		{
 			_elapsedSec -= _frameUpdateSec;
 
