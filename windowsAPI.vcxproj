@@ -161,6 +161,7 @@
     <ClInclude Include="donkeyWeapon.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
+    <ClInclude Include="effectObject.h" />
     <ClInclude Include="fallenState.h" />
     <ClInclude Include="flyState.h" />
     <ClInclude Include="gameNode.h" />
@@ -215,6 +216,7 @@
     <ClCompile Include="donkeyWeapon.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
+    <ClCompile Include="effectObject.cpp" />
     <ClCompile Include="fallenState.cpp" />
     <ClCompile Include="flyState.cpp" />
     <ClCompile Include="gameNode.cpp" />

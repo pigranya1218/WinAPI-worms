@@ -3,6 +3,7 @@
 #include "worm.h"
 #include "stageManager.h"
 #include "wormManager.h"
+#include "objectManager.h"
 
 void deadState::enter(worm & player)
 {
@@ -40,7 +41,9 @@ state * deadState::update(worm & player)
 
 			player.getStageManager()->pixelBomb(x, y, _damage, _bombWidth); // 픽셀 폭파시키기
 			player.getWormManager()->wormBomb(x, y, _damage, _bombWidth); // 맞은 웜즈 날라가게 하기
-			player.setGravity(3.4); 
+			player.getObjectManager()->objectBomb(x, y, _damage, _bombWidth);
+			player.getObjectManager()->makeBombEffect(x, y, _bombWidth);
+			player.setGravity(3.4);
 			player.setAngle(PI / 2); 
 
 			char buffer[50];

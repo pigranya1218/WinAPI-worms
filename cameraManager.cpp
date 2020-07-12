@@ -274,6 +274,14 @@ void cameraManager::aniRender(HDC hdc, image * img, int destX, int destY, animat
 	img->render(hdc, newL, newT, ani->getFramePos().x, ani->getFramePos().y, ani->getFrameWidth(), ani->getFrameHeight(), leftRightInverse);
 }
 
+void cameraManager::aniRender(HDC hdc, image* img, int destX, int destY, int destWidth, int destHeight, animation* ani, bool leftRightInverse)
+{
+	float newL = getRelativeL(static_cast<float>(destX));
+	float newT = getRelativeT(static_cast<float>(destY));
+
+	img->render(hdc, newL, newT, destWidth, destHeight, ani->getFramePos().x, ani->getFramePos().y, ani->getFrameWidth(), ani->getFrameHeight());
+}
+
 void cameraManager::zoom(HDC hdc, float ratio)
 {
 	if (ratio == 1) return;

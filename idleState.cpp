@@ -22,10 +22,10 @@ state * idleState::update(worm & player)
 {
 	if (player.isTurn())
 	{
-		if (KEY_MANAGER->isStayKeyDown(VK_LBUTTON))
+		/*if (KEY_MANAGER->isStayKeyDown(VK_LBUTTON))
 		{
 			player.setPlayerPos(CAMERA_MANAGER->getAbsoluteL(_ptMouse.x), CAMERA_MANAGER->getAbsoluteT(_ptMouse.y));
-		}
+		}*/
 		if (KEY_MANAGER->isStayKeyDown(VK_LEFT)) // 왼쪽으로 움직이기
 		{
 			if (player.getDirection() == DIRECTION::RIGHT)

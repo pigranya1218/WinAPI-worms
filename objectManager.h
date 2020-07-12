@@ -22,5 +22,7 @@ public:
 
 	bool checkNoUpdate();
 
+	void makeBombEffect(int x, int y, int width);
+
 };
 

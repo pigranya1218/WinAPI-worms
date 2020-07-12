@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "objectManager.h"
+#include "effectObject.h"
 
 HRESULT objectManager::init()
 {
@@ -71,4 +72,45 @@ bool objectManager::checkNoUpdate()
 		}
 	}
 	return true;
+}
+
+void objectManager::makeBombEffect(int x, int y, int width)
+{
+	// 불꽃 만들기
+	for (int i = 0; i < 8; i++)
+	{
+		int newX = RND->getFromIntTo(x - width / 2, x + width / 2);
+		int newY = RND->getFromIntTo(y - width / 2, y + width / 2);
+		float newPI = RND->getFromFloatTo(PI * 0.3, PI * 0.7);
+		float newPower = RND->getFromFloatTo(2, 4);
+
+		effectObject* newEffect = new effectObject;
+		newEffect->init(IMAGE_MANAGER->findImage("EFFECT_FLAME"), 20, newX, newY, 60, 60, newPI, newPower, true, false);
+		_objects.push_back(newEffect);
+	}
+
+	// 작은 회색 뭉게그름 만들기
+	for (int i = 0; i < 16; i++)
+	{
+		int newX = RND->getFromIntTo(x - width / 2, x + width / 2);
+		int newY = RND->getFromIntTo(y - width / 2, y + width / 2);
+
+		effectObject* newEffect = new effectObject;
+		newEffect->init(IMAGE_MANAGER->findImage("EFFECT_SMOKE_DARK"), 30, newX, newY, 30, 30, PI * 0.5, 1, false, false);
+		_objects.push_back(newEffect);
+	}
+	
+	// 크고 흰 뭉게구름 만들기
+	for (int i = 0; i < 10; i++)
+	{
+		int newX = RND->getFromIntTo(x - width / 2, x + width / 2);
+		int newY = RND->getFromIntTo(y - width / 2, y + width / 2);
+		float newPI = RND->getFromFloatTo(PI * 0.3, PI * 0.7);
+
+		effectObject* newEffect = new effectObject;
+		newEffect->init(IMAGE_MANAGER->findImage("EFFECT_SMOKE_WHITE"), 30, newX, newY, 60, 60, newPI, 1, false, false);
+		_objects.push_back(newEffect);
+	}
+
+
 }

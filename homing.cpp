@@ -35,6 +35,7 @@ void homing::update()
 			_stageManager->pixelBomb(_x, _y, _damage, _bombWidth); // 픽셀 폭파시키기
 			_wormManager->wormBomb(_x, _y, _damage, _bombWidth); // 맞은 웜즈 날라가게 하기
 			_objectManager->objectBomb(_x, _y, _damage, _bombWidth);
+			_objectManager->makeBombEffect(_x, _y, _bombWidth);
 
 			_isFinish = true;
 		}
