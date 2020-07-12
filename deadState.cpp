@@ -17,6 +17,9 @@ void deadState::enter(worm & player)
 	_isBomb = false;
 	_damage = 30;
 	_bombWidth = 80;
+
+	SOUND_MANAGER->stop("WORM_DEAD");
+	SOUND_MANAGER->play("WORM_DEAD", 1);
 }
 
 void deadState::exit(worm & player)
@@ -32,6 +35,9 @@ state * deadState::update(worm & player)
 
 		if (!_ani->isPlay()) // Æø¹ßÇÑ´Ù!!!!
 		{
+			
+			
+
 			_isBomb = true;
 
 			float x = player.getX(), y = player.getY();
@@ -53,6 +59,8 @@ state * deadState::update(worm & player)
 			_ani->setDefPlayFrame(true, true);
 			_ani->setFPS(15);
 			_ani->start();
+
+			
 		}
 	}
 	else // Æø¹ßÇÏ¿´À½

@@ -40,11 +40,16 @@ void flyState::enter(worm& player)
 	if (player.getPower() >= 4)
 	{
 		_state = FLY_STATE::FLY;
+		SOUND_MANAGER->stop("WORM_FLY");
+		SOUND_MANAGER->play("WORM_FLY", 1);
 	}
 	else
 	{
 		_state = FLY_STATE::SLIDING;
+		SOUND_MANAGER->stop("WORM_SLIDING");
+		SOUND_MANAGER->play("WORM_SLIDING", 1);
 	}
+	player.setWaiting();
 }
 
 void flyState::exit(worm& player)
@@ -97,6 +102,8 @@ state* flyState::update(worm& player)
 				_currFrameCount = 0;
 				_currFrame = 0;
 				player.updateSlope();
+				SOUND_MANAGER->stop("WORM_SLIDING");
+				SOUND_MANAGER->play("WORM_SLIDING", 1);
 			}
 			else // 진짜 약하게 부딪혔을 때 (STOP)
 			{

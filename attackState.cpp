@@ -27,6 +27,12 @@ state* attackState::update(worm& player)
 	}
 	case WEAPON_FINISH_TYPE::MOVING:
 		return new moveState;
+	case WEAPON_FINISH_TYPE::FALLEN_BUT_MOVE:
+	{
+		player.getStageManager()->setTimer(5);
+		player.setAttackAvail(false);
+		return new fallenState;
+	}
 	case WEAPON_FINISH_TYPE::JUMPING:
 		return new jumpState;
 	case WEAPON_FINISH_TYPE::FINISH:

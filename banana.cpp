@@ -125,6 +125,8 @@ bool banana::gravityMove(float xPower)
 							}
 							_angle = PI - _angle;
 							_power *= _powerChange;
+							SOUND_MANAGER->stop("WEAPON_BANANA_TOK");
+							SOUND_MANAGER->play("WEAPON_BANANA_TOK", 1);
 							break;
 						}
 
@@ -174,6 +176,8 @@ bool banana::gravityMove(float xPower)
 							}
 							_angle = PI - _angle;
 							_power *= _powerChange;
+							SOUND_MANAGER->stop("WEAPON_BANANA_TOK");
+							SOUND_MANAGER->play("WEAPON_BANANA_TOK", 1);
 							break;
 						}
 
@@ -202,6 +206,8 @@ bool banana::gravityMove(float xPower)
 					_x = newX;
 					_y = bot - (_height / 2);
 					_power *= _powerChange;
+					SOUND_MANAGER->stop("WEAPON_BANANA_TOK");
+					SOUND_MANAGER->play("WEAPON_BANANA_TOK", 1);
 					return true;
 				}
 
@@ -237,6 +243,8 @@ bool banana::gravityMove(float xPower)
 						}
 						_angle = PI - _angle;
 						_power *= _powerChange;
+						SOUND_MANAGER->stop("WEAPON_BANANA_TOK");
+						SOUND_MANAGER->play("WEAPON_BANANA_TOK", 1);
 						break;
 					}
 
@@ -273,6 +281,8 @@ bool banana::gravityMove(float xPower)
 						}
 						_angle = PI - _angle;
 						_power *= _powerChange;
+						SOUND_MANAGER->stop("WEAPON_BANANA_TOK");
+						SOUND_MANAGER->play("WEAPON_BANANA_TOK", 1);
 						break;
 					}
 
@@ -296,6 +306,8 @@ bool banana::gravityMove(float xPower)
 				_x = newX;
 				_y = newBottom - (_height / 2);
 				_power *= _powerChange;
+				SOUND_MANAGER->stop("WEAPON_BANANA_TOK");
+				SOUND_MANAGER->play("WEAPON_BANANA_TOK", 1);
 				return true;
 			}
 
@@ -349,6 +361,8 @@ bool banana::gravityMove(float xPower)
 							}
 							_angle = PI - _angle;
 							_power *= _powerChange;
+							SOUND_MANAGER->stop("WEAPON_BANANA_TOK");
+							SOUND_MANAGER->play("WEAPON_BANANA_TOK", 1);
 							break;
 						}
 
@@ -390,6 +404,8 @@ bool banana::gravityMove(float xPower)
 							}
 							_angle = PI - _angle;
 							_power *= _powerChange;
+							SOUND_MANAGER->stop("WEAPON_BANANA_TOK");
+							SOUND_MANAGER->play("WEAPON_BANANA_TOK", 1);
 							break;
 						}
 
@@ -436,6 +452,8 @@ bool banana::gravityMove(float xPower)
 						}
 						_angle = PI - _angle;
 						_power *= _powerChange;
+						SOUND_MANAGER->stop("WEAPON_BANANA_TOK");
+						SOUND_MANAGER->play("WEAPON_BANANA_TOK", 1);
 						break;
 					}
 					if (x == floor(xMove)) // 이동할 수 있는 만큼 다 이동한 경우
@@ -462,6 +480,8 @@ bool banana::gravityMove(float xPower)
 						}
 						_angle = PI - _angle;
 						_power *= _powerChange;
+						SOUND_MANAGER->stop("WEAPON_BANANA_TOK");
+						SOUND_MANAGER->play("WEAPON_BANANA_TOK", 1);
 						break;
 					}
 
@@ -516,6 +536,7 @@ void banana::update()
 			}
 			else
 			{
+				
 				_gravity = 0;
 			}
 		} 

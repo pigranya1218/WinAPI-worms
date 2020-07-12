@@ -273,5 +273,4 @@ void uiManager::drawWormUI(float x, float y, int hp, int playerIndex, string nam
 	CAMERA_MANAGER->rectangle(getMemDC(), nameRc);
 	TextOut(getMemDC(), CAMERA_MANAGER->getRelativeL(x), CAMERA_MANAGER->getRelativeT(y - 62), buffer, strlen(buffer));
 
-	SetTextColor(getMemDC(), RGB(0, 0, 0)); // ÆùÆ® »ö±ò ¿ø»óº¹±Í
 }

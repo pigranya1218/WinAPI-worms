@@ -13,6 +13,9 @@ void donkey::update()
 
 		if (isBomb) // ÆøÆÄ½ÃÅ°±â
 		{
+			SOUND_MANAGER->stop("WEAPON_DONKEY_BOMB");
+			SOUND_MANAGER->play("WEAPON_DONKEY_BOMB", 1);
+			
 			EFFECT_MANAGER->play("EFFECT_CIRCLE", _x, _y, _bombWidth, _bombWidth);
 			EFFECT_MANAGER->play("EFFECT_ELIPSE", _x, _y, _bombWidth + 30, _bombWidth + 30);
 			EFFECT_MANAGER->play("EFFECT_EX_POW", _x, _y - 50, 50, 50);
@@ -25,7 +28,7 @@ void donkey::update()
 			_gravity = -3;
 		}
 
-		if (_y >= 1000)
+		if (_y >= 1100)
 		{
 			_isFinish = true;
 		}

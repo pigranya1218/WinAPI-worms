@@ -35,6 +35,12 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("IDLE_BIGHEAD_DOWN", "resources/images/wbgheadd.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
 	IMAGE_MANAGER->addFrameImage("IDLE_BIGHEAD_UP", "resources/images/wbgheadu.bmp", 60, 600, 1, 10, true, RGB(128, 128, 192));
 	
+	// *** DEADLY
+	IMAGE_MANAGER->addFrameImage("IDLE_DEADLY_NORMAL", "resources/images/wbrth2.bmp", 60, 780, 1, 13, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("IDLE_DEADLY_DOWN", "resources/images/wbrth2d.bmp", 60, 780, 1, 13, true, RGB(128, 128, 192));
+	IMAGE_MANAGER->addFrameImage("IDLE_DEADLY_UP", "resources/images/wbrth2u.bmp", 60, 780, 1, 13, true, RGB(128, 128, 192));
+
+
 	// ** MOVE
 	IMAGE_MANAGER->addFrameImage("MOVE_NORMAL", "resources/images/wwalk.bmp", 60, 900, 1, 15, true, RGB(128, 128, 192));
 	IMAGE_MANAGER->addFrameImage("MOVE_DOWN", "resources/images/wwalkd.bmp", 60, 900, 1, 15, true, RGB(128, 128, 192));
@@ -194,6 +200,46 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addImage("redDC", "resources/images/redDC.bmp", 500, 500, false, NULL);
 	IMAGE_MANAGER->addImage("redTest", "resources/images/redtest.bmp", 27, 24, true, RGB(255, 0, 255));
 
+
+	// * À½¾Ç
+	// ** BGM
+	SOUND_MANAGER->addSound("BGM", "resources/sounds/bgm.mp3", true, true);
+	SOUND_MANAGER->addSound("START_ROUND", "resources/sounds/StartRound.wav", false, false);
+
+	// ** WORM
+	SOUND_MANAGER->addSound("WORM_FLY", "resources/sounds/NOOO.wav", false, false);
+	SOUND_MANAGER->addSound("WORM_DEAD", "resources/sounds/UH-OH.wav", false, false);
+	SOUND_MANAGER->addSound("WORM_MOVE", "resources/sounds/Walk-Compress.wav", false, false);
+	SOUND_MANAGER->addSound("WORM_JUMP", "resources/sounds/JUMP2.wav", false, false);
+	SOUND_MANAGER->addSound("WORM_LONGJUMP", "resources/sounds/WORMSPRING.wav", false, false);
+	SOUND_MANAGER->addSound("WORM_DIGDA", "resources/sounds/TWANG6.wav", false, false);
+	SOUND_MANAGER->addSound("WORM_SLIDING", "resources/sounds/WormLanding.wav", false, false);
+
+	// ** WEAPON
+	// *** MINE
+	SOUND_MANAGER->addSound("WEAPON_MINE_TICK", "resources/sounds/MINETICK.wav", false, false);
+	SOUND_MANAGER->addSound("WEAPON_MINE_ARM", "resources/sounds/MineArm.wav", false, false);
+	SOUND_MANAGER->addSound("WEAPON_MINE_TOK", "resources/sounds/MINEIMPACT.wav", false, false);
+
+	// *** BANANA
+	SOUND_MANAGER->addSound("WEAPON_BANANA_TOK", "resources/sounds/BananaImpact.wav", false, false);
+
+	// *** TELEPORT
+	SOUND_MANAGER->addSound("WEAPON_TELEPORT", "resources/sounds/TELEPORT.wav", false, false);
+
+	// *** DONKEY
+	SOUND_MANAGER->addSound("WEAPON_DONKEY_CALL", "resources/sounds/FUSE.wav", false, false);
+	SOUND_MANAGER->addSound("WEAPON_DONKEY_CREATE", "resources/sounds/HOLYDONKEY.wav", false, false);
+	SOUND_MANAGER->addSound("WEAPON_DONKEY_BOMB", "resources/sounds/HOLYDONKEYIMPACT.wav", false, false);
+
+	// *** HOMING
+	SOUND_MANAGER->addSound("WEAPON_HOMING_ON", "resources/sounds/WEAPONHOMING.wav", false, false);
+
+	// ** EFFECT
+	SOUND_MANAGER->addSound("EFFECT_BOMB", "resources/sounds/Explosion1.wav", false, false);
+	SOUND_MANAGER->addSound("EFFECT_CURSOR", "resources/sounds/CursorSelect.wav", false, false);
+	SOUND_MANAGER->addSound("EFFECT_GAUGEUP", "resources/sounds/ROCKETPOWERUP.wav", false, false);
+	SOUND_MANAGER->addSound("EFFECT_SHOOT", "resources/sounds/ROCKETRELEASE.wav", false, false);
 
 	// ¾À Ãß°¡
 	SCENE_MANAGER->addScene("StageScene", new stageScene);

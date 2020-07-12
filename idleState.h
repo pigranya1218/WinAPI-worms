@@ -5,6 +5,7 @@ class idleState : public state
 private:
 	image* _img;
 	animation* _ani;
+	bool _isDeadly = false;
 
 public:
 	idleState() {}

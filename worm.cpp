@@ -693,7 +693,10 @@ void worm::renderUI()
 
 void worm::setWaiting()
 {
-	getStageManager()->setWaiting();
+	if (_index == getStageManager()->getCurrentTurnIndex())
+	{
+		getStageManager()->setWaiting();
+	}
 }
 
 void worm::removeWeapon()

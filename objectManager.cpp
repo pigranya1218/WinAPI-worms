@@ -76,13 +76,16 @@ bool objectManager::checkNoUpdate()
 
 void objectManager::makeBombEffect(int x, int y, int width)
 {
+	SOUND_MANAGER->stop("EFFECT_BOMB");
+	SOUND_MANAGER->play("EFFECT_BOMB", 1);
+
 	// ºÒ²É ¸¸µé±â
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 12; i++)
 	{
 		int newX = RND->getFromIntTo(x - width / 2, x + width / 2);
 		int newY = RND->getFromIntTo(y - width / 2, y + width / 2);
 		float newPI = RND->getFromFloatTo(PI * 0.3, PI * 0.7);
-		float newPower = RND->getFromFloatTo(2, 4);
+		float newPower = RND->getFromFloatTo(2, 8);
 
 		effectObject* newEffect = new effectObject;
 		newEffect->init(IMAGE_MANAGER->findImage("EFFECT_FLAME"), 20, newX, newY, 60, 60, newPI, newPower, true, false);

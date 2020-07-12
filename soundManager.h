@@ -7,7 +7,7 @@
 
 using namespace FMOD;
 
-#define SOUNDBUFFER 10
+#define SOUNDBUFFER 30
 #define EXTRACHANNELBUFFER 5
 
 #define TOTALSOUNDBUFFER SOUNDBUFFER + EXTRACHANNELBUFFER
@@ -43,6 +43,8 @@ public:
 	void stop(string keyName);
 	void pause(string keyName);
 	void resume(string keyName);
+
+	void reset(string keyName);
 
 	//사운드 이벤트 처리용 (호옥시 몰라서 hoxy...)
 	bool isPlaySound(string keyName);

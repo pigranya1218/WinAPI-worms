@@ -6,6 +6,12 @@
 
 void donkeyWeapon::shot(worm& shooter)
 {
+    SOUND_MANAGER->stop("WEAPON_DONKEY_CALL");
+    SOUND_MANAGER->play("WEAPON_DONKEY_CALL", 1);
+
+    SOUND_MANAGER->stop("WEAPON_DONKEY_CREATE");
+    SOUND_MANAGER->play("WEAPON_DONKEY_CREATE", 1);
+    
     donkey* _donkey = new donkey;
 
     float initGravity = 0;
@@ -103,6 +109,8 @@ WEAPON_FINISH_TYPE donkeyWeapon::update(worm& player)
             {
                 _x = CAMERA_MANAGER->getAbsoluteL(_ptMouse.x);
                 _y = CAMERA_MANAGER->getAbsoluteT(_ptMouse.y);
+                SOUND_MANAGER->stop("EFFECT_CURSOR");
+                SOUND_MANAGER->play("EFFECT_CURSOR", 1);
             }
             else if (KEY_MANAGER->isOnceKeyDown(VK_SPACE)) // น฿ป็!!
             {

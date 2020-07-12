@@ -56,10 +56,19 @@ state * idleState::update(worm & player)
 			}
 		}
 	}
-	else // 랜덤으로 IDLE 애니메이션 재생
-	{
 
+	if (player.getHp() <= 50)
+	{
+		if (!_isDeadly)
+		{
+			_isDeadly = true;
+			_ani->init(_img->getWidth(), _img->getHeight(), _img->getFrameWidth(), _img->getFrameHeight());
+			_ani->setDefPlayFrame(true, true);
+			_ani->setFPS(25);
+			_ani->start();
+		}
 	}
+
 
 	_ani->frameUpdate(TIME_MANAGER->getElapsedTime()); // 상태가 바뀌지 않은 경우 프레임 업데이트
 	return nullptr;
@@ -72,6 +81,13 @@ void idleState::render(worm & player)
 	float x = (rc.left + rc.right) / 2, y = (rc.top + rc.bottom) / 2;
 	POINT pos = _ani->getFramePos();
 
-	_img = IMAGE_MANAGER->findImage(getImageKey("IDLE_BIGHEAD", player.getSlope()));
+	if (_isDeadly)
+	{
+		_img = IMAGE_MANAGER->findImage(getImageKey("IDLE_DEADLY", player.getSlope()));
+	}
+	else
+	{
+		_img = IMAGE_MANAGER->findImage(getImageKey("IDLE_BIGHEAD", player.getSlope()));
+	}
 	CAMERA_MANAGER->aniRender(getMemDC(), _img, x - 30, y - 30, _ani, (player.getDirection() == DIRECTION::RIGHT));
 }

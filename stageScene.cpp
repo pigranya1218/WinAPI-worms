@@ -34,6 +34,8 @@ HRESULT stageScene::init(int playerNum, int wormsPerPlayer, int turnTime)
 
 	_stageManager->makeStage();
 
+	SOUND_MANAGER->play("BGM", 0.1);
+
 	return S_OK;
 }
 

@@ -16,6 +16,9 @@ void homing::update()
 				float degree = _angle * (180 / PI);
 				_isHoming = true;
 				_power = 20;
+
+				SOUND_MANAGER->stop("WEAPON_HOMING_ON");
+				SOUND_MANAGER->play("WEAPON_HOMING_ON", 1);
 			}
 		}
 		else
@@ -28,6 +31,7 @@ void homing::update()
 
 		if (isBomb) // ÆøÆÄ½ÃÅ°±â
 		{
+			SOUND_MANAGER->stop("WEAPON_HOMING_ON");
 			EFFECT_MANAGER->play("EFFECT_CIRCLE", _x, _y, _bombWidth, _bombWidth);
 			EFFECT_MANAGER->play("EFFECT_ELIPSE", _x, _y, _bombWidth + 30, _bombWidth + 30);
 			EFFECT_MANAGER->play("EFFECT_EX_POW", _x, _y - 50, 50, 50);

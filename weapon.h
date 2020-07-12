@@ -9,6 +9,7 @@ enum class WEAPON_FINISH_TYPE
 	ATTACK, // 아직 공격 중
 	MOVING, // 움직이는 중
 	JUMPING, // 점프 중
+	FALLEN_BUT_MOVE, // 떨어지는 중
 	FINISH_BUT_MOVE, // 공격 종료이고, 움직일 여유가 있음. 하지만 공격은 불가능 (다이너마이트 등)
 	FINISH // 공격 종료
 };

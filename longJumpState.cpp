@@ -8,6 +8,8 @@ void longJumpState::enter(worm& player)
 
 	_isGround = false;
 	_ready = true;
+
+	
 }
 
 void longJumpState::exit(worm& player)
@@ -20,12 +22,11 @@ state* longJumpState::update(worm& player)
 {
 	float xMove = (player.getDirection() == DIRECTION::LEFT)? _xMove : -_xMove;
 
-	if (player.isTurn())
-	{
-	}
-
 	if (!_ani->isPlay() && _ready) // 점프 상태로 전환
 	{
+		SOUND_MANAGER->stop("WORM_LONGJUMP");
+		SOUND_MANAGER->play("WORM_LONGJUMP", 1);
+
 		_img = IMAGE_MANAGER->findImage("LONGJUMP");
 		_ready = false;
 
@@ -57,6 +58,9 @@ state* longJumpState::update(worm& player)
 				_ani->setDefPlayFrame(false, false);
 				_ani->setFPS(30);
 				_ani->start();
+
+				SOUND_MANAGER->stop("WORM_DIGDA");
+				SOUND_MANAGER->play("WORM_DIGDA", 1);
 			}
 			else
 			{

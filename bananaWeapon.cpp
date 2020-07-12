@@ -76,6 +76,8 @@ WEAPON_FINISH_TYPE bananaWeapon::update(worm& player)
 			if (KEY_MANAGER->isOnceKeyDown(VK_SPACE))
 			{
 				_state = WEAPON_STATE::GAUGING;
+				SOUND_MANAGER->stop("EFFECT_GAUGEUP");
+				SOUND_MANAGER->play("EFFECT_GAUGEUP");
 			}
 			else if (KEY_MANAGER->isStayKeyDown(VK_UP))
 			{
@@ -111,6 +113,9 @@ WEAPON_FINISH_TYPE bananaWeapon::update(worm& player)
 			}
 			else
 			{
+				SOUND_MANAGER->stop("EFFECT_GAUGEUP");
+				SOUND_MANAGER->stop("EFFECT_SHOOT");
+				SOUND_MANAGER->play("EFFECT_SHOOT");	
 				shot(player);
 				_state = WEAPON_STATE::FINISH;
 				player.setWaiting();

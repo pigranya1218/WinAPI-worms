@@ -42,6 +42,9 @@ state* fallenState::update(worm& player)
 				_ani->setDefPlayFrame(false, false);
 				_ani->setFPS(20);
 				_ani->start();
+
+				SOUND_MANAGER->stop("WORM_DIGDA");
+				SOUND_MANAGER->play("WORM_DIGDA", 1);
 			}
 			else // 딱히 위협적이지 않은 중력값에선 그냥 moveState로 바로 이동
 			{

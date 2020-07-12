@@ -97,10 +97,14 @@ WEAPON_FINISH_TYPE homingWeapon::update(worm& player)
 			{
 				_pointX = CAMERA_MANAGER->getAbsoluteL(_ptMouse.x);
 				_pointY = CAMERA_MANAGER->getAbsoluteT(_ptMouse.y);
+				SOUND_MANAGER->stop("EFFECT_CURSOR");
+				SOUND_MANAGER->play("EFFECT_CURSOR", 1);
 			}
 			if (KEY_MANAGER->isOnceKeyDown(VK_SPACE))
 			{
 				_state = WEAPON_STATE::GAUGING;
+				SOUND_MANAGER->stop("EFFECT_GAUGEUP");
+				SOUND_MANAGER->play("EFFECT_GAUGEUP");
 			}
 			else if (KEY_MANAGER->isStayKeyDown(VK_UP))
 			{
@@ -136,6 +140,10 @@ WEAPON_FINISH_TYPE homingWeapon::update(worm& player)
 			}
 			else
 			{
+				SOUND_MANAGER->stop("EFFECT_GAUGEUP");
+				SOUND_MANAGER->stop("EFFECT_SHOOT");
+				SOUND_MANAGER->play("EFFECT_SHOOT");
+
 				shot(player);
 				setWaiting(player);
 			}

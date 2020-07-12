@@ -174,6 +174,11 @@ void stageManager::update()
 	break;
 	}
 
+	if (RND->getInt(10) <= 1) // 들락날락 거리는 데코레이션 만들기
+	{
+
+	}
+
 	_uiManager->setTimer(ceil(_turnTime)); // UI 타이머 변경
 	_uiManager->setTimerVisible(true);
 	_uiManager->setWind(_turnWind); // UI 바람 변경
@@ -289,6 +294,9 @@ void stageManager::makeStage()
 	setTurnWind();
 	_wormManager->setWeaponsUI(_turnIndex); // 무기 UI
 	_uiManager->setWeaponVisible(false);
+
+	SOUND_MANAGER->stop("START_ROUND");
+	SOUND_MANAGER->play("START_ROUND", 1);
 }
 
 void stageManager::makeWorld() // 맵 복사
@@ -404,7 +412,7 @@ void stageManager::makeWormsMines() // 맵 곳곳에 웜즈 만들기
 	}
 
 
-	int mineSize = 5; // 만들어야 하는 지뢰 수
+	int mineSize = 10; // 만들어야 하는 지뢰 수
 
 	// 랜덤으로 위치를 잡아 차례로 생성하기 
 	for (int i = 0; i < mineSize; i++)

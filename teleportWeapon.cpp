@@ -12,7 +12,6 @@ void teleportWeapon::setWaiting(worm& player)
     _wormAni->setFPS(30);
     _wormAni->start();
     _state = WEAPON_STATE::WAITING;
-    player.setWaiting();
 }
 
 bool teleportWeapon::checkAvail(worm& player, float newX, float newY)
@@ -74,6 +73,7 @@ WEAPON_FINISH_TYPE teleportWeapon::update(worm& player)
         else
         {
             setWaiting(player);
+            player.setWaiting();
         }
     }
     break;
@@ -86,6 +86,9 @@ WEAPON_FINISH_TYPE teleportWeapon::update(worm& player)
                 _x = CAMERA_MANAGER->getAbsoluteL(_ptMouse.x);
                 _y = CAMERA_MANAGER->getAbsoluteT(_ptMouse.y);
                 _isAvail = checkAvail(player, _x, _y);
+
+                SOUND_MANAGER->stop("EFFECT_CURSOR");
+                SOUND_MANAGER->play("EFFECT_CURSOR", 1);
             }
             else if (KEY_MANAGER->isOnceKeyDown(VK_SPACE) && _isAvail) // 발사!!
             {
@@ -95,6 +98,9 @@ WEAPON_FINISH_TYPE teleportWeapon::update(worm& player)
                 _wormAni->setFPS(30);
                 _wormAni->start();
                 _state = WEAPON_STATE::GAUGING;
+
+                SOUND_MANAGER->stop("WEAPON_TELEPORT");
+                SOUND_MANAGER->play("WEAPON_TELEPORT", 1);
             }
             else if (KEY_MANAGER->isOnceKeyDown(VK_LEFT) || KEY_MANAGER->isOnceKeyDown(VK_RIGHT)) // 이동을 시도하는 경우
             {
@@ -108,6 +114,7 @@ WEAPON_FINISH_TYPE teleportWeapon::update(worm& player)
         else
         {
             setWaiting(player);
+            player.setWaiting();
         }
     }
     break;
@@ -142,8 +149,7 @@ WEAPON_FINISH_TYPE teleportWeapon::update(worm& player)
     break;
     case WEAPON_STATE::FINISH:
     {
-        player.setWaiting();
-        return WEAPON_FINISH_TYPE::FINISH;
+        return WEAPON_FINISH_TYPE::FALLEN_BUT_MOVE;
     }
     break;
     }

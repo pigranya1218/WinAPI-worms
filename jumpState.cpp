@@ -15,6 +15,9 @@ void jumpState::enter(worm & player)
 	_isGround = false;
 	_ready = true;
 	_transToLong = false;
+
+	SOUND_MANAGER->stop("WORM_JUMP");
+	SOUND_MANAGER->play("WORM_JUMP", 1);
 }
 
 void jumpState::exit(worm & player)
@@ -78,7 +81,8 @@ state * jumpState::update(worm & player)
 				_ani->setFPS(20);
 				_ani->start();
 				
-				
+				SOUND_MANAGER->stop("WORM_DIGDA");
+				SOUND_MANAGER->play("WORM_DIGDA", 1);
 			}
 			else
 			{

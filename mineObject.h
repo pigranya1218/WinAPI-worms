@@ -15,6 +15,7 @@ private:
 	float _powerChange = 0.8; // 부딪힐 때마다 감소될 파워
 
 	int _waitingCount = 0; // 작동을 기다리기 위한 카운트
+	bool _arm = false;
 	int _fireCount = 0; // 폭발을 기다리기 위한 카운트
 	float _damage = 40; // 대미지
 	float _bombWidth = 120; // 폭파 반경

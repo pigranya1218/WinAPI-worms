@@ -10,6 +10,9 @@ void moveState::enter(worm & player)
 	_ani->setDefPlayFrame(false, true);
 	_ani->setFPS(20);
 	_ani->start();
+	
+	SOUND_MANAGER->stop("WORM_MOVE");
+	SOUND_MANAGER->play("WORM_MOVE", 1);
 }
 
 void moveState::exit(worm & player)
@@ -77,6 +80,13 @@ void moveState::render(worm & player)
 	float x = (rc.left + rc.right) / 2, y = (rc.top + rc.bottom) / 2;
 	POINT pos = _ani->getFramePos();
 	
+	if (_ani->isFinalIndex())
+	{
+		SOUND_MANAGER->stop("WORM_MOVE");
+		SOUND_MANAGER->play("WORM_MOVE");
+	}
+
+
 	_img = IMAGE_MANAGER->findImage(getImageKey("MOVE", player.getSlope()));
 	CAMERA_MANAGER->aniRender(getMemDC(), _img, x - 30, y - 30, _ani, ((player.getDirection() == DIRECTION::RIGHT) ? true : false));
 	

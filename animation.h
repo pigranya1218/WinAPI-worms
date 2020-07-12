@@ -51,6 +51,6 @@ public:
 	inline int getFrameWidth() { return _frameWidth; }
 	inline int getFrameHeight() { return _frameHeight; }
 
-
+	bool isFinalIndex() { return _nowPlayIndex == (_playList.size() - 1); }
 };
 

@@ -500,6 +500,8 @@ void mineObject::update()
 		}
 		else
 		{
+			SOUND_MANAGER->stop("WEAPON_MINE_TOK");
+			SOUND_MANAGER->play("WEAPON_MINE_TOK", 1);
 			_gravity = 0;
 		}
 	}
@@ -514,6 +516,12 @@ void mineObject::update()
 	{
 		if (_waitingCount >= 200) // 작동 중일 때
 		{
+			if (!_arm)
+			{
+				_arm = true;
+				SOUND_MANAGER->stop("WEAPON_MINE_ARM");
+				SOUND_MANAGER->play("WEAPON_MINE_ARM", 1);
+			}
 			if (checkMineRange())
 			{
 				_state = MINE_STATE::ACTIVE;
@@ -536,6 +544,8 @@ void mineObject::update()
 			if (_fireCount % 8 < 4)
 			{
 				_img = IMAGE_MANAGER->findImage("WEAPON_MINE_ON");
+				SOUND_MANAGER->stop("WEAPON_MINE_TICK");
+				SOUND_MANAGER->play("WEAPON_MINE_TICK", 1);
 			}
 			else
 			{
