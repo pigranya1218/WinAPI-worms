@@ -2,6 +2,7 @@
 #include "uiManager.h"
 #include "allWeapon.h"
 #include "wormManager.h"
+#include "queue"
 
 // 타이머를 그림
 void uiManager::drawTimer()
@@ -27,12 +28,12 @@ void uiManager::drawWind()
 	SelectObject(getMemDC(), _blackBrush);
 	SelectObject(getMemDC(), _white2Pen);
 
-	RECT windRcL = { WINSIZEX - 204, WINSIZEY - 34, WINSIZEX - 102, WINSIZEY };
-	RECT windRcR = { WINSIZEX - 102, WINSIZEY - 34, WINSIZEX, WINSIZEY };
+	RECT windRcL = { WINSIZEX - 404, WINSIZEY - 34, WINSIZEX - 202, WINSIZEY };
+	RECT windRcR = { WINSIZEX - 202, WINSIZEY - 34, WINSIZEX, WINSIZEY };
 	Rectangle(getMemDC(), windRcL);
 	Rectangle(getMemDC(), windRcR);
 	image* windImage;
-	float width = 98;
+	float width = 198;
 	width *= abs(_wind);
 	if (_wind >= 0) // RIGHT
 	{
@@ -40,7 +41,7 @@ void uiManager::drawWind()
 		_windOffset -= 1;
 		_windOffset %= windImage->getWidth();
 		
-		RECT windImageRC = { WINSIZEX - 100, WINSIZEY - 32, WINSIZEX - 100 + width, WINSIZEY - 2 };
+		RECT windImageRC = { WINSIZEX - 200, WINSIZEY - 32, WINSIZEX - 200 + width, WINSIZEY - 2 };
 
 		windImage->loopRender(getMemDC(), windImageRC, _windOffset, 0);
 	}
@@ -50,7 +51,7 @@ void uiManager::drawWind()
 		_windOffset += 1;
 		_windOffset %= windImage->getWidth();
 		
-		RECT windImageRC = { WINSIZEX - 104 - width, WINSIZEY - 32, WINSIZEX - 104, WINSIZEY - 2 };
+		RECT windImageRC = { WINSIZEX - 204 - width, WINSIZEY - 32, WINSIZEX - 204, WINSIZEY - 2 };
 
 		windImage->loopRender(getMemDC(), windImageRC, _windOffset, 0);
 	}
@@ -65,28 +66,39 @@ void uiManager::drawTeamHp()
 	int y = WINSIZEY - 10;
 	char buffer[50];
 
-	for (int i = _teamHps.size() - 1; i >= 0; i--)
+	priority_queue<pair<int, int>, vector<pair<int, int> >, greater<pair<int, int> > > queue; // 체력이 작은 팀부터 아래에 띄우기 위함
+	for (int i = 0; i < _teamHps.size(); i++)
 	{
-		if (_teamHps[i] == 0) continue;
-		SetTextColor(getMemDC(), _fontColors[i]);
-		SelectObject(getMemDC(), _teamBrush[i]);
-		SelectObject(getMemDC(), _black1Pen);
+		queue.push(make_pair(_teamHps[i], i));
+	}
+
+	while (!queue.empty())
+	{
+		pair<int, int> curr = queue.top();
+		queue.pop();
+
+		if (curr.first == 0) continue;
 		
-		int width = 80 * ((float) _teamHps[i] / _maxHp);
-		RECT teamHp = {x , y - 10, x + width, y + 10};
+		int teamIndex = curr.second;
+
+		SetTextColor(getMemDC(), _fontColors[teamIndex]);
+		SelectObject(getMemDC(), _teamBrush[teamIndex]);
+		SelectObject(getMemDC(), _black1Pen);
+
+		int width = 80 * ((float)_teamHps[teamIndex] / _maxHp);
+		RECT teamHp = { x , y - 10, x + width, y + 10 };
 		Rectangle(getMemDC(), teamHp);
 
 		SelectObject(getMemDC(), _blackBrush);
 		SelectObject(getMemDC(), _white1Pen);
-		RECT nameRc = {x - 80, y - 10, x - 1, y + 10};
+		RECT nameRc = { x - 80, y - 10, x - 1, y + 10 };
 		Rectangle(getMemDC(), nameRc);
 
-		sprintf_s(buffer, "PLAYER %d", (i + 1));
+		sprintf_s(buffer, "PLAYER %d", (teamIndex + 1));
 		TextOut(getMemDC(), x - 5, y - 8, buffer, strlen(buffer));
 
 		y -= 20;
 	}
-
 }
 
 void uiManager::drawWeapons()
